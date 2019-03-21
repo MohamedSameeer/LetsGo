@@ -7,5 +7,11 @@
     tools:context=".MainActivity">
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="signOut"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/signOut"/>
 
 </android.support.constraint.ConstraintLayout>

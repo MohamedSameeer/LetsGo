@@ -1,5 +1,6 @@
 package com.example.letsgo.LogIn;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText username,password;
     private Button logInBtn;
     private TextView registerTextView;
+    private static Context context;
     private ProgressBar progressBarLogIn;
 
 
@@ -25,11 +27,13 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_);
+        context=getBaseContext();
         initalization();
+        final LoginPresenter loginPresenter=new LoginPresenter(getContext());
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                loginPresenter.verifyEmailAndPassword(username,password);
             }
         });
         registerTextView.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +42,10 @@ public class LogInActivity extends AppCompatActivity {
                 goToRegister();
             }
         });
+    }
+
+    private static Context getContext() {
+        return context;
     }
 
     private void initalization(){
