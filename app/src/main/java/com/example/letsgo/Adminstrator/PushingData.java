@@ -19,6 +19,7 @@ public class PushingData extends AppCompatActivity {
     private Button uploadImages,pushData;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
+    private static final int PICK_IMG_REQUEST =1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class PushingData extends AppCompatActivity {
                 Intent galleryIntent=new Intent();
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, PICK_IMG_REQUEST);
 
 
             }

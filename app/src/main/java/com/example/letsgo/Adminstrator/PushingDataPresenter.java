@@ -28,6 +28,7 @@ public class PushingDataPresenter  implements IpushingData{
 
     void uploadPicture(Uri iamgeUri){
         final String imageName = UUID.randomUUID().toString() + ".jpg";
+
         storageReference.child(imageName).putFile(iamgeUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
