@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Splash">
     <Button
-        android:id="@+id/logInBtn"
+        android:id="@+id/logInBtnSplash"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,19 +18,22 @@
         android:layout_marginEnd="16dp"
         android:text="login"/>
     <Button
-        android:id="@+id/registerBtn"
+        android:id="@+id/registerBtnSplash"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/SignInGoogle"
+        app:layout_constraintTop_toBottomOf="@id/signInGoogleSplash"
         android:background="@drawable/rounded_button"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="register"/>
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/SignInGoogle"
+
+    <Button
+        android:text="sign in with google account"
+        android:background="@drawable/rounded_button"
+        android:id="@+id/signInGoogleSplash"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -38,7 +41,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logInBtn"/>
+        app:layout_constraintTop_toBottomOf="@id/logInBtnSplash"/>
 
 
 
