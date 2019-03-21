@@ -48,6 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         regEmail=findViewById(R.id.registerEmail);
         regPassword=findViewById(R.id.registerPassword);
         regBtn=findViewById(R.id.registerBtn);
-        progressBarRegister=findViewById(R.id.progressRegister);
+        progressBarRegister=findViewById(R.id.progresslogIn);
     }
 }

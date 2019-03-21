@@ -15,24 +15,39 @@ public class PushingData extends AppCompatActivity {
     private Spinner spinnerCity,spinnerCateogry;
     private EditText placeName,description,price,address,durationFrom,durationTo;
     private Button uploadImages,pushData;
+    String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushing_data);
         initialization();
+        final PushingDataPresenter pushingDataPresenter=new PushingDataPresenter();
         uploadImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
+
         pushData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pushAllData();
+                pushingDataPresenter.pushing(sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory);
             }
         });
+    }
+
+    private void pushAllData() {
+        sCategory=spinnerCateogry.getSelectedItem().toString();
+        sCity=spinnerCity.getSelectedItem().toString();
+        sPlaceName=placeName.getText().toString().trim();
+        sPlaceDescription=description.getText().toString().trim();
+        sPrice=price.getText().toString().trim();
+        sAddress=address.getText().toString().trim();
+        sDurationFrom=durationFrom.getText().toString().trim();
+        sDurationTo=durationTo.getText().toString().trim();
     }
 
     private void initialization(){
