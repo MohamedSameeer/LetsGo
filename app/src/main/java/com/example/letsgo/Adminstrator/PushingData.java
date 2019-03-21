@@ -1,6 +1,8 @@
 package com.example.letsgo.Adminstrator;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,7 @@ public class PushingData extends AppCompatActivity {
     private EditText placeName,description,price,address,durationFrom,durationTo;
     private Button uploadImages,pushData;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
-
+    Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,11 @@ public class PushingData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent galleryIntent=new Intent();
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+
+
             }
         });
 
@@ -34,9 +41,19 @@ public class PushingData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pushAllData();
+                pushingDataPresenter.uploadPicture(imageUri);
                 pushingDataPresenter.pushing(sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory);
             }
         });
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imageUri = data.getData();
+
     }
 
     private void pushAllData() {
