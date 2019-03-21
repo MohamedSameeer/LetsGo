@@ -13,7 +13,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView logo;
     private EditText regUserName,regEmail,regPassword;
     private Button regBtn;
-
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
