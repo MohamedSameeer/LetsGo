@@ -67,6 +67,7 @@
         android:layout_marginEnd="12dp"
         android:layout_width="match_parent"
         android:hint="   password"
+        android:inputType="textPassword"
         android:background="@drawable/rounded_edittext"
         android:layout_height="40dp"
         app:layout_constraintTop_toBottomOf="@id/registerEmail"
@@ -86,6 +87,17 @@
         app:layout_constraintTop_toBottomOf="@id/registerPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        />
+    <ProgressBar
+        android:id="@+id/progressRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+
         />
 
 

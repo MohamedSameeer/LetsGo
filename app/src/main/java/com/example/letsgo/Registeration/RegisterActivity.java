@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.letsgo.R;
 
@@ -13,6 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView logo;
     private EditText regUserName,regEmail,regPassword;
     private Button regBtn;
+    private ProgressBar progressBarRegister;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
             }
         });
     }
@@ -34,5 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
         regEmail=findViewById(R.id.registerEmail);
         regPassword=findViewById(R.id.registerPassword);
         regBtn=findViewById(R.id.registerBtn);
+        progressBarRegister=findViewById(R.id.progressRegister);
     }
 }

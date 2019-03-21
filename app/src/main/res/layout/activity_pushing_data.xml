@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adminstrator.PushingData"
+    android:background="#FFC107">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Spinner
+        android:background="#ffffff"
+        android:id="@+id/spinnerCities"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center" />
+    <Spinner
+        android:background="#ffffff"
+        android:id="@+id/spinnerCategories"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCities"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center" />
+    <EditText
+        android:id="@+id/adminPlaceName"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="  Place Name"
+        />
+    <EditText
+        android:id="@+id/adminDescName"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="top"
+        app:layout_constraintTop_toBottomOf="@id/adminPlaceName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="  Description"
+        android:maxLines="10"
+        />
+        <TextView
+            android:id="@+id/durationTextView"
+            android:textSize="18sp"
+            android:layout_marginEnd="250dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            app:layout_constraintTop_toBottomOf="@id/adminDescName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/adminDurationFrom"
+            android:layout_marginEnd="140dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="100dp"
+            android:hint=" From"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            app:layout_constraintTop_toBottomOf="@id/adminDescName"
+            app:layout_constraintStart_toEndOf="@id/durationTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+            android:id="@+id/adminDurationTo"
+            android:layout_marginTop="25dp"
+            android:layout_width="100dp"
+            android:hint=" To"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            app:layout_constraintTop_toBottomOf="@id/adminDescName"
+            app:layout_constraintStart_toEndOf="@id/adminDurationFrom"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/priceTextView"
+            android:textSize="18sp"
+            android:text="Price"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="250dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/durationTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+            android:layout_marginEnd="80dp"
+            android:id="@+id/adminPrice"
+            android:layout_marginTop="30dp"
+            android:layout_width="150dp"
+            android:hint=" Price$"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            app:layout_constraintTop_toBottomOf="@id/adminDurationFrom"
+            app:layout_constraintStart_toEndOf="@id/priceTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/addressTextView"
+            android:textSize="18sp"
+            android:text="Address"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="250dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/priceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+            android:id="@+id/adminAddress"
+            android:layout_marginTop="30dp"
+            android:layout_width="250dp"
+            android:hint="  Address"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_edittext"
+            app:layout_constraintTop_toBottomOf="@id/adminPrice"
+            app:layout_constraintStart_toEndOf="@id/addressTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <Button
+            android:id="@+id/uploadImagesBtn"
+            android:text="Upload Images"
+            android:background="@drawable/rounded_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/adminAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <Button
+            android:id="@+id/pushDataBtn"
+            android:text="Push data"
+            android:background="@drawable/rounded_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/uploadImagesBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
