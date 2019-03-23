@@ -31,7 +31,6 @@ public class PushingDataPresenter  implements IpushingData{
         storageReference.child(imageName).putFile(iamgeUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 storageReference.child(imageName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -39,11 +38,8 @@ public class PushingDataPresenter  implements IpushingData{
                         cities.child(city).child(category).child(placeName).setValue(objectMap);
                     }
                 });
-
-
             }
         });
-
     }
     @Override
     public void pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
@@ -63,6 +59,5 @@ public class PushingDataPresenter  implements IpushingData{
         city=sCity;
         placeName=sPlaceName;
         category=sCategory;
-
     }
 }

@@ -44,6 +44,13 @@ public class PushingData extends AppCompatActivity {
                 if(pushAllData()){
                     pushingDataPresenter.uploadPicture(imageUri);
                     pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory);
+                    placeName.setText("");
+                    description.setText("");
+                    price.setText("");
+                    address.setText("");
+                    durationFrom.setText("");
+                    durationTo.setText("");
+                    Toast.makeText(PushingData.this, "Update data Complete", Toast.LENGTH_SHORT).show();
                 }
             }
         });
