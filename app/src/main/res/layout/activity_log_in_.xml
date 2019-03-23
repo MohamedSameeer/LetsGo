@@ -2,36 +2,28 @@
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/imghome">
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFC107"
         tools:context=".LogIn.LogInActivity">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logInImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_marginTop="40dp"/>
+
         <TextView
             android:text="Log In"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textColor="#075A53"
+            android:layout_marginTop="300dp"
+            android:textColor="#BF000000"
             android:padding="4dp"
             android:id="@+id/logInText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/logInImage"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -72,6 +64,7 @@
             android:background="@drawable/rounded_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             app:layout_constraintTop_toBottomOf="@id/editTextPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +79,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/logInBtn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/registerTextView"
             android:textSize="24sp"
@@ -98,6 +93,8 @@
             app:layout_constraintStart_toEndOf="@id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Register"
+            android:textColor="#fff"
+            android:textStyle="bold"
             />
 
         <ProgressBar

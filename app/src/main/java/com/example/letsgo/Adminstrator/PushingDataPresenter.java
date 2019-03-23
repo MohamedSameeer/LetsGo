@@ -35,7 +35,8 @@ public class PushingDataPresenter  implements IpushingData{
                     @Override
                     public void onSuccess(Uri uri) {
                         url=uri.toString();
-                        cities.child(city).child(category).child(placeName).setValue(objectMap);
+                        if(!url.isEmpty())
+                            cities.child(city).child(category).child(placeName).setValue(objectMap);
                     }
                 });
             }
@@ -46,18 +47,20 @@ public class PushingDataPresenter  implements IpushingData{
             , String sDurationTo,String sCity,String sCategory) {
         Map<Object ,Object >s=new HashMap<>();
 
-        s.put("PlaceName",sPlaceName);
-        s.put("PlaceDescription",sPlaceDescription);
-        s.put("Price",sPrice);
-        s.put("Address",sAddress);
-        s.put("DurationFrom",sDurationFrom);
-        s.put("DurationTo",sDurationTo);
-        s.put("City",sCity);
-        s.put("Image",url);
-        s.put("Category",sCategory);
-        objectMap.putAll(s);
-        city=sCity;
-        placeName=sPlaceName;
-        category=sCategory;
+        if(!url.isEmpty()) {
+            s.put("PlaceName", sPlaceName);
+            s.put("PlaceDescription", sPlaceDescription);
+            s.put("Price", sPrice);
+            s.put("Address", sAddress);
+            s.put("DurationFrom", sDurationFrom);
+            s.put("DurationTo", sDurationTo);
+            s.put("City", sCity);
+            s.put("Image", url);
+            s.put("Category", sCategory);
+            objectMap.putAll(s);
+            city = sCity;
+            placeName = sPlaceName;
+            category = sCategory;
+        }
     }
 }
