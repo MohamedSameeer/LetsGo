@@ -17,16 +17,15 @@ import java.util.UUID;
 public class PushingDataPresenter  implements IpushingData{
     DatabaseReference cities ;
     StorageReference storageReference;
-    String url;
-
+    String url,city,category,placeName;
+    Map<Object , Object>objectMap=new HashMap<>();
     PushingDataPresenter(){
         cities= FirebaseDatabase.getInstance().getReference().child("cities");
         storageReference = FirebaseStorage.getInstance().getReference().child("places_images");
-
-
     }
 
     void uploadPicture(Uri iamgeUri){
+
         final String imageName = UUID.randomUUID().toString() + ".jpg";
 
         storageReference.child(imageName).putFile(iamgeUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -36,10 +35,8 @@ public class PushingDataPresenter  implements IpushingData{
                 storageReference.child(imageName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-
                         url=uri.toString();
-
-
+                        cities.child(city).child(category).child(placeName).setValue(objectMap);
                     }
                 });
 
@@ -52,6 +49,7 @@ public class PushingDataPresenter  implements IpushingData{
     public void pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
             , String sDurationTo,String sCity,String sCategory) {
         Map<Object ,Object >s=new HashMap<>();
+
         s.put("PlaceName",sPlaceName);
         s.put("PlaceDescription",sPlaceDescription);
         s.put("Price",sPrice);
@@ -59,7 +57,12 @@ public class PushingDataPresenter  implements IpushingData{
         s.put("DurationFrom",sDurationFrom);
         s.put("DurationTo",sDurationTo);
         s.put("City",sCity);
+        s.put("Image",url);
         s.put("Category",sCategory);
-        cities.child(sCity).child(sCategory).child(sPlaceName).setValue(s);
+        objectMap.putAll(s);
+        city=sCity;
+        placeName=sPlaceName;
+        category=sCategory;
+
     }
 }

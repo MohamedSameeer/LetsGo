@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user=mAuth.getCurrentUser();
-        //TODO Update to Admin or client
 
         if (user!=null){
             String userId=user.getUid();
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void initialization(){
         mAuth=FirebaseAuth.getInstance();
-        adminId="12134454878";
+        adminId="owQrAb02Z7WJ2u0ER6uPnqoNZum2";
     }
     private void enterToSplash(){
         Intent i=new Intent(MainActivity.this, Splash.class);

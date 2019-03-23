@@ -29,8 +29,6 @@ public class PushingData extends AppCompatActivity {
         uploadImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent galleryIntent=new Intent();
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, PICK_IMG_REQUEST);

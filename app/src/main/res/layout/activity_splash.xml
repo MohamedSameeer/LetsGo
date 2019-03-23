@@ -8,7 +8,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+        android:background="#DEDEDE"
     tools:context=".Splash.Splash">
+
     <Button
         android:id="@+id/logInBtnSplash"
         android:layout_width="250dp"
@@ -17,14 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/rounded_button"
+        android:backgroundTint="#00B3DE"
         android:layout_marginTop="400dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="login"/>
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:text="Login"/>
     <Button
         android:id="@+id/registerBtnSplash"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signInGoogleSplash"
@@ -32,10 +39,13 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="register"/>
+        android:text="Sign up"/>
 
     <Button
-        android:text="sign in with google account"
+        android:text="Sign in with Google+"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:backgroundTint="#DC4E41"
         android:background="@drawable/rounded_button"
         android:id="@+id/signInGoogleSplash"
         android:layout_marginTop="20dp"
