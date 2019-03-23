@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.letsgo.R;
 
@@ -40,9 +41,10 @@ public class PushingData extends AppCompatActivity {
         pushData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pushAllData();
-                pushingDataPresenter.uploadPicture(imageUri);
-                pushingDataPresenter.pushing(sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory);
+                if(pushAllData()){
+                    pushingDataPresenter.uploadPicture(imageUri);
+                    pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory);
+                }
             }
         });
     }
@@ -55,8 +57,44 @@ public class PushingData extends AppCompatActivity {
         imageUri = data.getData();
 
     }
+    private boolean saveDataNotNull(){
+        boolean flag=true;
+        if (sCategory.isEmpty()) {
+            flag=false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sCity.isEmpty()){
+            flag=false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();}
 
-    private void pushAllData() {
+        if (sPlaceName.isEmpty()) {
+            flag = false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sPlaceDescription.isEmpty()){
+            flag=false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sPrice.isEmpty()) {
+            flag = false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sAddress.isEmpty()){
+            flag=false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sDurationFrom.isEmpty()) {
+            flag = false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        if (sDurationTo.isEmpty()) {
+            flag = false;
+            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+        }
+        return flag;
+    }
+
+    private boolean pushAllData() {
         sCategory=spinnerCateogry.getSelectedItem().toString();
         sCity=spinnerCity.getSelectedItem().toString();
         sPlaceName=placeName.getText().toString().trim();
@@ -65,6 +103,7 @@ public class PushingData extends AppCompatActivity {
         sAddress=address.getText().toString().trim();
         sDurationFrom=durationFrom.getText().toString().trim();
         sDurationTo=durationTo.getText().toString().trim();
+        return saveDataNotNull();
     }
 
     private void initialization(){

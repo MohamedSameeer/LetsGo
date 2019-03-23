@@ -5,6 +5,7 @@ public class CitiesName {
             "Luxor","Aswan","Fayoum","Marsa Matrouh"};
 
 
+
     public static final String[] cateogryName ={"History","Beach","Nature","Entertainment","Cafe & Resturant"};
 
 }
