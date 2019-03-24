@@ -49,7 +49,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void initalization(){
-        logo=findViewById(R.id.logInImage);
+        //fxlogo=findViewById(R.id.logInImage);
         username=findViewById(R.id.editTextUserName);
         password=findViewById(R.id.editTextPassword);
         logInBtn=findViewById(R.id.logInBtn);

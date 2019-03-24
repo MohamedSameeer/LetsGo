@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initalization(){
-        logo=findViewById(R.id.registerImage);
+       // logo=findViewById(R.id.registerImage);
         regUserName=findViewById(R.id.registerUserName);
         regEmail=findViewById(R.id.registerEmail);
         regPassword=findViewById(R.id.registerPassword);

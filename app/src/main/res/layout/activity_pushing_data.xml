@@ -132,6 +132,7 @@
             app:layout_constraintTop_toBottomOf="@id/adminDurationFrom"
             app:layout_constraintStart_toEndOf="@id/priceTextView"
             app:layout_constraintEnd_toEndOf="parent"/>
+
         <TextView
             android:id="@+id/addressTextView"
             android:textSize="18sp"
