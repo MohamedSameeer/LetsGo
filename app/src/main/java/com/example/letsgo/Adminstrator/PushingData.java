@@ -15,15 +15,18 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.letsgo.MainActivity;
 import com.example.letsgo.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class PushingData extends AppCompatActivity {
     private Spinner spinnerCity,spinnerCateogry;
     private EditText placeName,description,price,address,durationFrom,durationTo;
-    private Button uploadImages,pushData;
+    private Button uploadImages,pushData,logOut;
     private ProgressBar progressBar;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
+    FirebaseAuth mAuth;
     private static Context context;
     private static final int PICK_IMG_REQUEST =1 ;
     @Override
@@ -31,6 +34,7 @@ public class PushingData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushing_data);
         context=getBaseContext();
+        mAuth=FirebaseAuth.getInstance();
         initialization();
         final PushingDataPresenter pushingDataPresenter=new PushingDataPresenter(getContext());
         uploadImages.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +47,16 @@ public class PushingData extends AppCompatActivity {
 
             }
         });
-
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent i=new Intent(PushingData.this, MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
         pushData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +151,7 @@ public class PushingData extends AppCompatActivity {
         spinnerCateogry.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cateogryName));
 
+        logOut=findViewById(R.id.signOut);
         placeName=findViewById(R.id.adminPlaceName);
         description=findViewById(R.id.adminDescName);
         price=findViewById(R.id.adminPrice);
