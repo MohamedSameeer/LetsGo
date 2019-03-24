@@ -1,14 +1,17 @@
 package com.example.letsgo.Adminstrator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,15 +21,18 @@ public class PushingData extends AppCompatActivity {
     private Spinner spinnerCity,spinnerCateogry;
     private EditText placeName,description,price,address,durationFrom,durationTo;
     private Button uploadImages,pushData;
+    private ProgressBar progressBar;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
+    private static Context context;
     private static final int PICK_IMG_REQUEST =1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushing_data);
+        context=getBaseContext();
         initialization();
-        final PushingDataPresenter pushingDataPresenter=new PushingDataPresenter();
+        final PushingDataPresenter pushingDataPresenter=new PushingDataPresenter(getContext());
         uploadImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,26 +48,36 @@ public class PushingData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(pushAllData()){
-                    pushingDataPresenter.uploadPicture(imageUri);
-                    pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory);
-                    placeName.setText("");
-                    description.setText("");
-                    price.setText("");
-                    address.setText("");
-                    durationFrom.setText("");
-                    durationTo.setText("");
-                    Toast.makeText(PushingData.this, "Update data Complete", Toast.LENGTH_SHORT).show();
+                    Log.e("ps1","done her");
+                    progressBar.setVisibility(View.VISIBLE);
+                    pushingDataPresenter.uploadPicture(imageUri,progressBar);
+                        Log.e("ps1","done her2");
+                        pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory);
+                        placeName.setText("");
+                        description.setText("");
+                        price.setText("");
+                        address.setText("");
+                        durationFrom.setText("");
+                        durationTo.setText("");
+                        Toast.makeText(PushingData.this, "Update data Complete", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
     }
 
+    private static Context getContext() {
+        return context;
+    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        imageUri = data.getData();
+        if(resultCode==RESULT_OK && data != null)
+             imageUri = data.getData();
+        else
+            Toast.makeText(this, "Please Pick Photo", Toast.LENGTH_LONG).show();
 
     }
     private boolean saveDataNotNull(){
@@ -117,7 +133,7 @@ public class PushingData extends AppCompatActivity {
         spinnerCity=findViewById(R.id.spinnerCities);
         spinnerCity.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cityName));
-
+        progressBar=findViewById(R.id.progressPush);
         spinnerCateogry=findViewById(R.id.spinnerCategories);
         spinnerCateogry.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cateogryName));

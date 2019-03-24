@@ -1,12 +1,21 @@
 package com.example.letsgo.Adminstrator;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -17,17 +26,17 @@ import java.util.UUID;
 public class PushingDataPresenter  implements IpushingData{
     DatabaseReference cities ;
     StorageReference storageReference;
+    boolean flag;
+    Context context;
     String url,city,category,placeName;
     Map<Object , Object>objectMap=new HashMap<>();
-    PushingDataPresenter(){
+    PushingDataPresenter(Context context){
         cities= FirebaseDatabase.getInstance().getReference().child("cities");
         storageReference = FirebaseStorage.getInstance().getReference().child("places_images");
     }
 
-    void uploadPicture(Uri iamgeUri){
-
+    void uploadPicture(Uri iamgeUri, final ProgressBar progressBar){
         final String imageName = UUID.randomUUID().toString() + ".jpg";
-
         storageReference.child(imageName).putFile(iamgeUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -35,7 +44,11 @@ public class PushingDataPresenter  implements IpushingData{
                     @Override
                     public void onSuccess(Uri uri) {
                         url=uri.toString();
-                        cities.child(city).child(category).child(placeName).setValue(objectMap);
+                        if(!url.isEmpty()){
+                            objectMap.put("Image",url);
+                            cities.child(city).child(category).child(placeName).setValue(objectMap);
+                            progressBar.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
@@ -53,11 +66,12 @@ public class PushingDataPresenter  implements IpushingData{
         s.put("DurationFrom",sDurationFrom);
         s.put("DurationTo",sDurationTo);
         s.put("City",sCity);
-        s.put("Image",url);
         s.put("Category",sCategory);
         objectMap.putAll(s);
         city=sCity;
         placeName=sPlaceName;
         category=sCategory;
+        Log.e("Well done", "Wellllllllllll done");
+        //cities.child(city).child(category).child(placeName).setValue(objectMap);
     }
 }
