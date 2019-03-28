@@ -114,11 +114,20 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.contact_us:
                sendUserToContactUsActivity();
-                return true;
+                break;
+            case R.id.signOut:
+                signOut();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
 }
+
+    private void signOut() {
+        mAuth.signOut();
+        enterToSplash();
+    }
 
     private void sendUserToContactUsActivity() {
 
