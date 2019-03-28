@@ -47,16 +47,7 @@ public class PushingData extends AppCompatActivity {
 
             }
         });
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                Intent i=new Intent(PushingData.this, MainActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                finish();
-            }
-        });
+
         pushData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +66,14 @@ public class PushingData extends AppCompatActivity {
                         Toast.makeText(PushingData.this, "Update data Complete", Toast.LENGTH_SHORT).show();
 
                 }
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pushingDataPresenter.logOut();
+                finish();
             }
         });
     }
@@ -151,7 +150,7 @@ public class PushingData extends AppCompatActivity {
         spinnerCateogry.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cateogryName));
 
-        logOut=findViewById(R.id.signOut);
+        logOut=findViewById(R.id.adminLogout);
         placeName=findViewById(R.id.adminPlaceName);
         description=findViewById(R.id.adminDescName);
         price=findViewById(R.id.adminPrice);

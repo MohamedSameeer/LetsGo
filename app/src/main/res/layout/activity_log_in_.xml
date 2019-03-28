@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/imghome">
+    android:background="#368a8c">
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,8 +15,10 @@
         <EditText
             android:id="@+id/editTextUserName"
             android:layout_marginTop="350dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:textColorHint="#7E7878"
+            android:backgroundTint="#fff"
             android:layout_width="match_parent"
             android:hint="   username"
             android:background="@drawable/rounded_edittext"
@@ -27,10 +29,12 @@
             />
 
         <EditText
+            android:textColorHint="#7E7878"
+            android:backgroundTint="#fff"
             android:id="@+id/editTextPassword"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
             android:layout_width="match_parent"
             android:hint="   password"
             android:background="@drawable/rounded_edittext"
@@ -44,8 +48,9 @@
             android:textSize="20sp"
             android:text="login"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
             android:background="@drawable/rounded_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,33 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
-        <TextView
-            android:id="@+id/textView"
-            android:layout_marginEnd="100dp"
-            android:textSize="24sp"
-            android:text="Dont have an account ? "
-            android:layout_marginTop="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/logInBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="#fff"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/registerTextView"
-            android:textSize="24sp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/logInBtn"
-            app:layout_constraintStart_toEndOf="@id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Register"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            />
+
 
         <ProgressBar
             android:id="@+id/progresslogIn"

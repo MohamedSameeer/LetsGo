@@ -11,22 +11,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegestrationPresenter {
 
+    String userName;
     Context context;
+    DatabaseReference userRef;
     FirebaseAuth mAuth;
     public RegestrationPresenter(Context context){
 
         this.context=context;
         mAuth=FirebaseAuth.getInstance();
+        userRef=FirebaseDatabase.getInstance().getReference().child("User");
     }
 
-    public void verifyEmailAndPassword(EditText email, EditText password){
+    public void verifyEmailAndPassword(EditText email, EditText password,EditText userName){
 
-        String sEmail,sPassword;
+        String sEmail,sPassword,sUserName;
         sEmail=email.getText().toString().trim();
         sPassword=password.getText().toString().trim();
+        sUserName=userName.getText().toString().trim();
+        this.userName=sUserName;
         boolean flag=true;
         if(sEmail.isEmpty()){
             email.setError("can't leave this field empty");
@@ -36,19 +43,28 @@ public class RegestrationPresenter {
             password.setError("can't be this field empty");
             flag=false;
         }
+        if(sUserName.isEmpty()){
+            userName.setError("can't be this field empty");
+            flag=false;
+        }
         if(flag){
             //TODO loading par
             createNewUser(sEmail,sPassword);
         }
 
     }
-    private void createNewUser(String email, String password){
+    private void createNewUser(final String email, String password){
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Log.e("RegestrationPres","successful Create");
+                            String user=mAuth.getCurrentUser().getUid();
+                            userRef.child(user).child("email").setValue(email);
+                            userRef.child(user).child("id").setValue(user);
+                            userRef.child(user).child("userName").setValue(userName);
+
                             enterToHome();
                         }
                         else

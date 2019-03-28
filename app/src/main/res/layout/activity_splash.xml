@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/imghome">
+    android:background="#368a8c">
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Splash.Splash">
-
-
 
     <Button
         android:id="@+id/logInBtnSplash"
@@ -22,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="#00B3DE"
+        android:backgroundTint="#014550"
         android:layout_marginTop="500dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -34,6 +32,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
+        android:layout_marginTop="15dp"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +48,7 @@
         android:backgroundTint="#DC4E41"
         android:background="@drawable/rounded_button"
         android:id="@+id/signInGoogleSplash"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_width="250dp"

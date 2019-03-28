@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                regestrationPresenter.verifyEmailAndPassword(regEmail,regPassword);
+                regestrationPresenter.verifyEmailAndPassword(regEmail,regPassword,regUserName);
             }
         });
     }

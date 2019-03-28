@@ -36,12 +36,6 @@ public class LogInActivity extends AppCompatActivity {
                 loginPresenter.verifyEmailAndPassword(username,password);
             }
         });
-        registerTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRegister();
-            }
-        });
     }
 
     private static Context getContext() {
@@ -53,7 +47,6 @@ public class LogInActivity extends AppCompatActivity {
         username=findViewById(R.id.editTextUserName);
         password=findViewById(R.id.editTextPassword);
         logInBtn=findViewById(R.id.logInBtn);
-        registerTextView=findViewById(R.id.registerTextView);
         progressBarLogIn=findViewById(R.id.progresslogIn);
     }
 

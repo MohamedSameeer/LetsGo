@@ -1,8 +1,12 @@
 package com.example.letsgo;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,11 +19,17 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     String adminId;
     FirebaseAuth mAuth;
+    Toolbar myToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        setSupportActionBar(myToolbar);
+
         initialization();
 
         Button signOut=findViewById(R.id.signOut);
@@ -53,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public void initialization(){
         mAuth=FirebaseAuth.getInstance();
         adminId="owQrAb02Z7WJ2u0ER6uPnqoNZum2";
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
     }
     private void enterToSplash(){
         Intent i=new Intent(MainActivity.this, Splash.class);
@@ -60,4 +71,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    return true;
+                case R.id.navigation_dashboard:
+                    return true;
+                case R.id.navigation_notifications:
+                    return true;
+            }
+            return false;
+        }
+    };
 }

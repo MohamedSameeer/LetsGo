@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Adminstrator.PushingData"
-    android:background="#FFC107">
+    android:background="#368a8c">
 
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,8 +19,10 @@
         android:background="#ffffff"
         android:id="@+id/spinnerCities"
         android:layout_marginTop="30dp"
+        android:contentDescription="city"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
+        android:textColorHint="#7E7878"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,6 +31,7 @@
         android:textAlignment="center" />
     <Spinner
         android:background="#ffffff"
+        android:textColorHint="#7E7878"
         android:id="@+id/spinnerCategories"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="12dp"
@@ -49,6 +52,7 @@
         android:background="@drawable/rounded_edittext"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:textColorHint="#7E7878"
         app:layout_constraintTop_toBottomOf="@id/spinnerCategories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +65,7 @@
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_edittext"
         android:layout_width="match_parent"
+        android:textColorHint="#7E7878"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:layout_height="150dp"
@@ -80,14 +85,15 @@
             android:layout_height="wrap_content"
             android:text="Duration"
             app:layout_constraintTop_toBottomOf="@id/adminDescName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="@id/adminDescName"
+            />
 
         <EditText
             android:id="@+id/adminDurationFrom"
             android:layout_marginEnd="140dp"
             android:layout_marginTop="25dp"
             android:layout_width="100dp"
+            android:textColorHint="#7E7878"
             android:hint=" From"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -97,6 +103,7 @@
             app:layout_constraintStart_toEndOf="@id/durationTextView"
             app:layout_constraintEnd_toEndOf="parent"/>
         <EditText
+            android:textColorHint="#7E7878"
             android:id="@+id/adminDurationTo"
             android:layout_marginTop="25dp"
             android:layout_width="100dp"
@@ -108,56 +115,58 @@
             app:layout_constraintTop_toBottomOf="@id/adminDescName"
             app:layout_constraintStart_toEndOf="@id/adminDurationFrom"
             app:layout_constraintEnd_toEndOf="parent"/>
-        <TextView
-            android:id="@+id/priceTextView"
-            android:textSize="18sp"
-            android:text="Price"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="250dp"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/durationTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <EditText
-            android:layout_marginEnd="80dp"
-            android:id="@+id/adminPrice"
-            android:layout_marginTop="30dp"
-            android:layout_width="150dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:hint=" Price$"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_edittext"
-            app:layout_constraintTop_toBottomOf="@id/adminDurationFrom"
-            app:layout_constraintStart_toEndOf="@id/priceTextView"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColorHint="#7E7878"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/adminDescName"
+            app:layout_constraintTop_toTopOf="@+id/adminPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/adminPrice"/>
+
+        <EditText
+            android:id="@+id/adminPrice"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint=" Price$"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColorHint="#7E7878"
+            app:layout_constraintStart_toStartOf="@+id/adminDurationFrom"
+            app:layout_constraintTop_toBottomOf="@id/adminDurationFrom" />
+
+        <TextView
+            android:textColorHint="#7E7878"
             android:id="@+id/addressTextView"
             android:textSize="18sp"
             android:text="Address"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="250dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/priceTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="@+id/adminAddress"
+            app:layout_constraintBottom_toBottomOf="@+id/adminAddress"
+            app:layout_constraintStart_toStartOf="@id/adminDescName"
+            />
 
 
         <EditText
             android:id="@+id/adminAddress"
             android:layout_marginTop="30dp"
             android:layout_width="250dp"
-            android:hint="  Address"
             android:layout_height="40dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
             android:background="@drawable/rounded_edittext"
+            android:hint="Address"
             app:layout_constraintTop_toBottomOf="@id/adminPrice"
-            app:layout_constraintStart_toEndOf="@id/addressTextView"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="@+id/adminDurationFrom"
+            />
         <Button
             android:id="@+id/uploadImagesBtn"
             android:text="Upload Images"
@@ -165,7 +174,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/adminAddress"
@@ -175,7 +183,6 @@
         <Button
             android:id="@+id/pushDataBtn"
             android:text="Push data"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:background="@drawable/rounded_button"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
@@ -188,9 +195,9 @@
             />
 
         <Button
-            android:id="@+id/logOut"
-            android:text="Log Out"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:id="@+id/adminLogout"
+            android:text="Sign Out"
+            android:textAllCaps="false"
             android:background="@drawable/rounded_button"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
