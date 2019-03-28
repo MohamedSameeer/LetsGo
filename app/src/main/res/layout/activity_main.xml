@@ -17,11 +17,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            app:srcCompat="@drawable/ic_more_vert_black_24dp"/>
+
     </android.support.v7.widget.Toolbar>
 
     <Button

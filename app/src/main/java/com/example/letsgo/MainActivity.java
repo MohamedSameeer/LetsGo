@@ -6,11 +6,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.letsgo.Adminstrator.PushingData;
+import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     String adminId;
     FirebaseAuth mAuth;
     Toolbar myToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        setSupportActionBar(myToolbar);
+
 
         initialization();
+        setSupportActionBar(myToolbar);
 
         Button signOut=findViewById(R.id.signOut);
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         adminId="owQrAb02Z7WJ2u0ER6uPnqoNZum2";
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+
     }
     private void enterToSplash(){
         Intent i=new Intent(MainActivity.this, Splash.class);
@@ -88,4 +94,32 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_option_menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+               sendUserToContactUsActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+}
+
+    private void sendUserToContactUsActivity() {
+
+        Intent i = new Intent (this, ContactUsActivity.class);
+        startActivity(i);
+
+    }
 }
