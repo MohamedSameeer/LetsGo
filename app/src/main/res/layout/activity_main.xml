@@ -20,13 +20,14 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="signOut"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        android:id="@+id/signOut"/>
+   <FrameLayout
+       android:id="@+id/fragment_container"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+       app:layout_constraintBottom_toTopOf="@+id/navigation">
 
+   </FrameLayout>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

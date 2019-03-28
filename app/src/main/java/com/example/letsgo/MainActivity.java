@@ -3,6 +3,7 @@ package com.example.letsgo;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.letsgo.Adminstrator.PushingData;
 import com.example.letsgo.ContactUs.ContactUsActivity;
+import com.example.letsgo.HomeFragment.HomeFragment;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,13 +40,6 @@ public class MainActivity extends AppCompatActivity {
         initialization();
         setSupportActionBar(myToolbar);
 
-        Button signOut=findViewById(R.id.signOut);
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
 
     }
 
@@ -83,14 +79,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    return true;
+                    selectedFragment=new HomeFragment();
+                    break;
                 case R.id.navigation_dashboard:
+                    //TODO fragment intial change return to break
                     return true;
                 case R.id.navigation_notifications:
+                    //TODO fragment intial change return to break
                     return true;
+                default:
+                    selectedFragment=new HomeFragment();
             }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFragment).commit();
             return false;
         }
     };
