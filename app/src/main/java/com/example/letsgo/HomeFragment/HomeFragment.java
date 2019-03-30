@@ -1,5 +1,6 @@
 package com.example.letsgo.HomeFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.letsgo.Adminstrator.CitiesName;
+import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 
 import java.util.ArrayList;
@@ -25,9 +27,9 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-
     View view;
     CategoriesAdapter adapter;
+    PlacesAdapter placesAdapter;
     Spinner homeCities;
     TextView textNoData;
 
@@ -40,19 +42,37 @@ public class HomeFragment extends Fragment {
 
         initialization();
         adapter=homePresenter.fillData();
-
+        placesAdapter=homePresenter.getPlacesAdapter();
         adapter.setOnItemClickListener(new CategoriesAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 String city=homeCities.getSelectedItem().toString();
                 String category=adapter.list.get(position).getName();
-                homePresenter.getPlaces(city,category,textNoData);
+               homePresenter.getPlaces(city,category,textNoData);
+            }
+        });
+
+        placesAdapter.setOnItemClickListener(new PlacesAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent i=new Intent(view.getContext(), PlaceActivity.class);
+                i.putExtra("img",""+ placesAdapter.getList().get(position).getImg());
+                i.putExtra("name",""+ placesAdapter.getList().get(position).getName());
+                i.putExtra("desc",""+ placesAdapter.getList().get(position).getDescription());
+                i.putExtra("address",""+ placesAdapter.getList().get(position).getAddress());
+                i.putExtra("city",""+ placesAdapter.getList().get(position).getCity());
+                i.putExtra("category",""+ placesAdapter.getList().get(position).getCategory());
+                i.putExtra("price",""+ placesAdapter.getList().get(position).getPrice());
+                i.putExtra("from",""+ placesAdapter.getList().get(position).getDurationFrom());
+                i.putExtra("to",""+ placesAdapter.getList().get(position).getDurationTo());
+                i.putExtra("fromClass","home");
+
+                startActivity(i);
             }
         });
 
         return view;
     }
-
 
     private void initialization(){
         textNoData=view.findViewById(R.id.noData);

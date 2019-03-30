@@ -16,6 +16,8 @@ import android.widget.Spinner;
 
 import com.example.letsgo.Adminstrator.PushingData;
 import com.example.letsgo.ContactUs.ContactUsActivity;
+import com.example.letsgo.Events.EventsFragment;
+import com.example.letsgo.FavoriteFragment.FavoriteFragment;
 import com.example.letsgo.HomeFragment.HomeFragment;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.FirebaseApp;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     String adminId;
     FirebaseAuth mAuth;
     Toolbar myToolbar;
-
+    Fragment selectedFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
+        selectedFragment=new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                selectedFragment).commit();
         initialization();
         setSupportActionBar(myToolbar);
 
@@ -79,23 +83,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment;
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     selectedFragment=new HomeFragment();
                     break;
-                case R.id.navigation_dashboard:
-                    //TODO fragment intial change return to break
-                    return true;
-                case R.id.navigation_notifications:
-                    //TODO fragment intial change return to break
-                    return true;
+                case R.id.events:
+                    selectedFragment=new EventsFragment();
+                    break;
+                case R.id.favorite:
+                    selectedFragment=new FavoriteFragment();
+                    break;
                 default:
                     selectedFragment=new HomeFragment();
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     selectedFragment).commit();
-            return false;
+            return true;
         }
     };
 
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-}
+    }
 
     private void signOut() {
         mAuth.signOut();

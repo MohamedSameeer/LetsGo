@@ -45,6 +45,7 @@
             App:layout_constraintTop_toBottomOf="@+id/places"
             App:layout_constraintStart_toStartOf="parent"
             App:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="8dp"
             android:layout_margin="8dp"/>
         <TextView
             android:id="@+id/noData"

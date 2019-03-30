@@ -20,15 +20,21 @@ import java.util.ArrayList;
 
 public class HomePresenter {
 
-    DatabaseReference cityRef;
-    View view;
-    RecyclerView recyclerView,placeRecyclerView;
-    LinearLayoutManager linearLayoutManager,placeLayOutManager;
-    ArrayList<CategoryModel>listOfCategories;
-    ArrayList<PlaceModel>listOfPlaces;
-    CategoriesAdapter adapter;
-    PlacesAdapter placesAdapter;
-    public HomePresenter(View view){
+    private DatabaseReference cityRef;
+    private View view;
+    private RecyclerView recyclerView,placeRecyclerView;
+    private LinearLayoutManager linearLayoutManager,placeLayOutManager;
+    private ArrayList<CategoryModel>listOfCategories;
+    private ArrayList<PlaceModel>listOfPlaces;
+    private CategoriesAdapter adapter;
+    private PlacesAdapter placesAdapter;
+
+     PlacesAdapter getPlacesAdapter() {
+        return placesAdapter;
+    }
+
+     HomePresenter(View view){
+        placesAdapter=new PlacesAdapter();
         cityRef= FirebaseDatabase.getInstance().getReference().child("cities");
         this.view=view;
         //Categories
@@ -41,7 +47,7 @@ public class HomePresenter {
         listOfPlaces=new ArrayList<>();
     }
 
-    public CategoriesAdapter fillData(){
+     CategoriesAdapter fillData(){
 
 
         listOfCategories.add(new CategoryModel(R.drawable.back,"Historical"));
@@ -58,7 +64,7 @@ public class HomePresenter {
     }
 
 
-    public void getPlaces(String city, String category, final TextView noData){
+    void getPlaces(String city, String category, final TextView noData){
         listOfPlaces.clear();
         cityRef.child(city).child(category).addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,11 +72,23 @@ public class HomePresenter {
                     if(dataSnapshot.hasChildren()){
                         for (DataSnapshot child:dataSnapshot.getChildren()){
                             Log.e("childdddddd",child.child("PlaceName").getValue().toString());
-                            listOfPlaces.add(new PlaceModel((child.child("Image").getValue()),(child.child("PlaceName").getValue()),(child.child("PlaceDescription").getValue())));
+                            listOfPlaces.add(new PlaceModel(
+                                    (child.child("Image").getValue())
+                                    ,(child.child("PlaceName").getValue())
+                                    ,(child.child("PlaceDescription").getValue())
+                                    ,(child.child("DurationFrom").getValue())
+                                    ,(child.child("DurationTo").getValue())
+                                    ,(child.child("Category").getValue())
+                                    ,(child.child("City").getValue())
+                                    ,(child.child("Address").getValue())
+                                    ,(child.child("Price").getValue())
+                                    )
+                            );
                             Log.e("HomePresenter",listOfPlaces.get(0).getName().toString()+"");
                         }
                         noData.setVisibility(View.GONE);
-                        placesAdapter=new PlacesAdapter(listOfPlaces);
+                        //placesAdapter=new PlacesAdapter(listOfPlaces);
+                        placesAdapter.setList(listOfPlaces);
                         placeRecyclerView.setLayoutManager(placeLayOutManager);
                         placeRecyclerView.setAdapter(placesAdapter);
 
@@ -84,5 +102,6 @@ public class HomePresenter {
                     Log.e("HomePresenter","OnCancelled"+databaseError.getMessage());
             }
         });
+
     }
 }

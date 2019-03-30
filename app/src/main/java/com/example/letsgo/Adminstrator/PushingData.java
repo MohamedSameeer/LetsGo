@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -26,6 +27,7 @@ public class PushingData extends AppCompatActivity {
     private ProgressBar progressBar;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
+    CheckBox isEvent;
     FirebaseAuth mAuth;
     private static Context context;
     private static final int PICK_IMG_REQUEST =1 ;
@@ -56,7 +58,7 @@ public class PushingData extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     pushingDataPresenter.uploadPicture(imageUri,progressBar);
                         Log.e("ps1","done her2");
-                        pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory);
+                        pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory, isEvent.isChecked());
                         placeName.setText("");
                         description.setText("");
                         price.setText("");
@@ -142,6 +144,7 @@ public class PushingData extends AppCompatActivity {
     }
 
     private void initialization(){
+        isEvent=findViewById(R.id.isEvent);
         spinnerCity=findViewById(R.id.spinnerCities);
         spinnerCity.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cityName));

@@ -2,6 +2,7 @@ package com.example.letsgo.HomeFragment;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder> {
 
-    ArrayList<PlaceModel> list;
-    CategoriesAdapter.OnItemClickListener onItemClickListener;
+  private ArrayList<PlaceModel> list;
 
-    public void setOnItemClickListener(CategoriesAdapter.OnItemClickListener onItemClickListener) {
+    public ArrayList<PlaceModel> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<PlaceModel> list) {
+        this.list = list;
+    }
+
+    OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public PlacesAdapter(ArrayList<PlaceModel> list) {
-        this.list = list;
+    public PlacesAdapter() {
     }
 
     @NonNull
@@ -35,11 +44,18 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
       PlaceModel item=list.get(i);
         Picasso.get().load(item.getImg().toString()).into(viewHolder.img);
+        Log.e("Adapter", item.getName().toString());
         viewHolder.name.setText(item.getName().toString());
         viewHolder.description.setText(item.getDescription().toString());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClick(i);
+            }
+        });
     }
 
     @Override

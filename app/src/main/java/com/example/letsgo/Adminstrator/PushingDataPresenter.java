@@ -29,15 +29,17 @@ import java.util.Map;
 import java.util.UUID;
 
 public class PushingDataPresenter  implements IpushingData{
-    DatabaseReference cities ;
+    DatabaseReference cities ,events;
     StorageReference storageReference;
     FirebaseAuth mAuth;
     boolean flag;
     Context context;
+    boolean isChecked;
     String url,city,category,placeName;
     Map<Object , Object>objectMap=new HashMap<>();
     PushingDataPresenter(Context context){
         cities= FirebaseDatabase.getInstance().getReference().child("cities");
+        events=FirebaseDatabase.getInstance().getReference().child("events");
         this.context=context;
         storageReference = FirebaseStorage.getInstance().getReference().child("places_images");
         mAuth=FirebaseAuth.getInstance();
@@ -54,7 +56,12 @@ public class PushingDataPresenter  implements IpushingData{
                         url=uri.toString();
                         if(!url.isEmpty()){
                             objectMap.put("Image",url);
-                            cities.child(city).child(category).child(placeName).setValue(objectMap);
+                            if(isChecked) {
+                                events.child(placeName).setValue(objectMap);
+
+                            }
+                           else
+                               cities.child(city).child(category).child(placeName).setValue(objectMap);
                             progressBar.setVisibility(View.GONE);
 
                         }
@@ -74,9 +81,9 @@ public class PushingDataPresenter  implements IpushingData{
     }
     @Override
     public void pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
-            , String sDurationTo,String sCity,String sCategory) {
+            , String sDurationTo,String sCity,String sCategory,boolean isEvent) {
         Map<Object ,Object >s=new HashMap<>();
-
+        isChecked=isEvent;
         s.put("PlaceName",sPlaceName);
         s.put("PlaceDescription",sPlaceDescription);
         s.put("Price",sPrice);
