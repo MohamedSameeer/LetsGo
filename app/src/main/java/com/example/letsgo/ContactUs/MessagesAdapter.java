@@ -20,7 +20,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         this.Aid=Aid;
         this.messageList=messageList;
         this.Uid=Uid;
-//        notifyDataSetChanged();
+        //notifyDataSetChanged();
 
     }
 

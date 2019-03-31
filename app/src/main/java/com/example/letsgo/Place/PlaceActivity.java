@@ -1,13 +1,16 @@
 package com.example.letsgo.Place;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.MainActivity;
 import com.example.letsgo.R;
+import com.example.letsgo.Reviews.ReviewActivity;
+import com.example.letsgo.Reviews.ReviewPresenter;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -26,16 +31,21 @@ public class PlaceActivity extends AppCompatActivity {
     ImageButton addToFavorite;
     Toolbar myToolbar;
     FirebaseAuth mAuth;
+    RecyclerView reviewRecycler;
+    Button showMore;
     String placeName,placeDescription,placeImage,placeTo,placeFrom,placeCity,placeCategory,placePrice,placeAddress,fromClass;
+    FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
         initialization();
-        final PlacePresenter placePresenter=new PlacePresenter();
-        setSupportActionBar(myToolbar);
+        final PlacePresenter placePresenter=new PlacePresenter(reviewRecycler,getApplicationContext());
         getData();
+        placePresenter.getReviews(placeCity,placeCategory,placeName);
+        setSupportActionBar(myToolbar);
         place_name.setText(placeName);
         place_description.setText(placeDescription);
         Picasso.get().load(placeImage).into(place_img);
@@ -45,6 +55,25 @@ public class PlaceActivity extends AppCompatActivity {
                 placePresenter.addToFavorite(placeName,placeCity,placeCategory,fromClass);
             }
         });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendIntent();
+
+            }
+        });
+
+
+    }
+
+    private void sendIntent() {
+        Intent i = new Intent(getApplicationContext(), ReviewActivity.class);
+        i.putExtra("name",""+ placeName);
+        i.putExtra("city",""+placeCity);
+        i.putExtra("category",""+ placeCategory);
+        startActivity(i);
+
+
 
     }
 
@@ -55,20 +84,22 @@ public class PlaceActivity extends AppCompatActivity {
         myToolbar=findViewById(R.id.place_toolbar);
         addToFavorite=findViewById(R.id.addToFavorite);
         mAuth=FirebaseAuth.getInstance();
+        reviewRecycler = findViewById(R.id.reviews_container);
+        showMore=findViewById(R.id.size_button);
+        floatingActionButton = findViewById(R.id.floatingActionButton2);
     }
     private void getData(){
         Intent i=getIntent();
-
         placeName=i.getStringExtra("name");
+        placeCity= i.getStringExtra("city");
+        placeCategory= i.getStringExtra("category");
         placeDescription=i.getStringExtra("desc");
         placeImage=i.getStringExtra("img");
         placeAddress= i.getStringExtra("address");
-        placeCity= i.getStringExtra("city");
-        placeCategory= i.getStringExtra("category");
         placePrice= i.getStringExtra("price");
         placeFrom= i.getStringExtra("from");
         placeTo= i.getStringExtra("to");
-       fromClass=i.getStringExtra("fromClass");
+        fromClass=i.getStringExtra("fromClass");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,4 +143,6 @@ public class PlaceActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+
 }

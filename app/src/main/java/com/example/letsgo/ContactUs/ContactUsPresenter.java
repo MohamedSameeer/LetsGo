@@ -33,6 +33,12 @@ private RecyclerView view;
 
     public ContactUsPresenter(RecyclerView view, Context context) {
         mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        });
         Uid = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
         uIdRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid);
@@ -114,10 +120,7 @@ private RecyclerView view;
 
             }
         });
-
-
-
-
+        
         return messageList;
 
     }

@@ -40,10 +40,11 @@ public class EventsFragment extends Fragment {
               Intent i=new Intent(view.getContext(), PlaceActivity.class);
               i.putExtra("img",""+ placesAdapter.getList().get(position).getImg());
               i.putExtra("name",""+ placesAdapter.getList().get(position).getName());
-              i.putExtra("desc",""+ placesAdapter.getList().get(position).getDescription());
-              i.putExtra("address",""+ placesAdapter.getList().get(position).getAddress());
               i.putExtra("city",""+ placesAdapter.getList().get(position).getCity());
               i.putExtra("category",""+ placesAdapter.getList().get(position).getCategory());
+              i.putExtra("desc",""+ placesAdapter.getList().get(position).getDescription());
+              i.putExtra("address",""+ placesAdapter.getList().get(position).getAddress());
+
               i.putExtra("price",""+ placesAdapter.getList().get(position).getPrice());
               i.putExtra("from",""+ placesAdapter.getList().get(position).getDurationFrom());
               i.putExtra("to",""+ placesAdapter.getList().get(position).getDurationTo());
