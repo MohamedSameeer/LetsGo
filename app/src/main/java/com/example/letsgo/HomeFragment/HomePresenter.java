@@ -5,10 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.letsgo.Adminstrator.CitiesName;
 import com.example.letsgo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomePresenter {
+public class HomePresenter  {
 
     private DatabaseReference cityRef;
     private View view;
@@ -104,4 +102,6 @@ public class HomePresenter {
         });
 
     }
+
+
 }
