@@ -36,7 +36,7 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onClick(int position) {
                 Intent i=new Intent(view.getContext(), PlaceActivity.class);
-              /*  i.putExtra("img",""+ placesAdapter.getList().get(position).getImg());
+                i.putExtra("img",""+ placesAdapter.getList().get(position).getImg());
                 i.putExtra("name",""+ placesAdapter.getList().get(position).getName());
                 i.putExtra("desc",""+ placesAdapter.getList().get(position).getDescription());
                 i.putExtra("address",""+ placesAdapter.getList().get(position).getAddress());
@@ -45,7 +45,7 @@ public class FavoriteFragment extends Fragment {
                 i.putExtra("price",""+ placesAdapter.getList().get(position).getPrice());
                 i.putExtra("from",""+ placesAdapter.getList().get(position).getDurationFrom());
                 i.putExtra("to",""+ placesAdapter.getList().get(position).getDurationTo());
-                i.putExtra("fromClass","favorite");*/
+                i.putExtra("fromClass","favorite");/*
                 placeActivity.placeDetails(""+placesAdapter.getList().get(position).getName(),
                         ""+  placesAdapter.getList().get(position).getDescription(),
                         placesAdapter.getList().get(position).getImg()+"",
@@ -56,7 +56,7 @@ public class FavoriteFragment extends Fragment {
                         ,""+ placesAdapter.getList().get(position).getCity()
                         ,""+ placesAdapter.getList().get(position).getCategory()
                         ,"favorite"
-                );
+                );*/
                 startActivity(i);
             }
         });
