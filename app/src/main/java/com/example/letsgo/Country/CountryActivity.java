@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.letsgo.Adminstrator.CitiesName;
 import com.example.letsgo.Adminstrator.PushingData;
@@ -22,7 +23,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 public class CountryActivity extends AppCompatActivity {
 
-    String city;
+    String city="";
     Button go;
     AwesomeSpinner my_spinner;
     String adminId;
@@ -42,16 +43,22 @@ public class CountryActivity extends AppCompatActivity {
         my_spinner.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int position, String itemAtPosition) {
+
                 city = my_spinner.getSelectedItem();
             }
         });
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(city.isEmpty()){
+                    Toast.makeText(CountryActivity.this,"you should choose a gov",Toast.LENGTH_LONG).show();
+                }
+                else{
                 Intent i = new Intent(getApplicationContext(), SelectCategory.class);
                 i.putExtra("city", city);
                 Log.e("city", city);
                 startActivity(i);
+                }
             }
         });
     }
