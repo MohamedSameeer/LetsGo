@@ -41,6 +41,8 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
             viewHolder.progressBar.setVisibility(View.INVISIBLE);
 
         }
+        else{            viewHolder.progressBar.setVisibility(View.VISIBLE);
+        }
         viewHolder.namePlace.setText(item.getName().toString());
         viewHolder.duration.setText(item.getDurationTo().toString());
         viewHolder.description.setText(item.getDescription().toString());
