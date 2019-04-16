@@ -21,6 +21,7 @@ public class SelectCategory extends AppCompatActivity {
         initlizeFields();
     }
 
+    //connect id java with xml
     private void initlizeFields()
     {
         eventImgCategory=findViewById(R.id.eventImgCategory);
@@ -29,5 +30,6 @@ public class SelectCategory extends AppCompatActivity {
         entertainmentImgCategory=findViewById(R.id.cinemaImgCategory);
         hotelsImgCategory=findViewById(R.id.hotelsImgCategory);
         natureImgCategory=findViewById(R.id.natureImgCategory);
+
     }
 }
