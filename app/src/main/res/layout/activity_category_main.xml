@@ -56,7 +56,7 @@
         <ImageView
             android:id="@+id/resturantImgCategory"
             android:layout_width="170dp"
-            android:layout_height="230dp"
+            android:layout_height="200dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="200dp"
@@ -85,7 +85,7 @@
         <ImageView
             android:id="@+id/historicalImgCategory"
             android:layout_width="170dp"
-            android:layout_height="210dp"
+            android:layout_height="200dp"
             android:layout_marginStart="180dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="200dp"
@@ -159,14 +159,41 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entertainment"
+            android:text="Hotels Resorts"
             android:textColor="#fff"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cinemaImgCategory"
-            app:layout_constraintEnd_toEndOf="@+id/cinemaImgCategory"
-            app:layout_constraintStart_toStartOf="@+id/cinemaImgCategory"
-            app:layout_constraintTop_toTopOf="@+id/cinemaImgCategory"
+            app:layout_constraintBottom_toBottomOf="@+id/hotelsImgCategory"
+            app:layout_constraintEnd_toEndOf="@+id/hotelsImgCategory"
+            app:layout_constraintStart_toStartOf="@+id/hotelsImgCategory"
+            app:layout_constraintTop_toTopOf="@+id/hotelsImgCategory"
+            app:layout_constraintVertical_bias="0.9" />
+
+
+        <ImageView
+            android:id="@+id/natureImgCategory"
+            android:layout_width="170dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="200dp"
+            android:background="#0B4EB9"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/hotelsImgCategory"
+            app:layout_constraintTop_toBottomOf="@id/cinemaImgCategory" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nature places"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/natureImgCategory"
+            app:layout_constraintEnd_toEndOf="@+id/natureImgCategory"
+            app:layout_constraintStart_toStartOf="@+id/natureImgCategory"
+            app:layout_constraintTop_toTopOf="@+id/natureImgCategory"
             app:layout_constraintVertical_bias="0.9" />
 
 
