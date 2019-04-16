@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abc">
+    android:background="@drawable/splashview">
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,14 +20,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="#014550"
-        android:layout_marginTop="500dp"
+        app:layout_constraintTop_toBottomOf="@id/registerBtnSplash"
+        android:backgroundTint="#070A24"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textColor="#fff"
         android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:text="Login"/>
     <Button
         android:id="@+id/registerBtnSplash"
@@ -39,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signInGoogleSplash"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/signupbutton"
         android:textStyle="bold"
         android:text="Sign up"/>
 
@@ -50,14 +51,14 @@
         android:backgroundTint="#DC4E41"
         android:background="@drawable/rounded_button"
         android:id="@+id/signInGoogleSplash"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="500dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logInBtnSplash"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     </android.support.constraint.ConstraintLayout>

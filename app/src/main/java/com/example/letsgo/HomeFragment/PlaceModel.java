@@ -10,6 +10,47 @@ public class PlaceModel {
         this.description = description;
     }
 
+    public PlaceModel(){
+
+
+    }
+
+    public void setName(Object name) {
+        this.name = name;
+    }
+
+    public void setAddress(Object address) {
+        this.address = address;
+    }
+
+    public void setCategory(Object category) {
+        this.category = category;
+    }
+
+    public void setCity(Object city) {
+        this.city = city;
+    }
+
+    public void setDescription(Object description) {
+        this.description = description;
+    }
+
+    public void setDurationFrom(Object durationFrom) {
+        this.durationFrom = durationFrom;
+    }
+
+    public void setDurationTo(Object durationTo) {
+        this.durationTo = durationTo;
+    }
+
+    public void setImg(Object img) {
+        this.img = img;
+    }
+
+    public void setPrice(Object price) {
+        this.price = price;
+    }
+
     public Object getDurationFrom() {
         return durationFrom;
     }

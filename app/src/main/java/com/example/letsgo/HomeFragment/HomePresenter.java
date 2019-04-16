@@ -69,7 +69,7 @@ public class HomePresenter  {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.hasChildren()){
                         for (DataSnapshot child:dataSnapshot.getChildren()){
-                            Log.e("childdddddd",child.child("PlaceName").getValue().toString());
+//                            Log.e("childdddddd",child.child("PlaceName").getValue().toString());
                             listOfPlaces.add(new PlaceModel(
                                     (child.child("Image").getValue())
                                     ,(child.child("PlaceName").getValue())
@@ -82,7 +82,7 @@ public class HomePresenter  {
                                     ,(child.child("Price").getValue())
                                     )
                             );
-                            Log.e("HomePresenter",listOfPlaces.get(0).getName().toString()+"");
+                           // Log.e("HomePresenter",listOfPlaces.get(0).getName().toString()+"");
                         }
                         noData.setVisibility(View.GONE);
                         //placesAdapter=new PlacesAdapter(listOfPlaces);

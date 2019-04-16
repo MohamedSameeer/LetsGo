@@ -45,13 +45,14 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-      PlaceModel item=list.get(i);
+     /* PlaceModel item=list.get(i);
         Picasso.get().load(item.getImg().toString()).into(viewHolder.img);
         Log.e("Adapter", item.getName().toString());
         viewHolder.name.setText(item.getName().toString());
         viewHolder.description.setText(item.getDescription().toString());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
+        */viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
+     @Override
             public void onClick(View v) {
                 onItemClickListener.onClick(i);
             }

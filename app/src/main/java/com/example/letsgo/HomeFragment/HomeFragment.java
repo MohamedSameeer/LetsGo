@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.letsgo.Adminstrator.CitiesName;
 import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
+import com.example.letsgo.categoryOfPlacePack.categoryOfPlace;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,12 @@ public class HomeFragment extends Fragment {
                 String city=homeCities.getSelectedItem().toString();
                 String category=adapter.list.get(position).getName();
                homePresenter.getPlaces(city,category,textNoData);
+               Intent i = new Intent (getActivity(), categoryOfPlace.class);
+               i.putExtra("category",category);
+               i.putExtra("city",city);
+               startActivity(i);
+
+
             }
         });
 
