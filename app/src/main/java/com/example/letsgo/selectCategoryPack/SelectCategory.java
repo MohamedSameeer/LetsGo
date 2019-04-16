@@ -1,9 +1,13 @@
-package com.example.letsgo;
+package com.example.letsgo.selectCategoryPack;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CategoryMain extends AppCompatActivity {
+import com.example.letsgo.R;
+
+public class SelectCategory extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
