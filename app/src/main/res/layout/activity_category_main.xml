@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/eventImgCategory"
             android:layout_width="170dp"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="200dp"
@@ -143,7 +143,7 @@
         <ImageView
             android:id="@+id/hotelsImgCategory"
             android:layout_width="170dp"
-            android:layout_height="172dp"
+            android:layout_height="170dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="200dp"

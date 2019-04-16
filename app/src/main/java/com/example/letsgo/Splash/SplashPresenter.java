@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.LogIn.LogInActivity;
 import com.example.letsgo.MainActivity;
 import com.example.letsgo.Registeration.RegisterActivity;
@@ -84,7 +85,7 @@ public class SplashPresenter {
     }
 
     public static void enterToHome(){
-        Intent i=new Intent(context, MainActivity.class);
+        Intent i=new Intent(context, CountryActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 

@@ -21,12 +21,17 @@
         <activity android:name=".Adminstrator.PushingData" />
         <activity android:name=".Registeration.RegisterActivity" />
         <activity android:name=".LogIn.LogInActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Country.CountryActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 

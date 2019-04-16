@@ -21,11 +21,6 @@ public class categoryOfPlace extends AppCompatActivity {
 
 
 
-
-
-
-
-
     }
 
     private void intializeFields() {

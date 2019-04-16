@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/c_lets_img"
         app:spinnerDirection="ltr"
-        app:spinnerHint="Which city you want to go"/>
+        app:spinnerHint="Which city do you want to go ?"/>
 
     <Button
         android:id="@+id/logInBtn"
