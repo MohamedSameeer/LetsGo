@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoryMain">
+    <ImageView
+        android:id="@+id/img_categoryMain"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/phototest"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/eventImgCategory"
+        android:layout_width="170dp"
+        android:layout_marginEnd="200dp"
+        android:scaleType="centerCrop"
+        android:layout_height="150dp"
+        android:src="@drawable/event2"
+        android:background="#0C1449"
+        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="150dp"
+        android:text="Event"
+        android:textSize="22sp"
+        android:layout_marginStart="30dp"
+        android:textColor="#fff"
+        android:textStyle="bold"/>
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/resturantImgCategory"
+        android:layout_width="170dp"
+        android:layout_marginEnd="200dp"
+        android:scaleType="centerCrop"
+        android:layout_height="230dp"
+        android:background="#0B4EB9"
+        app:layout_constraintTop_toBottomOf="@id/eventImgCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/eventImgCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="180dp"
+        android:text="Resturant
+     cafe"
+        android:layout_marginStart="30dp"
+        android:textSize="22sp"
+        android:textColor="#fff"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/historicalImgCategory"
+        android:layout_width="170dp"
+        android:layout_marginEnd="200dp"
+        android:scaleType="centerCrop"
+        android:layout_height="210dp"
+        android:background="#0B4EB9"
+        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
+        app:layout_constraintStart_toEndOf="@id/eventImgCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="180dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
+        app:layout_constraintStart_toEndOf="@id/eventImgCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="190dp"
+        android:text="Historical
+   places"
+        android:layout_marginStart="180dp"
+        android:textSize="22sp"
+        android:textColor="#fff"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/cinemaImgCategory"
+        android:layout_width="170dp"
+        android:layout_marginEnd="200dp"
+
+        android:layout_height="170dp"
+        android:src="@drawable/cinema_img"
+        android:background="#0C1449"
+        app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
+        app:layout_constraintStart_toEndOf="@id/resturantImgCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="180dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
+        app:layout_constraintStart_toEndOf="@id/resturantImgCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="145dp"
+        android:text="Entertainment"
+        android:textSize="22sp"
+        android:layout_marginStart="180dp"
+        android:textColor="#fff"
+        android:textStyle="bold"/>
+
+
+
+</android.support.constraint.ConstraintLayout>
