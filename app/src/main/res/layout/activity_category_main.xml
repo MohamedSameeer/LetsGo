@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoryMain"
+    >
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,46 +40,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="30dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="200dp"
-        android:layout_marginTop="150dp"
-        android:text="Event"
-        android:textSize="22sp"
-        android:layout_marginStart="30dp"
-        android:textColor="#fff"
-        android:textStyle="bold"/>
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:id="@+id/resturantImgCategory"
-        android:layout_width="170dp"
-        android:layout_marginEnd="200dp"
-        android:scaleType="centerCrop"
-        android:layout_height="230dp"
-        android:background="#0B4EB9"
-        app:layout_constraintTop_toBottomOf="@id/eventImgCategory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/eventImgCategory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="200dp"
-        android:layout_marginTop="180dp"
-        android:text="Resturant
-     cafe"
-        android:layout_marginStart="30dp"
-        android:textSize="22sp"
+        android:text="Event"
         android:textColor="#fff"
-        android:textStyle="bold"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/eventImgCategory"
+        app:layout_constraintEnd_toEndOf="@+id/eventImgCategory"
+        app:layout_constraintStart_toStartOf="@+id/eventImgCategory"
+        app:layout_constraintTop_toTopOf="@+id/eventImgCategory"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <ImageView
+        android:id="@+id/resturantImgCategory"
+        android:layout_width="170dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="8dp"
+        android:background="#0B4EB9"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventImgCategory"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resturant cafe"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/resturantImgCategory"
+        app:layout_constraintEnd_toEndOf="@+id/resturantImgCategory"
+        app:layout_constraintStart_toStartOf="@+id/resturantImgCategory"
+        app:layout_constraintTop_toTopOf="@+id/resturantImgCategory"
+        app:layout_constraintVertical_bias="0.9" />
 
     <ImageView
         android:layout_marginTop="50dp"
@@ -87,45 +99,49 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/img_categoryMain"
-        app:layout_constraintStart_toEndOf="@id/eventImgCategory"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="200dp"
-        android:layout_marginTop="190dp"
+
         android:text="Historical
    places"
-        android:layout_marginStart="180dp"
-        android:textSize="22sp"
         android:textColor="#fff"
-        android:textStyle="bold"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/historicalImgCategory"
+        app:layout_constraintEnd_toEndOf="@+id/historicalImgCategory"
+        app:layout_constraintStart_toStartOf="@+id/historicalImgCategory"
+        app:layout_constraintTop_toTopOf="@+id/historicalImgCategory"
+        app:layout_constraintVertical_bias="0.9" />
 
     <ImageView
-        android:layout_marginTop="10dp"
         android:id="@+id/cinemaImgCategory"
         android:layout_width="170dp"
-        android:layout_marginEnd="200dp"
-
         android:layout_height="170dp"
-        android:src="@drawable/cinema_img"
+        android:layout_marginStart="180dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="8dp"
         android:background="#0C1449"
-        app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
-        app:layout_constraintStart_toEndOf="@id/resturantImgCategory"
+        android:src="@drawable/cinema_img"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="180dp"/>
+        app:layout_constraintStart_toEndOf="@id/resturantImgCategory"
+        app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
-        app:layout_constraintStart_toEndOf="@id/resturantImgCategory"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="200dp"
-        android:layout_marginTop="145dp"
         android:text="Entertainment"
-        android:textSize="22sp"
-        android:layout_marginStart="180dp"
         android:textColor="#fff"
-        android:textStyle="bold"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cinemaImgCategory"
+        app:layout_constraintEnd_toEndOf="@+id/cinemaImgCategory"
+        app:layout_constraintStart_toStartOf="@+id/cinemaImgCategory"
+        app:layout_constraintTop_toTopOf="@+id/cinemaImgCategory"
+        app:layout_constraintVertical_bias="0.9" />
 
 
 
 </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
