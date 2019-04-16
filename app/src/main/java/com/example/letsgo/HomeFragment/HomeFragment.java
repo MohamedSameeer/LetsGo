@@ -47,12 +47,12 @@ public class HomeFragment extends Fragment {
         adapter.setOnItemClickListener(new CategoriesAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                String city=homeCities.getSelectedItem().toString();
-                String category=adapter.list.get(position).getName();
-               homePresenter.getPlaces(city,category,textNoData);
+               // String city=homeCities.getSelectedItem().toString();
+                //String category=adapter.list.get(position).getName();
+               //homePresenter.getPlaces(city,category,textNoData);
                Intent i = new Intent (getActivity(), categoryOfPlace.class);
-               i.putExtra("category",category);
-               i.putExtra("city",city);
+               //i.putExtra("category",category);
+               //i.putExtra("city",city);
                startActivity(i);
 
 

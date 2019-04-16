@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.letsgo.R;
 
@@ -27,6 +28,8 @@ public class categoryOfPlace extends AppCompatActivity {
         Intent i = getIntent();
         categoyFromHomeFragment=i.getStringExtra("category");
         cityFromHomeAdapter=i.getStringExtra("city");
+        Log.e(categoyFromHomeFragment+"seeeeeeif",cityFromHomeAdapter+"amor");
+
         recyclerView = findViewById(R.id.recyclerViewOfHistoricalPlaces);
         presenter=new categoryOfPlacePresenter(new ProgressDialog(this),categoyFromHomeFragment,cityFromHomeAdapter,this);
         presenter.getDataFromFirebase(recyclerView);

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +62,7 @@ public class LoginPresenter {
     }
 
     private void enterToHome(){
-        Intent i=new Intent(context, MainActivity.class);
+        Intent i=new Intent(context, CountryActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 

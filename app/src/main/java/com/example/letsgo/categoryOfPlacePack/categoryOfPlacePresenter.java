@@ -33,9 +33,9 @@ public class categoryOfPlacePresenter {
         this.progressDialog=progressDialog;
         places=new ArrayList<>();
         firebaseDatabase=FirebaseDatabase.getInstance();
+        Log.e("fianl ",city+category);
         categogryRef=firebaseDatabase.getReference().child("cities").child(city).child(category);
         this.context=context;
-        adapter=new CatoegryOfPlaceAdapter(places,context);
 
     }
 
@@ -49,10 +49,12 @@ public class categoryOfPlacePresenter {
     categogryRef.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.e("d5lna on Change","w kosom kda ");
+
             for (DataSnapshot d:dataSnapshot.getChildren()) {
                 Log.e(category,city);
                 model = new PlaceModel();
-
                 model.setAddress(d.child("Address").getValue().toString());
                 model.setCategory(d.child("Category").getValue().toString());
                 model.setCity(d.child("City").getValue().toString());
@@ -62,6 +64,7 @@ public class categoryOfPlacePresenter {
                 model.setDescription(d.child("PlaceDescription").getValue().toString());
                 model.setName(d.child("PlaceName").getValue().toString());
                 model.setPrice(d.child("Price").getValue().toString());
+                Log.e("yyyyyyyyyyyyyyyyyyyyy"+model.getAddress().toString(),model.getCategory().toString());
                 places.add(model);
                 adapter.notifyDataSetChanged();
             }
@@ -75,11 +78,12 @@ public class categoryOfPlacePresenter {
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e("yyyyyyyyyyyyyyyyy","cancelled");
             progressDialog.dismiss();
 
         }
     });
-
+        adapter=new CatoegryOfPlaceAdapter(places,context);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
     recyclerView.setAdapter(adapter);
 

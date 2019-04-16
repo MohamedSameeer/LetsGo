@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.R;
 import com.example.letsgo.Registeration.RegisterActivity;
 
@@ -52,7 +51,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void goToRegister(){
-        Intent intent=new Intent(LogInActivity.this, CountryActivity.class);
+        Intent intent=new Intent(LogInActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 }

@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        /*
         FirebaseUser user=mAuth.getCurrentUser();
 
         if (user!=null){
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }else{
             enterToSplash();
-        }
+        }*/
     }
     public void initialization(){
         mAuth=FirebaseAuth.getInstance();

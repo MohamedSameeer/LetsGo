@@ -1,18 +1,27 @@
 package com.example.letsgo.selectCategoryPack;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.letsgo.Adminstrator.PushingData;
+import com.example.letsgo.MainActivity;
 import com.example.letsgo.R;
+import com.example.letsgo.Splash.Splash;
+import com.example.letsgo.categoryOfPlacePack.categoryOfPlace;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SelectCategory extends AppCompatActivity {
 
     private ImageView eventImgCategory,historicalImgCategory,resturantImgCategory,entertainmentImgCategory
             ,hotelsImgCategory,natureImgCategory;
-
-
+   private  String adminId;
+    private FirebaseAuth mAuth;
+    String city;
     private SelecetCategoryPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +40,38 @@ public class SelectCategory extends AppCompatActivity {
         historicalImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Historical");
+                Log.e("koskmk"+city,"lolnek");
+
+                presenter.sendUserToSelectedCategory("Historical",city);
+
             }
         });
 
         entertainmentImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Entertainment");
+                presenter.sendUserToSelectedCategory("Entertainment",city);
             }
         });
 
         hotelsImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Hotels & Resorts");
+                presenter.sendUserToSelectedCategory("Hotels & Resorts",city);
             }
         });
 
         natureImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Nature");
+                presenter.sendUserToSelectedCategory("Nature",city);
             }
         });
 
         resturantImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Cafe & Restaurant");
+                presenter.sendUserToSelectedCategory("Cafe & Restaurant",city);
             }
         });
 
@@ -78,5 +90,9 @@ public class SelectCategory extends AppCompatActivity {
         hotelsImgCategory=findViewById(R.id.hotelsImgCategory);
         natureImgCategory=findViewById(R.id.natureImgCategory);
         presenter=new SelecetCategoryPresenter(this);
+        Intent i = getIntent();
+         city = i.getStringExtra("city");
     }
+
+
 }

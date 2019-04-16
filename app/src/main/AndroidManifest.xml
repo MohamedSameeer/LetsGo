@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Category.CategoryActivity"></activity>
         <activity android:name=".selectCategoryPack.SelectCategory"></activity>
         <activity android:name=".Reviews.ReviewActivity" />
         <activity android:name=".Place.PlaceActivity" />

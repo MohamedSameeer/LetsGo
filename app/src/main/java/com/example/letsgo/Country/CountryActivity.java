@@ -34,6 +34,7 @@ public class CountryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_country);
 
         initialization();
+        Log.e("main","country");
 
         my_spinner.setAdapter(new ArrayAdapter<String>(this
                 , R.layout.support_simple_spinner_dropdown_item, CitiesName.cityName));
@@ -47,7 +48,7 @@ public class CountryActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
+                Intent i = new Intent(getApplicationContext(), SelectCategory.class);
                 i.putExtra("city", city);
                 Log.e("city", city);
                 startActivity(i);
