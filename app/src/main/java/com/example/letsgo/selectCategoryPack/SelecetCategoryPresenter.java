@@ -22,7 +22,7 @@ public class SelecetCategoryPresenter {
 
         Intent i = new Intent(context, categoryOfPlace.class);
 
-        i.putExtra("city",city+"lol" );
+        i.putExtra("city",city);
 
         i.putExtra("category",category);
         Log.e(city+"seif bysb7 ",category+" seif bymsy");

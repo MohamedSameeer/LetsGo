@@ -50,9 +50,12 @@ public class categoryOfPlacePresenter {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.e("d5lna on Change","w kosom kda ");
+
 
             for (DataSnapshot d:dataSnapshot.getChildren()) {
+                int i=1;
+                i++;
+                Log.e("on change ","iiiiii:   "+i);
                 Log.e(category,city);
                 model = new PlaceModel();
                 model.setAddress(d.child("Address").getValue().toString());
@@ -67,7 +70,9 @@ public class categoryOfPlacePresenter {
                 Log.e("yyyyyyyyyyyyyyyyyyyyy"+model.getAddress().toString(),model.getCategory().toString());
                 places.add(model);
                 adapter.notifyDataSetChanged();
+
             }
+           // Log.e("d5lna on Change","w kosom kda "+dataSnapshot.child("Address").getValue().toString());
 
             progressDialog.dismiss();
 
