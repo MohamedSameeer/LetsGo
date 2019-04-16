@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abc">
+    android:background="#020F22">
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,53 +12,62 @@
         android:layout_height="match_parent"
         tools:context=".Splash.Splash">
 
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="408dp"
+            android:src="@drawable/sp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+             />
 
+        <Button
+            android:background="@drawable/rounded_button"
+            android:text="Sign in with Google+"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:id="@+id/signInGoogleSplash"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DC4F42"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img"/>
 
-    <Button
-        android:id="@+id/logInBtnSplash"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="#014550"
-        android:layout_marginTop="500dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="#fff"
-        android:textAllCaps="false"
-        android:text="Login"/>
     <Button
         android:id="@+id/registerBtnSplash"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:textColor="#fff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#024AA1"
+        app:layout_constraintEnd_toEndOf="@+id/signInGoogleSplash"
+        app:layout_constraintStart_toStartOf="@+id/signInGoogleSplash"
+        app:layout_constraintBottom_toTopOf="@+id/logInBtnSplash"
         app:layout_constraintTop_toBottomOf="@id/signInGoogleSplash"
         android:background="@drawable/rounded_button"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold"
         android:text="Sign up"/>
 
-    <Button
-        android:text="Sign in with Google+"
-        android:textColor="#fff"
-        android:textAllCaps="false"
-        android:backgroundTint="#DC4E41"
-        android:background="@drawable/rounded_button"
-        android:id="@+id/signInGoogleSplash"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logInBtnSplash"/>
 
+
+        <Button
+            android:id="@+id/logInBtnSplash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/signInGoogleSplash"
+            app:layout_constraintStart_toStartOf="@+id/signInGoogleSplash"
+            app:layout_constraintTop_toBottomOf="@id/registerBtnSplash"
+            android:background="#020F22"
+            android:layout_marginTop="10dp"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:text="Login"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
