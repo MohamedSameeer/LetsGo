@@ -46,12 +46,13 @@ public class categoryOfPlacePresenter {
     progressDialog.setCancelable(false);
     progressDialog.setCanceledOnTouchOutside(true);
     progressDialog.show();
-     model = new PlaceModel();
     categogryRef.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for (DataSnapshot d:dataSnapshot.getChildren()) {
                 Log.e(category,city);
+                model = new PlaceModel();
+
                 model.setAddress(d.child("Address").getValue().toString());
                 model.setCategory(d.child("Category").getValue().toString());
                 model.setCity(d.child("City").getValue().toString());
