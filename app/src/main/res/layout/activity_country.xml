@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Country.CountryActivity">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/letsgo"
+        android:id="@+id/c_lets_img"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/my_spinner"
+        app:layout_constraintStart_toStartOf="@id/my_spinner"
+        app:layout_constraintEnd_toEndOf="@id/my_spinner"/>
+
+    <com.isapanah.awesomespinner.AwesomeSpinner
+        android:id="@+id/my_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/c_lets_img"
+        app:spinnerDirection="ltr"
+        app:spinnerHint="Which city you want to go"/>
+
+    <Button
+        android:id="@+id/logInBtn"
+        android:textSize="20sp"
+        android:text="Go"
+        android:textAllCaps="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#024AA1"
+        android:layout_width="wrap_content"
+        android:paddingStart="48dp"
+        android:paddingEnd="48dp"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toBottomOf="@id/my_spinner"
+        app:layout_constraintStart_toStartOf="@id/my_spinner"
+        app:layout_constraintEnd_toEndOf="@id/my_spinner"
+        />
+
+
+</android.support.constraint.ConstraintLayout>
