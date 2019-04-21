@@ -74,7 +74,7 @@ public class HomePresenter  {
                                     (child.child("Image").getValue())
                                     ,(child.child("PlaceName").getValue())
                                     ,(child.child("PlaceDescription").getValue())
-                                    ,(child.child("DurationFrom").getValue())
+                                   /* ,(child.child("DurationFrom").getValue())*/
                                     ,(child.child("DurationTo").getValue())
                                     ,(child.child("Category").getValue())
                                     ,(child.child("City").getValue())

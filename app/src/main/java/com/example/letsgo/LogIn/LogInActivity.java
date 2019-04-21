@@ -1,5 +1,6 @@
 package com.example.letsgo.LogIn;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class LogInActivity extends AppCompatActivity {
     private TextView registerTextView;
     private static Context context;
     private ProgressBar progressBarLogIn;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -29,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in_);
         context=getBaseContext();
         initalization();
-        final LoginPresenter loginPresenter=new LoginPresenter(getContext());
+        final LoginPresenter loginPresenter=new LoginPresenter(getContext(),progressBarLogIn);
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +50,7 @@ public class LogInActivity extends AppCompatActivity {
         password=findViewById(R.id.editTextPassword);
         logInBtn=findViewById(R.id.logInBtn);
         progressBarLogIn=findViewById(R.id.progresslogIn);
+        //progressDialog=new ProgressDialog(getContext());
     }
 
     private void goToRegister(){

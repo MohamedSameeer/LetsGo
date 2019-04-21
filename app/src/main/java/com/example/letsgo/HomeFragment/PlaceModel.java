@@ -75,11 +75,11 @@ public class PlaceModel {
         return price;
     }
 
-    public PlaceModel(Object img, Object name, Object description, Object durationFrom, Object durationTo, Object category, Object city, Object address, Object price) {
+    public PlaceModel(Object img, Object name, Object description/*, Object durationFrom*/, Object durationTo, Object category, Object city, Object address, Object price) {
         this.img = img;
         this.name = name;
         this.description = description;
-        this.durationFrom = durationFrom;
+    //    this.durationFrom = durationFrom;
         this.durationTo = durationTo;
         this.category = category;
         this.city = city;

@@ -51,7 +51,7 @@ public class EventsPresenter {
                                 (item.child("Image").getValue())
                                 ,(item.child("PlaceName").getValue())
                                 ,(item.child("PlaceDescription").getValue())
-                                ,(item.child("DurationFrom").getValue())
+                                /*,(item.child("DurationFrom").getValue())*/
                                 ,(item.child("DurationTo").getValue())
                                 ,(item.child("Category").getValue())
                                 ,(item.child("City").getValue())

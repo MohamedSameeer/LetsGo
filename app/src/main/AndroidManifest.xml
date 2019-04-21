@@ -11,9 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Category.CategoryActivity"></activity>
-        <activity android:name=".selectCategoryPack.SelectCategory"></activity>
+        android:theme="@style/Theme.MyAppTheme">
+        <activity android:name=".FavoriteFragment.Favorite"></activity>
+
+        <activity android:name=".selectCategoryPack.SelectCategory" />
         <activity android:name=".Reviews.ReviewActivity" />
         <activity android:name=".Place.PlaceActivity" />
         <activity android:name=".ContactUs.ContactUsActivity" />
@@ -22,18 +23,14 @@
         <activity android:name=".Adminstrator.PushingData" />
         <activity android:name=".Registeration.RegisterActivity" />
         <activity android:name=".LogIn.LogInActivity" />
-        <activity android:name=".Country.CountryActivity" >
+        <activity android:name=".Country.CountryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

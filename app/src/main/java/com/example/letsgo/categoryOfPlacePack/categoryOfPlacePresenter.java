@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.letsgo.HomeFragment.PlaceModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,24 +25,37 @@ public class categoryOfPlacePresenter {
     ArrayList<PlaceModel> places;
     CatoegryOfPlaceAdapter adapter;
     FirebaseDatabase firebaseDatabase;
+    FirebaseAuth mAuth;
     DatabaseReference categogryRef;
+    RecyclerView recyclerView;
     Context context;
-
-    categoryOfPlacePresenter(ProgressDialog progressDialog,String category,String city,Context context){
+    String userId;
+    private boolean isAdded=true;
+    DatabaseReference favoriteRef;
+    categoryOfPlacePresenter(ProgressDialog progressDialog,String category,String city,Context context,RecyclerView recyclerView){
         this.city=city;
         this.category=category;
         this.progressDialog=progressDialog;
+        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
+        mAuth=FirebaseAuth.getInstance();
+        userId=mAuth.getCurrentUser().getUid();
         places=new ArrayList<>();
         firebaseDatabase=FirebaseDatabase.getInstance();
         Log.e("fianl ",city+category);
         categogryRef=firebaseDatabase.getReference().child("cities").child(city).child(category);
         this.context=context;
+        adapter=new CatoegryOfPlaceAdapter(places,context);
+       this.recyclerView=recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
 
     }
 
+    CatoegryOfPlaceAdapter getAdapter(){
+        return adapter;
+    }
 
-
-    void getDataFromFirebase(RecyclerView recyclerView){
+    void getDataFromFirebase(){
     progressDialog.setMessage("getting data ..");
     progressDialog.setCancelable(false);
     progressDialog.setCanceledOnTouchOutside(true);
@@ -72,10 +86,7 @@ public class categoryOfPlacePresenter {
                 adapter.notifyDataSetChanged();
 
             }
-           // Log.e("d5lna on Change","w kosom kda "+dataSnapshot.child("Address").getValue().toString());
-
-            progressDialog.dismiss();
-
+                progressDialog.dismiss();
         }
 
 
@@ -88,12 +99,21 @@ public class categoryOfPlacePresenter {
 
         }
     });
-        adapter=new CatoegryOfPlaceAdapter(places,context);
-    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-    recyclerView.setAdapter(adapter);
+
 
 
     }
 
 
+     void addToFavorite(String placeName, String placeCity, String placeCategory) {
+        favoriteRef.child(userId).child(placeName).child("PlaceName").setValue(placeName);
+        favoriteRef.child(userId).child(placeName).child("PlaceCity").setValue(placeCity);
+        favoriteRef.child(userId).child(placeName).child("PlaceCategory").setValue(placeCategory);
+      //  favoriteRef.child(userId).child(placeName).child("from").setValue(fromClass);
+        favoriteRef.child(userId).child(placeName).child("isAdded").setValue(isAdded);
+        if (isAdded){
+            isAdded=false;
+        }else
+            isAdded=true;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.letsgo.Registeration;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static Context context;
 
     private ProgressBar progressBarRegister;
+    private ProgressDialog progressDialog;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         context=getBaseContext();
         initalization();
 
-        final RegestrationPresenter regestrationPresenter=new RegestrationPresenter(getContext());
+        final RegestrationPresenter regestrationPresenter=new RegestrationPresenter(getContext(),progressBarRegister);
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         regEmail=findViewById(R.id.registerEmail);
         regPassword=findViewById(R.id.registerPassword);
         regBtn=findViewById(R.id.registerBtn);
+        progressDialog=new ProgressDialog(getContext());
         progressBarRegister=findViewById(R.id.progresslogIn);
     }
 }

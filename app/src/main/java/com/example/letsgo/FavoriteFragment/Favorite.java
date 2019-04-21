@@ -1,41 +1,33 @@
 package com.example.letsgo.FavoriteFragment;
 
-
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FavoriteFragment extends Fragment {
+public class Favorite extends AppCompatActivity {
 
-
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
-
-    View view;
     FavoriteAdapter placesAdapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_favorite, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_favorite);
+
+        RecyclerView recyclerView=findViewById(R.id.container_favorite_places);
+      LinearLayoutManager  linearLayoutManager=new LinearLayoutManager(this);
+
         final PlaceActivity placeActivity=new PlaceActivity();
-        FavoritePresenter favoritePresenter=new FavoritePresenter(view);
+        FavoritePresenter favoritePresenter=new FavoritePresenter(recyclerView,linearLayoutManager);
         placesAdapter =favoritePresenter.getPlacesAdapter();
         favoritePresenter.getData();
         placesAdapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Intent i=new Intent(view.getContext(), PlaceActivity.class);
+                Intent i=new Intent(Favorite.this, PlaceActivity.class);
                 i.putExtra("img",""+ placesAdapter.getList().get(position).getImg());
                 i.putExtra("name",""+ placesAdapter.getList().get(position).getName());
                 i.putExtra("desc",""+ placesAdapter.getList().get(position).getDescription());
@@ -60,7 +52,5 @@ public class FavoriteFragment extends Fragment {
                 startActivity(i);
             }
         });
-        return view;
     }
-
 }

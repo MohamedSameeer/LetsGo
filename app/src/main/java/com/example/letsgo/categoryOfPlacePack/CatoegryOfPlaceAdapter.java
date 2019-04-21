@@ -11,7 +11,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.letsgo.HomeFragment.PlaceModel;
+import com.example.letsgo.HomeFragment.PlacesAdapter;
 import com.example.letsgo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.sackcentury.shinebuttonlib.ShineButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,11 +24,24 @@ import java.util.List;
 public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlaceAdapter.ViewHolder> {
     private List<PlaceModel> listOfPlaces;
     private Context context;
+    private OnItemClickListener onHeartClickListener;
+    private OnItemClickListener onItemClickListener;
 
-    public CatoegryOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
+    List<PlaceModel>getListOfPlaces(){
+        return listOfPlaces;
+    }
+     CatoegryOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
         this.listOfPlaces = listOfPlaces;
         this.context = context;
+
     }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+     void setOnHeartClickListener(OnItemClickListener onHeartClickListener) {
+        this.onHeartClickListener = onHeartClickListener;
+    }
+
 
     @NonNull
     @Override
@@ -33,7 +51,7 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         PlaceModel item=listOfPlaces.get(i);
         Picasso.get().load(item.getImg().toString()).into(viewHolder.imgPlace);
         if(!item.getImg().toString().equals("")){
@@ -41,12 +59,28 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
             viewHolder.progressBar.setVisibility(View.INVISIBLE);
 
         }
-        else{            viewHolder.progressBar.setVisibility(View.VISIBLE);
+        else{
+            viewHolder.progressBar.setVisibility(View.VISIBLE);
         }
         viewHolder.namePlace.setText(item.getName().toString());
-        viewHolder.duration.setText(item.getDurationTo().toString());
-        viewHolder.description.setText(item.getDescription().toString());
-        viewHolder.titlePrice.setText(item.getPrice().toString());
+        viewHolder.duration.setText("From: "+item.getDurationTo()+" ");
+        viewHolder.durationTo.setText("To: "+item.getDurationFrom()+"");
+      //  viewHolder.titlePrice.setText(item.getPrice().toString());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClick(i);
+            }
+        });
+        boolean x=true;
+
+        viewHolder.shineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHeartClickListener.onClick(i);
+            }
+        });
 
     }
 
@@ -59,19 +93,26 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgPlace;
         private TextView namePlace;
-        private TextView titlePrice;
+        private TextView durationTo;
         private TextView duration;
         private TextView description;
+        private ShineButton shineButton;
+
         private ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPlace=itemView.findViewById(R.id.img);
             namePlace=itemView.findViewById(R.id.nameOfPlaces);
-            titlePrice=itemView.findViewById(R.id.title);
+            durationTo=itemView.findViewById(R.id.durationToOfPlaces);
             duration=itemView.findViewById(R.id.durationOfPlaces);
-            description=itemView.findViewById(R.id.discriptionOfHistoricalPlaces);
+            shineButton = (ShineButton) itemView.findViewById(R.id.po_image2);
+           // description=itemView.findViewById(R.id.discriptionOfHistoricalPlaces);
             progressBar=itemView.findViewById(R.id.progress_load_photo);
         }
     }
+    public interface OnItemClickListener{
+        public void onClick(int position);
+    }
+
 }

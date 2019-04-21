@@ -32,7 +32,7 @@ public class SelectCategory extends AppCompatActivity {
         eventImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //nth yet
+                presenter.sendUserToSelectedCategory("Event",city);
             }
         });
 
@@ -40,8 +40,6 @@ public class SelectCategory extends AppCompatActivity {
         historicalImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("koskmk"+city,"lolnek");
-
                 presenter.sendUserToSelectedCategory("Historical",city);
 
             }
@@ -74,9 +72,6 @@ public class SelectCategory extends AppCompatActivity {
                 presenter.sendUserToSelectedCategory("Cafe & Restaurant",city);
             }
         });
-
-
-
 
     }
 

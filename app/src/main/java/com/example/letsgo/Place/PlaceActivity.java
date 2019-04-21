@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
+import com.example.letsgo.FavoriteFragment.Favorite;
 import com.example.letsgo.R;
 import com.example.letsgo.Reviews.ReviewActivity;
 import com.example.letsgo.Reviews.ReviewPresenter;
@@ -48,12 +49,12 @@ public class PlaceActivity extends AppCompatActivity  {
         place_name.setText(placeName);
         place_description.setText(placeDescription);
         Picasso.get().load(placeImage).into(place_img);
-        addToFavorite.setOnClickListener(new View.OnClickListener() {
+       /* addToFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 placePresenter.addToFavorite(placeName,placeCity,placeCategory,fromClass);
             }
-        });
+        });*/
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +82,7 @@ public class PlaceActivity extends AppCompatActivity  {
         place_description=findViewById(R.id.main_place_description);
         place_img=findViewById(R.id.main_place_img);
         myToolbar=findViewById(R.id.place_toolbar);
-        addToFavorite=findViewById(R.id.addToFavorite);
+        //addToFavorite=findViewById(R.id.addToFavorite);
         mAuth=FirebaseAuth.getInstance();
         reviewRecycler = findViewById(R.id.reviews_container);
         showMore=findViewById(R.id.size_button);
@@ -113,6 +114,9 @@ public class PlaceActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.favoritee:
+                sendUserToFavoritectivity();
+                break;
             case R.id.contact_us:
                 sendUserToContactUsActivity();
                 break;
@@ -123,6 +127,11 @@ public class PlaceActivity extends AppCompatActivity  {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void sendUserToFavoritectivity() {
+        Intent i = new Intent (this, Favorite.class);
+        startActivity(i);
     }
 
     private void signOut() {

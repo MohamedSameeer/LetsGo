@@ -1,11 +1,15 @@
 package com.example.letsgo.Registeration;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
+import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,20 +18,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegestrationPresenter {
+class RegestrationPresenter {
 
-    String userName;
-    Context context;
-    DatabaseReference userRef;
-    FirebaseAuth mAuth;
-    public RegestrationPresenter(Context context){
+   private String userName;
+    private Context context;
+    private DatabaseReference userRef;
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
+    RegestrationPresenter(Context context, ProgressBar progressBar){
 
         this.context=context;
+        this.progressBar=progressBar;
         mAuth=FirebaseAuth.getInstance();
         userRef=FirebaseDatabase.getInstance().getReference().child("User");
     }
 
-    public void verifyEmailAndPassword(EditText email, EditText password,EditText userName){
+     void verifyEmailAndPassword(EditText email, EditText password,EditText userName){
 
         String sEmail,sPassword,sUserName;
         sEmail=email.getText().toString().trim();
@@ -54,6 +60,7 @@ public class RegestrationPresenter {
 
     }
     private void createNewUser(final String email, String password){
+       progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -64,18 +71,19 @@ public class RegestrationPresenter {
                             userRef.child(user).child("email").setValue(email);
                             userRef.child(user).child("id").setValue(user);
                             userRef.child(user).child("userName").setValue(userName);
-
+                            progressBar.setVisibility(View.GONE);
                             enterToHome();
                         }
                         else
                         {
+                            progressBar.setVisibility(View.GONE);
                             Log.e("RegestrationPres","failed Create");
                         }
                     }
                 });
     }
     private void enterToHome(){
-        Intent i=new Intent(context, MainActivity.class);
+        Intent i=new Intent(context, CountryActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 

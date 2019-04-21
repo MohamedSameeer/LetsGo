@@ -19,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 class FavoritePresenter {
-    private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private FavoriteAdapter placesAdapter;
@@ -27,10 +26,10 @@ class FavoritePresenter {
     private DatabaseReference citiesRef,favRef,eventRef;
     private String userId;
     private ArrayList<PlaceModel> listOfPlaces;
-    FavoritePresenter(View view){
-        this.view=view;
-        recyclerView=view.findViewById(R.id.container_favorite_places);
-        linearLayoutManager=new LinearLayoutManager(view.getContext());
+    FavoritePresenter(RecyclerView recyclerView,LinearLayoutManager linearLayoutManager){
+
+        this.recyclerView=recyclerView;
+       this.linearLayoutManager=linearLayoutManager;
         placesAdapter=new FavoriteAdapter();
         mAuth=FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser()!=null)
@@ -56,10 +55,10 @@ class FavoritePresenter {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()){
                     for (DataSnapshot data:dataSnapshot.getChildren()) {
-                        Log.e("FavoritePresenter",data.child("from").getValue()+"");
-                        String from=data.child("from").getValue()+"";
+                        //Log.e("FavoritePresenter",data.child("from").getValue()+"");
+                       // String from=data.child("from").getValue()+"";
                         String isAdded=data.child("isAdded").getValue()+"";
-                        if(from.equals("home") && isAdded.equals("true")){
+                        if(/*from.equals("home") &&*/ isAdded.equals("true")){
                             citiesRef.child(data.child("PlaceCity").getValue()+"")
                                     .child(data.child("PlaceCategory").getValue()+"")
                                     .child(data.child("PlaceName").getValue()+"")
@@ -71,7 +70,7 @@ class FavoritePresenter {
                                                             (dataSnapshot.child("Image").getValue())
                                                             ,(dataSnapshot.child("PlaceName").getValue())
                                                             ,(dataSnapshot.child("PlaceDescription").getValue())
-                                                            ,(dataSnapshot.child("DurationFrom").getValue())
+                                                           // ,(dataSnapshot.child("DurationFrom").getValue())
                                                             ,(dataSnapshot.child("DurationTo").getValue())
                                                             ,(dataSnapshot.child("Category").getValue())
                                                             ,(dataSnapshot.child("City").getValue())
@@ -88,7 +87,7 @@ class FavoritePresenter {
 
                                         }
                                     });
-                        }else if (from.equals("event") && isAdded.equals("true")){
+                        }/*else if (from.equals("event") && isAdded.equals("true")){
                                 eventRef.child(data.child("PlaceName").getValue().toString())
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
@@ -116,7 +115,7 @@ class FavoritePresenter {
 
                                             }
                                         });
-                        }
+                        }*/
 
                     }
 

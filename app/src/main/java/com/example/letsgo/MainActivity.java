@@ -10,19 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Spinner;
 
-import com.example.letsgo.Adminstrator.PushingData;
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Events.EventsFragment;
-import com.example.letsgo.FavoriteFragment.FavoriteFragment;
 import com.example.letsgo.HomeFragment.HomeFragment;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     String adminId;
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment=new EventsFragment();
                     break;
                 case R.id.favorite:
-                    selectedFragment=new FavoriteFragment();
+                   // selectedFragment=new FavoriteFragment();
                     break;
                 default:
                     selectedFragment=new HomeFragment();
