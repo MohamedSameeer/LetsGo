@@ -3,6 +3,15 @@ package com.example.letsgo.HomeFragment;
 public class PlaceModel {
 
   private Object img,name,description,durationFrom,durationTo,category,city,address,price;
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public PlaceModel(Object img, Object name, Object description) {
         this.img = img;

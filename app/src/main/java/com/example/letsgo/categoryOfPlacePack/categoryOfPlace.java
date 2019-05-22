@@ -10,13 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
-import com.example.letsgo.FavoriteFragment.Favorite;
+import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.HomeFragment.PlaceModel;
-import com.example.letsgo.MainActivity;
 import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 import com.example.letsgo.Splash.Splash;
@@ -45,10 +43,18 @@ public class categoryOfPlace extends AppCompatActivity {
         adapter.setOnHeartClickListener(new CatoegryOfPlaceAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                lst=presenter.getAdapter().getListOfPlaces();
-                presenter.addToFavorite(lst.get(position).getName().toString(),lst.get(position).getCity().toString()
-                        ,lst.get(position).getCategory().toString());
 
+                lst=presenter.getAdapter().getListOfPlaces();
+                if(!lst.get(position).isChecked()) {
+                    presenter.addToFavorite(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                    presenter.likePlace(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                }else {
+                    presenter.removeFromFavorite(lst.get(position).getName().toString());
+                    presenter.removeLike(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                }
             }
         });
 

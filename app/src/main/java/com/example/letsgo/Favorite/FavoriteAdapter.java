@@ -1,4 +1,4 @@
-package com.example.letsgo.FavoriteFragment;
+package com.example.letsgo.Favorite;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.letsgo.HomeFragment.PlaceModel;
-import com.example.letsgo.HomeFragment.PlacesAdapter;
 import com.example.letsgo.R;
 import com.squareup.picasso.Picasso;
 

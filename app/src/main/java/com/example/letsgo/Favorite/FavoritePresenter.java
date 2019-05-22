@@ -1,14 +1,11 @@
-package com.example.letsgo.FavoriteFragment;
+package com.example.letsgo.Favorite;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
 import com.example.letsgo.HomeFragment.PlaceModel;
-import com.example.letsgo.HomeFragment.PlacesAdapter;
-import com.example.letsgo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,10 +55,36 @@ class FavoritePresenter {
                         //Log.e("FavoritePresenter",data.child("from").getValue()+"");
                        // String from=data.child("from").getValue()+"";
                         String isAdded=data.child("isAdded").getValue()+"";
-                        if(/*from.equals("home") &&*/ isAdded.equals("true")){
-                            citiesRef.child(data.child("PlaceCity").getValue()+"")
-                                    .child(data.child("PlaceCategory").getValue()+"")
-                                    .child(data.child("PlaceName").getValue()+"")
+                        citiesRef.child(data.child("PlaceCity").getValue()+"")
+                                .child(data.child("PlaceCategory").getValue()+"")
+                                .child(data.child("PlaceName").getValue()+"")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        Log.e("FavoritePresenter",dataSnapshot.child("PlaceName").getValue()+"");
+                                        listOfPlaces.add(new PlaceModel(
+                                                        (dataSnapshot.child("Image").getValue())
+                                                        ,(dataSnapshot.child("PlaceName").getValue())
+                                                        ,(dataSnapshot.child("PlaceDescription").getValue())
+                                                       // ,(dataSnapshot.child("DurationFrom").getValue())
+                                                        ,(dataSnapshot.child("DurationTo").getValue())
+                                                        ,(dataSnapshot.child("Category").getValue())
+                                                        ,(dataSnapshot.child("City").getValue())
+                                                        ,(dataSnapshot.child("Address").getValue())
+                                                        ,(dataSnapshot.child("Price").getValue())
+
+                                                )
+                                        );
+                                        placesAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                    /*else if (from.equals("event") && isAdded.equals("true")){
+                            eventRef.child(data.child("PlaceName").getValue().toString())
                                     .addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,7 +93,7 @@ class FavoritePresenter {
                                                             (dataSnapshot.child("Image").getValue())
                                                             ,(dataSnapshot.child("PlaceName").getValue())
                                                             ,(dataSnapshot.child("PlaceDescription").getValue())
-                                                           // ,(dataSnapshot.child("DurationFrom").getValue())
+                                                            ,(dataSnapshot.child("DurationFrom").getValue())
                                                             ,(dataSnapshot.child("DurationTo").getValue())
                                                             ,(dataSnapshot.child("Category").getValue())
                                                             ,(dataSnapshot.child("City").getValue())
@@ -80,6 +103,7 @@ class FavoritePresenter {
                                                     )
                                             );
                                             placesAdapter.notifyDataSetChanged();
+
                                         }
 
                                         @Override
@@ -87,34 +111,6 @@ class FavoritePresenter {
 
                                         }
                                     });
-                        }/*else if (from.equals("event") && isAdded.equals("true")){
-                                eventRef.child(data.child("PlaceName").getValue().toString())
-                                        .addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                Log.e("FavoritePresenter",dataSnapshot.child("PlaceName").getValue()+"");
-                                                listOfPlaces.add(new PlaceModel(
-                                                                (dataSnapshot.child("Image").getValue())
-                                                                ,(dataSnapshot.child("PlaceName").getValue())
-                                                                ,(dataSnapshot.child("PlaceDescription").getValue())
-                                                                ,(dataSnapshot.child("DurationFrom").getValue())
-                                                                ,(dataSnapshot.child("DurationTo").getValue())
-                                                                ,(dataSnapshot.child("Category").getValue())
-                                                                ,(dataSnapshot.child("City").getValue())
-                                                                ,(dataSnapshot.child("Address").getValue())
-                                                                ,(dataSnapshot.child("Price").getValue())
-
-                                                        )
-                                                );
-                                                placesAdapter.notifyDataSetChanged();
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
                         }*/
 
                     }

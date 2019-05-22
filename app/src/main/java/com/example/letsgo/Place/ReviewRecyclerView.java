@@ -23,7 +23,7 @@ public class ReviewRecyclerView extends RecyclerView.Adapter<ReviewRecyclerView.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView= LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.place_item,viewGroup,false);
+                .inflate(R.layout.review_item,viewGroup,false);
         return new ViewHolder(itemView);
 
     }
@@ -49,8 +49,8 @@ public class ReviewRecyclerView extends RecyclerView.Adapter<ReviewRecyclerView.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name=itemView.findViewById(R.id.place_item_name);
-            description=itemView.findViewById(R.id.place_item_description);
+            name=itemView.findViewById(R.id.review_item_name);
+            description=itemView.findViewById(R.id.review_item_description);
         }
     }
 }

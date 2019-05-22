@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAppTheme">
-        <activity android:name=".FavoriteFragment.Favorite"></activity>
+        <activity android:name=".Favorite.Favorite"></activity>
 
         <activity android:name=".selectCategoryPack.SelectCategory" />
         <activity android:name=".Reviews.ReviewActivity" />

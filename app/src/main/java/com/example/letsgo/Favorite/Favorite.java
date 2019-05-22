@@ -1,4 +1,4 @@
-package com.example.letsgo.FavoriteFragment;
+package com.example.letsgo.Favorite;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

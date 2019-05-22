@@ -16,10 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
-import com.example.letsgo.FavoriteFragment.Favorite;
+import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.R;
 import com.example.letsgo.Reviews.ReviewActivity;
-import com.example.letsgo.Reviews.ReviewPresenter;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;

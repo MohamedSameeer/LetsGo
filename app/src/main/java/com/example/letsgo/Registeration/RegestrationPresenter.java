@@ -20,7 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 class RegestrationPresenter {
 
-   private String userName;
+
+    private String userName;
     private Context context;
     private DatabaseReference userRef;
     private FirebaseAuth mAuth;

@@ -30,13 +30,14 @@ public class categoryOfPlacePresenter {
     RecyclerView recyclerView;
     Context context;
     String userId;
-    private boolean isAdded=true;
-    DatabaseReference favoriteRef;
+
+    DatabaseReference favoriteRef,placeRef;
     categoryOfPlacePresenter(ProgressDialog progressDialog,String category,String city,Context context,RecyclerView recyclerView){
         this.city=city;
         this.category=category;
         this.progressDialog=progressDialog;
         favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
+        placeRef=FirebaseDatabase.getInstance().getReference().child("cities");
         mAuth=FirebaseAuth.getInstance();
         userId=mAuth.getCurrentUser().getUid();
         places=new ArrayList<>();
@@ -45,7 +46,7 @@ public class categoryOfPlacePresenter {
         categogryRef=firebaseDatabase.getReference().child("cities").child(city).child(category);
         this.context=context;
         adapter=new CatoegryOfPlaceAdapter(places,context);
-       this.recyclerView=recyclerView;
+        this.recyclerView=recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
@@ -63,9 +64,7 @@ public class categoryOfPlacePresenter {
     categogryRef.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-
+            places.clear();
             for (DataSnapshot d:dataSnapshot.getChildren()) {
                 int i=1;
                 i++;
@@ -100,20 +99,25 @@ public class categoryOfPlacePresenter {
         }
     });
 
-
-
     }
 
-
+    void likePlace(String placeName, String placeCity, String placeCategory){
+        placeRef.child(placeCity).child(placeCategory).child(placeName).child(userId).setValue(userId);
+    }
      void addToFavorite(String placeName, String placeCity, String placeCategory) {
         favoriteRef.child(userId).child(placeName).child("PlaceName").setValue(placeName);
         favoriteRef.child(userId).child(placeName).child("PlaceCity").setValue(placeCity);
         favoriteRef.child(userId).child(placeName).child("PlaceCategory").setValue(placeCategory);
       //  favoriteRef.child(userId).child(placeName).child("from").setValue(fromClass);
-        favoriteRef.child(userId).child(placeName).child("isAdded").setValue(isAdded);
-        if (isAdded){
-            isAdded=false;
-        }else
-            isAdded=true;
+
+
+    }
+
+    public void removeFromFavorite(String placeName) {
+        favoriteRef.child(userId).child(placeName).removeValue();
+    }
+
+    public void removeLike(String placeName, String placeCity, String placeCategory) {
+        placeRef.child(placeCity).child(placeCategory).child(placeName).child(userId).removeValue();
     }
 }

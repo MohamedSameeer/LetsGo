@@ -14,8 +14,11 @@ import com.example.letsgo.HomeFragment.PlaceModel;
 import com.example.letsgo.HomeFragment.PlacesAdapter;
 import com.example.letsgo.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.squareup.picasso.Picasso;
 
@@ -27,13 +30,20 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
     private OnItemClickListener onHeartClickListener;
     private OnItemClickListener onItemClickListener;
 
+    //firebase
+    private FirebaseAuth mAuth;
+    private String userId;
+    private DatabaseReference cityRef;
+
     List<PlaceModel>getListOfPlaces(){
         return listOfPlaces;
     }
      CatoegryOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
         this.listOfPlaces = listOfPlaces;
         this.context = context;
-
+        mAuth=FirebaseAuth.getInstance();
+        userId=mAuth.getCurrentUser().getUid();
+        cityRef=FirebaseDatabase.getInstance().getReference().child("cities");
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -51,8 +61,8 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        PlaceModel item=listOfPlaces.get(i);
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
+        final PlaceModel item=listOfPlaces.get(i);
         Picasso.get().load(item.getImg().toString()).into(viewHolder.imgPlace);
         if(!item.getImg().toString().equals("")){
 
@@ -62,9 +72,29 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
         else{
             viewHolder.progressBar.setVisibility(View.VISIBLE);
         }
+        cityRef.child(item.getCity().toString()).child(item.getCategory().toString()).child(item.getName().toString())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.child(userId).exists()){
+                                item.setChecked(true);
+                                viewHolder.shineButton.setChecked(true);
+                            }else
+                            {
+                                item.setChecked(false);
+                                viewHolder.shineButton.setChecked(false);
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
         viewHolder.namePlace.setText(item.getName().toString());
         viewHolder.duration.setText("From: "+item.getDurationTo()+" ");
         viewHolder.durationTo.setText("To: "+item.getDurationFrom()+"");
+
       //  viewHolder.titlePrice.setText(item.getPrice().toString());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 

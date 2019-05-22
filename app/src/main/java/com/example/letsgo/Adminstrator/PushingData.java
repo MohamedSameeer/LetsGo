@@ -1,5 +1,6 @@
 package com.example.letsgo.Adminstrator;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,11 +25,12 @@ public class PushingData extends AppCompatActivity {
     private Spinner spinnerCity,spinnerCateogry;
     private EditText placeName,description,price,address,durationFrom,durationTo;
     private Button uploadImages,pushData,logOut;
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
     CheckBox isEvent;
     FirebaseAuth mAuth;
+    private PushingDataPresenter pushingDataPresenter;
     private static Context context;
     private static final int PICK_IMG_REQUEST =1 ;
     @Override
@@ -38,10 +40,12 @@ public class PushingData extends AppCompatActivity {
         context=getBaseContext();
         mAuth=FirebaseAuth.getInstance();
         initialization();
-        final PushingDataPresenter pushingDataPresenter=new PushingDataPresenter(getContext());
+        pushData.setClickable(false);
+        pushingDataPresenter=new PushingDataPresenter(getContext());
         uploadImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+              //  progressBar.setVisibility(View.VISIBLE);
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, PICK_IMG_REQUEST);
@@ -55,17 +59,17 @@ public class PushingData extends AppCompatActivity {
             public void onClick(View view) {
                 if(pushAllData()){
                     Log.e("ps1","done her");
-                    progressBar.setVisibility(View.VISIBLE);
-                    pushingDataPresenter.uploadPicture(imageUri,progressBar);
+                  //  progressBar.setVisibility(View.VISIBLE);
+                    //pushingDataPresenter.uploadPicture(imageUri,progressBar);
                         Log.e("ps1","done her2");
-                        pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory, isEvent.isChecked());
-                        placeName.setText("");
-                        description.setText("");
-                        price.setText("");
-                        address.setText("");
-                        durationFrom.setText("");
-                        durationTo.setText("");
-                        Toast.makeText(PushingData.this, "Update data Complete", Toast.LENGTH_SHORT).show();
+                       if(pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory, isEvent.isChecked())){
+                            placeName.setText("");
+                            description.setText("");
+                            price.setText("");
+                            address.setText("");
+                            durationFrom.setText("");
+                            durationTo.setText("");
+                       }
 
                 }
             }
@@ -88,11 +92,15 @@ public class PushingData extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK && data != null)
+        if(resultCode==RESULT_OK && data != null){
              imageUri = data.getData();
-        else
+             pushingDataPresenter.uploadPicture(imageUri,progressDialog);
+             pushData.setClickable(true);
+        }
+        else {
             Toast.makeText(this, "Please Pick Photo", Toast.LENGTH_LONG).show();
-
+            pushData.setClickable(false);
+        }
     }
     private boolean saveDataNotNull(){
         boolean flag=true;
@@ -148,7 +156,8 @@ public class PushingData extends AppCompatActivity {
         spinnerCity=findViewById(R.id.spinnerCities);
         spinnerCity.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cityName));
-        progressBar=findViewById(R.id.progressPush);
+       // progressBar=findViewById(R.id.progressPush);
+        progressDialog=new ProgressDialog(this);
         spinnerCateogry=findViewById(R.id.spinnerCategories);
         spinnerCateogry.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cateogryName));

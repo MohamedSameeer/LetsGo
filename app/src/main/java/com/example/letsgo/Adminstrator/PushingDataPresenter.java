@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.letsgo.MainActivity;
 import com.example.letsgo.Splash.Splash;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,40 +36,64 @@ public class PushingDataPresenter  implements IpushingData{
     boolean flag;
     Context context;
     boolean isChecked;
+   // ProgressBar progressBar;
     String url,city,category,placeName;
     Map<Object , Object>objectMap=new HashMap<>();
     PushingDataPresenter(Context context){
         cities= FirebaseDatabase.getInstance().getReference().child("cities");
-        events=FirebaseDatabase.getInstance().getReference().child("events");
+
         this.context=context;
         storageReference = FirebaseStorage.getInstance().getReference().child("places_images");
         mAuth=FirebaseAuth.getInstance();
     }
 
-    void uploadPicture(Uri iamgeUri, final ProgressBar progressBar){
+    void uploadPicture(Uri iamgeUri, final ProgressDialog progressDialog){
+       // final ProgressDialog progressDialog = progressBar;
+        progressDialog.setTitle("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         final String imageName = UUID.randomUUID().toString() + ".jpg";
-        storageReference.child(imageName).putFile(iamgeUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                storageReference.child(imageName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+       // this.progressBar=progressBar;
+        storageReference.child(imageName).putFile(iamgeUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        url=uri.toString();
-                        if(!url.isEmpty()){
-                            objectMap.put("Image",url);
-                            if(isChecked) {
-                                events.child(placeName).setValue(objectMap);
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                       // progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context, "Upload photo complete", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        storageReference.child(imageName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                url=uri.toString();
+                              /*  if(!url.isEmpty()){
+                                    objectMap.put("Image",url);
+                                    if(isChecked) {
+                                        events.child(placeName).setValue(objectMap);
+                                    }
+                                   else
+                                       cities.child(city).child(category).child(placeName).setValue(objectMap);
 
+                                    Toast.makeText(context, "Update data Complete", Toast.LENGTH_SHORT).show();
+
+                                }*/
                             }
-                           else
-                               cities.child(city).child(category).child(placeName).setValue(objectMap);
-                            progressBar.setVisibility(View.GONE);
-
-                        }
+                        });
                     }
-                });
+                })   .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(context, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                .getTotalByteCount());
+                        progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                    }
+                });;
     }
     void logOut(){
             mAuth.signOut();
@@ -80,23 +105,38 @@ public class PushingDataPresenter  implements IpushingData{
         context.startActivity(i);
     }
     @Override
-    public void pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
+    public boolean pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
             , String sDurationTo,String sCity,String sCategory,boolean isEvent) {
         Map<Object ,Object >s=new HashMap<>();
-        isChecked=isEvent;
-        s.put("PlaceName",sPlaceName);
-        s.put("PlaceDescription",sPlaceDescription);
-        s.put("Price",sPrice);
-        s.put("Address",sAddress);
-        s.put("DurationFrom",sDurationFrom);
-        s.put("DurationTo",sDurationTo);
-        s.put("City",sCity);
-        s.put("Category",sCategory);
-        objectMap.putAll(s);
-        city=sCity;
-        placeName=sPlaceName;
-        category=sCategory;
-        Log.e("Well done", "Wellllllllllll done");
-        //cities.child(city).child(category).child(placeName).setValue(objectMap);
+        if(url!=null) {
+            isChecked = isEvent;
+            s.put("PlaceName", sPlaceName);
+            s.put("PlaceDescription", sPlaceDescription);
+            s.put("Price", sPrice);
+            s.put("Address", sAddress);
+            s.put("DurationFrom", sDurationFrom);
+            s.put("DurationTo", sDurationTo);
+            s.put("City", sCity);
+            s.put("Image", url);
+            objectMap.putAll(s);
+            city = sCity;
+            placeName = sPlaceName;
+            category = sCategory;
+            if (isChecked) {
+                s.put("Category", "Event");
+                cities.child(city).child("Event").child(placeName).setValue(s);
+            } else {
+                s.put("Category", sCategory);
+                cities.child(city).child(category).child(placeName).setValue(s);
+            }
+            // progressBar.setVisibility(View.GONE);
+            Toast.makeText(context, "Update data Complete", Toast.LENGTH_SHORT).show();
+            return true;
+            //cities.child(city).child(category).child(placeName).setValue(objectMap);
+        }else
+            Toast.makeText(context, "Please update photo", Toast.LENGTH_LONG).show();
+        return false;
+
+
     }
 }
