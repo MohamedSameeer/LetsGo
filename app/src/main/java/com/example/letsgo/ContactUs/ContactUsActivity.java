@@ -15,18 +15,34 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class ContactUsActivity extends AppCompatActivity {
+import ai.api.android.AIConfiguration;
+import ai.api.android.AIDataService;
+import ai.api.android.AIService;
+import ai.api.model.AIError;
+import ai.api.model.AIRequest;
+import ai.api.model.AIResponse;
+
+public class ContactUsActivity extends AppCompatActivity implements ai.api.AIListener {
 
     EditText messageBar;
     Button sendButton;
     ContactUsPresenter contactUsPresenter;
     String message,uid,aid;
     List<Message> messageList;
+    public static final String TAG = ContactUsActivity.class.getName();
+    private AIService aiService;
     RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
+        //Dialogflow config
+        final AIConfiguration config = new AIConfiguration("87262c1dc1c244278746fe7a157c8fe5", AIConfiguration.SupportedLanguages.English,
+                AIConfiguration.RecognitionEngine.System);
+        aiService = AIService.getService(this, config);
+        aiService.setListener(this);
+        final AIDataService aiDataService = new AIDataService(this,config);
+        final AIRequest aiRequest = new AIRequest();
 
         intializeFields();
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -39,12 +55,9 @@ public class ContactUsActivity extends AppCompatActivity {
                     messageBar.setError("you can't leave this field empty");
 
                 } else {
-                    contactUsPresenter.handlingMessage(message);
+                    ContactUsPresenter.uploadMessageToFireBase(message,aiDataService,aiRequest);
                 }
-
                 messageBar.setText("");
-
-
             }
         });
 
@@ -59,6 +72,36 @@ public class ContactUsActivity extends AppCompatActivity {
         contactUsPresenter = new ContactUsPresenter(recyclerView,getApplicationContext());
         messageList=contactUsPresenter.getMessageList();
 
+
+    }
+
+    @Override
+    public void onResult(AIResponse result) {
+
+    }
+
+    @Override
+    public void onError(AIError error) {
+
+    }
+
+    @Override
+    public void onAudioLevel(float level) {
+
+    }
+
+    @Override
+    public void onListeningStarted() {
+
+    }
+
+    @Override
+    public void onListeningCanceled() {
+
+    }
+
+    @Override
+    public void onListeningFinished() {
 
     }
 }

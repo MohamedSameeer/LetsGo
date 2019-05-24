@@ -1,6 +1,7 @@
 package com.example.letsgo.ContactUs;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,15 +18,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactUsPresenter {
+import ai.api.AIServiceException;
+import ai.api.android.AIDataService;
+import ai.api.model.AIRequest;
+import ai.api.model.AIResponse;
+import ai.api.model.Result;
+
+public  class ContactUsPresenter {
     MessagesAdapter messagesAdapter;
     private FirebaseAuth mAuth;
-    private String Uid, message;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference mRef;
+    private static String Uid;
+    private static FirebaseDatabase firebaseDatabase;
+    private static DatabaseReference mRef , botMsg;
     private DatabaseReference uIdRef;
 private RecyclerView view;
-    private Message messageObject;
+    public static final String TAG = ContactUsPresenter.class.getName();
+    //private Message messageObject;
     private ArrayList<Message> messageList;
     private Message currentMessage;
     Context context;
@@ -41,15 +49,19 @@ private RecyclerView view;
         });
         Uid = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        uIdRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid);
+        uIdRef = firebaseDatabase.getReference().child("Messages").child(Uid);
         currentMessage = new Message();
         messageList = new ArrayList<>();
         this.view=view;
         this.context=context;
+
+        messagesAdapter=new MessagesAdapter(messageList, FirebaseAuth.getInstance().getCurrentUser().getUid());
+        view.setLayoutManager(new LinearLayoutManager(context));
+        view.setAdapter(messagesAdapter);
     }
 
 
-    public void handlingMessage(String message) {
+ /*   public void handlingMessage(String message,AIDataService aiDataService,AIRequest aiRequest) {
         this.message = message;
         messageObject = new Message();
         messageObject.setMessage(message);
@@ -62,21 +74,52 @@ private RecyclerView view;
             messageObject.setTo(Aid);
         }
 
-        uploadMessageToFireBase();
+        uploadMessageToFireBase(aiDataService,aiRequest);
 
-    }
+    }*/
 
-    private void uploadMessageToFireBase() {
-        mRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
-        mRef.child("content").setValue(messageObject.getMessage());
-        mRef.child("from").setValue(messageObject.getFrom());
-        mRef.child("to").setValue(messageObject.getTo());
+     static void uploadMessageToFireBase(final String message,final AIDataService aiDataService, final AIRequest aiRequest) {
 
+        aiRequest.setQuery(message);
+         new AsyncTask<AIRequest,Void, AIResponse>(){
+
+            @Override
+            protected AIResponse doInBackground(AIRequest... aiRequests) {
+                //final AIRequest request = aiRequests[0];
+                try {
+                    final AIResponse response = aiDataService.request(aiRequest);
+                    return response;
+                } catch (AIServiceException e) {
+                    Log.e(TAG,e.getMessage());
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(AIResponse response) {
+                if (response != null) {
+
+                    Result result = response.getResult();
+                    String reply = result.getFulfillment().getSpeech();
+                    mRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
+
+                    Log.e("speeeeeeech",reply);
+                    mRef.child("content").setValue(message);
+                    mRef.child("from").setValue(Uid);
+                    mRef.child("to").setValue(Aid);
+                    botMsg=firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
+                    botMsg.child("content").setValue(reply);
+                    botMsg.child("from").setValue("CustomerService");
+                    botMsg .child("to").setValue(Uid);
+//                                ChatMessage chatMessage = new ChatMessage(reply, "bot");
+//                                ref.child("chat").push().setValue(chatMessage);
+                }
+            }
+        }.execute(aiRequest);
 
     }
 
     public List<Message> getMessageList() {
-        uIdRef.addValueEventListener(new ValueEventListener() {
+        uIdRef.child(Aid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 messageList.clear();
@@ -99,20 +142,11 @@ private RecyclerView view;
 
 
                 }
-
-
                    // Log.e("main",messageList.get(i).getMessage());
 
-                    messagesAdapter=new MessagesAdapter(messageList, FirebaseAuth.getInstance().getCurrentUser().getUid(),"owQrAb02Z7WJ2u0ER6uPnqoNZum2");
-                    view.setLayoutManager(new LinearLayoutManager(context));
-                    view.setAdapter(messagesAdapter);
-                    //messagesAdapter.notifyDataSetChanged();
+
+                    messagesAdapter.notifyDataSetChanged();
                     view.smoothScrollToPosition(view.getAdapter().getItemCount());
-
-
-
-
-
             }
 
             @Override

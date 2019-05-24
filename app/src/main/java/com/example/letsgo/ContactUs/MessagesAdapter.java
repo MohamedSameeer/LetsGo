@@ -12,12 +12,12 @@ import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
     List<Message> messageList;
-    String Uid,Aid;
+    String Uid;
 
 
 
-    public MessagesAdapter(List<Message> messageList,String Uid,String Aid){
-        this.Aid=Aid;
+    public MessagesAdapter(List<Message> messageList,String Uid){
+
         this.messageList=messageList;
         this.Uid=Uid;
         //notifyDataSetChanged();
@@ -36,7 +36,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        viewHolder.sender.setVisibility(View.INVISIBLE);
+        viewHolder.receiver.setVisibility(View.INVISIBLE);
      if(messageList.get(i).getFrom().equals(Uid))
      {
          viewHolder.sender.setVisibility(View.VISIBLE);
@@ -73,8 +74,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             super(itemView);
             sender=itemView.findViewById(R.id.sender);
             receiver=itemView.findViewById(R.id.receiver);
-            sender.setVisibility(View.GONE);
-            receiver.setVisibility(View.GONE);
 
         }
     }
