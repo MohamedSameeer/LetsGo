@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+/*
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment).commit();
         initialization();
         setSupportActionBar(myToolbar);
+*/
 
 
     }
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public void initialization(){
         mAuth=FirebaseAuth.getInstance();
         adminId="owQrAb02Z7WJ2u0ER6uPnqoNZum2";
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+     //   myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
     }
     private void enterToSplash(){
@@ -92,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     selectedFragment=new HomeFragment();
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    selectedFragment).commit();
+          /*  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFragment).commit();*/
             return true;
         }
     };

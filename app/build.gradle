@@ -39,7 +39,7 @@ dependencies {
     //Dialogflow
     implementation 'ai.api:sdk:2.0.7@aar'
     annotationProcessor 'ai.api:libai:1.4.8'
-    implementation('ai.api:libai:1.4.8'){
+    implementation('ai.api:libai:1.4.8') {
         exclude module: 'log4j-core'
     }
     //Favorite

@@ -12,8 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAppTheme">
-        <activity android:name=".Favorite.Favorite"></activity>
+        <activity android:name=".DrawerMainActivity">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".Favorite.Favorite" />
         <activity android:name=".selectCategoryPack.SelectCategory" />
         <activity android:name=".Reviews.ReviewActivity" />
         <activity android:name=".Place.PlaceActivity" />
@@ -24,13 +32,9 @@
         <activity android:name=".Registeration.RegisterActivity" />
         <activity android:name=".LogIn.LogInActivity" />
         <activity android:name=".Country.CountryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

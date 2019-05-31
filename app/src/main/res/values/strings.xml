@@ -1,11 +1,13 @@
 <resources>
-    <string name="app_name">Let\'s Go</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="action_settings">setting</string>
     <string name="contact_us">contact us</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
