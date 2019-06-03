@@ -21,7 +21,7 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".Favorite.Favorite" />
+<!--        <activity android:name=".Favorite.Favorite" />-->
         <activity android:name=".selectCategoryPack.SelectCategory" />
         <activity android:name=".Reviews.ReviewActivity" />
         <activity android:name=".Place.PlaceActivity" />
@@ -31,9 +31,9 @@
         <activity android:name=".Adminstrator.PushingData" />
         <activity android:name=".Registeration.RegisterActivity" />
         <activity android:name=".LogIn.LogInActivity" />
-        <activity android:name=".Country.CountryActivity">
+    <!--    <activity android:name=".Country.CountryActivity">
 
-        </activity>
+        </activity>-->
         <activity android:name=".MainActivity" />
     </application>
 
