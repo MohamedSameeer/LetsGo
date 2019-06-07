@@ -1,4 +1,4 @@
-package com.example.letsgo.Favorite;
+package com.example.letsgo.Program;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+public class ProgramOfPlaceAdapter extends RecyclerView.Adapter<ProgramOfPlaceAdapter.ViewHolder> {
     private List<PlaceModel> listOfPlaces;
     private Context context;
     private OnItemClickListener onHeartClickListener;
@@ -36,7 +36,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     List<PlaceModel>getListOfPlaces(){
         return listOfPlaces;
     }
-    FavoriteAdapter(List<PlaceModel> listOfPlaces, Context context) {
+     ProgramOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
         this.listOfPlaces = listOfPlaces;
         this.context = context;
         mAuth=FirebaseAuth.getInstance();
@@ -46,7 +46,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
-    void setOnHeartClickListener(OnItemClickListener onHeartClickListener) {
+     void setOnHeartClickListener(OnItemClickListener onHeartClickListener) {
         this.onHeartClickListener = onHeartClickListener;
     }
 
@@ -74,14 +74,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(userId).exists()){
-                            item.setChecked(true);
-                            viewHolder.shineButton.setChecked(true);
-                        }else
-                        {
-                            item.setChecked(false);
-                            viewHolder.shineButton.setChecked(false);
-                        }
+                            if(dataSnapshot.child(userId).exists()){
+                                item.setChecked(true);
+                                viewHolder.shineButton.setChecked(true);
+                            }else
+                            {
+                                item.setChecked(false);
+                                viewHolder.shineButton.setChecked(false);
+                            }
                     }
 
                     @Override
@@ -93,7 +93,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         viewHolder.duration.setText("From: "+item.getDurationTo()+" ");
         viewHolder.durationTo.setText("To: "+item.getDurationFrom()+"");
 
-        //  viewHolder.titlePrice.setText(item.getPrice().toString());
+      //  viewHolder.titlePrice.setText(item.getPrice().toString());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -135,7 +135,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             durationTo=itemView.findViewById(R.id.durationToOfPlaces);
             duration=itemView.findViewById(R.id.durationOfPlaces);
             shineButton = (ShineButton) itemView.findViewById(R.id.po_image2);
-            // description=itemView.findViewById(R.id.discriptionOfHistoricalPlaces);
+           // description=itemView.findViewById(R.id.discriptionOfHistoricalPlaces);
             progressBar=itemView.findViewById(R.id.progress_load_photo);
         }
     }

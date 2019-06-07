@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.LogIn.LogInActivity;
-import com.example.letsgo.MainActivity;
+
 import com.example.letsgo.Registeration.RegisterActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

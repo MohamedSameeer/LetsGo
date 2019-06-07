@@ -1,4 +1,4 @@
-package com.example.letsgo.categoryOfPlacePack;
+package com.example.letsgo.CategoryOfPlacePack;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Favorite.Favorite;
-import com.example.letsgo.HomeFragment.PlaceModel;
+
 import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 import com.example.letsgo.Splash.Splash;
@@ -22,25 +22,25 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class categoryOfPlace extends AppCompatActivity {
+public class CategoryOfPlace extends AppCompatActivity {
     String categoyFromHomeFragment;
     String cityFromHomeAdapter;
     TextView places;
     FirebaseAuth mAuth;
     Toolbar toolbar;
     List<PlaceModel> lst;
-    categoryOfPlacePresenter presenter;
+    CategoryOfPlacePresenter presenter;
     RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historical_places);
         intializeFields();
-        final CatoegryOfPlaceAdapter adapter;
+        final CategoryOfPlaceAdapter adapter;
         places.setText(categoyFromHomeFragment);
         setSupportActionBar(toolbar);
         adapter=presenter.getAdapter();
-        adapter.setOnHeartClickListener(new CatoegryOfPlaceAdapter.OnItemClickListener() {
+        adapter.setOnHeartClickListener(new CategoryOfPlaceAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
 
@@ -58,10 +58,10 @@ public class categoryOfPlace extends AppCompatActivity {
             }
         });
 
-        adapter.setOnItemClickListener(new CatoegryOfPlaceAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new CategoryOfPlaceAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Intent i=new Intent(categoryOfPlace.this, PlaceActivity.class);
+                Intent i=new Intent(CategoryOfPlace.this, PlaceActivity.class);
                 i.putExtra("img",""+ adapter.getListOfPlaces().get(position).getImg());
                 i.putExtra("name",""+ adapter.getListOfPlaces().get(position).getName());
                 i.putExtra("desc",""+ adapter.getListOfPlaces().get(position).getDescription());
@@ -88,7 +88,7 @@ public class categoryOfPlace extends AppCompatActivity {
         Log.e(categoyFromHomeFragment+"seeeeeeif",cityFromHomeAdapter+"amor");
         places=findViewById(R.id.places_name);
         recyclerView = findViewById(R.id.recyclerViewOfHistoricalPlaces);
-        presenter=new categoryOfPlacePresenter(new ProgressDialog(this),categoyFromHomeFragment,cityFromHomeAdapter,this,recyclerView);
+        presenter=new CategoryOfPlacePresenter(new ProgressDialog(this),categoyFromHomeFragment,cityFromHomeAdapter,this,recyclerView);
         presenter.getDataFromFirebase();
         toolbar=findViewById(R.id.places_tool_bar);
     }
@@ -140,7 +140,7 @@ public class categoryOfPlace extends AppCompatActivity {
 
     }
     private void enterToSplash(){
-        Intent i=new Intent(categoryOfPlace.this, Splash.class);
+        Intent i=new Intent(CategoryOfPlace.this, Splash.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();

@@ -1,4 +1,4 @@
-package com.example.letsgo.HomeFragment;
+package com.example.letsgo.CategoryOfPlacePack;
 
 public class CategoryModel {
 

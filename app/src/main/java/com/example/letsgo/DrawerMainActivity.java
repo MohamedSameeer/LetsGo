@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.Favorite.Favorite;
+import com.example.letsgo.Program.ProgramFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class DrawerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,8 +67,12 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
                 fragment=fFavorite;
                 fragmentType=1;
                 break;
-            case R.id.nav_logOut:
+            case R.id.nav_program:
+                fragment=new ProgramFragment();
                 fragmentType=2;
+                break;
+            case R.id.nav_logOut:
+                fragmentType=3;
                 mAuth.signOut();
         }
 
@@ -81,14 +86,14 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            if(fragmentType==1) {
+            if(fragmentType!=0) {
                 fragment = fCountry;
                 navigationView.getMenu().getItem(0).setChecked(true);
                 fragmentType=0;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         fragment).commit();
 
-            }else if(fragmentType==0){
+            }else {
                 finish();
             }
             return true;

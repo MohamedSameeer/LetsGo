@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 
+import java.util.List;
+
 public class Favorite extends Fragment {
 
     View view;
     FavoriteAdapter placesAdapter;
+    FavoritePresenter presenter;
+    List<PlaceModel> lst;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -28,35 +32,42 @@ public class Favorite extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.container_favorite_places);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
 
-        final PlaceActivity placeActivity = new PlaceActivity();
-        FavoritePresenter favoritePresenter = new FavoritePresenter(recyclerView, linearLayoutManager);
-        placesAdapter = favoritePresenter.getPlacesAdapter();
-        favoritePresenter.getData();
+        //final PlaceActivity placeActivity = new PlaceActivity();
+        presenter = new FavoritePresenter(recyclerView, linearLayoutManager,view.getContext());
+        placesAdapter = presenter.getPlacesAdapter();
+        presenter.getData();
+        placesAdapter.setOnHeartClickListener(new FavoriteAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+
+                lst=presenter.getPlacesAdapter().getListOfPlaces();
+                if(!lst.get(position).isChecked()) {
+                    presenter.addToFavorite(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                    presenter.likePlace(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                }else {
+                    presenter.removeFromFavorite(lst.get(position).getName().toString());
+                    presenter.removeLike(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
+                            , lst.get(position).getCategory().toString());
+                }
+            }
+        });
         placesAdapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent i = new Intent(view.getContext(), PlaceActivity.class);
-                i.putExtra("img", "" + placesAdapter.getList().get(position).getImg());
-                i.putExtra("name", "" + placesAdapter.getList().get(position).getName());
-                i.putExtra("desc", "" + placesAdapter.getList().get(position).getDescription());
-                i.putExtra("address", "" + placesAdapter.getList().get(position).getAddress());
-                i.putExtra("city", "" + placesAdapter.getList().get(position).getCity());
-                i.putExtra("category", "" + placesAdapter.getList().get(position).getCategory());
-                i.putExtra("price", "" + placesAdapter.getList().get(position).getPrice());
-                i.putExtra("from", "" + placesAdapter.getList().get(position).getDurationFrom());
-                i.putExtra("to", "" + placesAdapter.getList().get(position).getDurationTo());
-                i.putExtra("fromClass", "favorite");/*
-                placeActivity.placeDetails(""+placesAdapter.getList().get(position).getName(),
-                        ""+  placesAdapter.getList().get(position).getDescription(),
-                        placesAdapter.getList().get(position).getImg()+"",
-                        ""+ placesAdapter.getList().get(position).getPrice()
-                        ,""+ placesAdapter.getList().get(position).getAddress()
-                        ,""+ placesAdapter.getList().get(position).getDurationFrom()
-                        ,""+ placesAdapter.getList().get(position).getDurationTo()
-                        ,""+ placesAdapter.getList().get(position).getCity()
-                        ,""+ placesAdapter.getList().get(position).getCategory()
-                        ,"favorite"
-                );*/
+                i.putExtra("img", "" + placesAdapter.getListOfPlaces().get(position).getImg());
+                i.putExtra("name", "" + placesAdapter.getListOfPlaces().get(position).getName());
+                i.putExtra("desc", "" + placesAdapter.getListOfPlaces().get(position).getDescription());
+                i.putExtra("address", "" + placesAdapter.getListOfPlaces().get(position).getAddress());
+                i.putExtra("city", "" + placesAdapter.getListOfPlaces().get(position).getCity());
+                i.putExtra("category", "" + placesAdapter.getListOfPlaces().get(position).getCategory());
+                i.putExtra("price", "" + placesAdapter.getListOfPlaces().get(position).getPrice());
+                i.putExtra("from", "" + placesAdapter.getListOfPlaces().get(position).getDurationFrom());
+                i.putExtra("to", "" + placesAdapter.getListOfPlaces().get(position).getDurationTo());
+                i.putExtra("fromClass", "favorite");
+
                 startActivity(i);
             }
         });

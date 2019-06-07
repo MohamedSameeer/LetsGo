@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.letsgo.categoryOfPlacePack.categoryOfPlace;
+import com.example.letsgo.CategoryOfPlacePack.CategoryOfPlace;
 
 public class SelecetCategoryPresenter {
 
@@ -20,7 +20,7 @@ public class SelecetCategoryPresenter {
 
     void sendUserToSelectedCategory(String category,String city){
 
-        Intent i = new Intent(context, categoryOfPlace.class);
+        Intent i = new Intent(context, CategoryOfPlace.class);
 
         i.putExtra("city",city);
 

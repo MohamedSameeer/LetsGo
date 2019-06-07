@@ -24,10 +24,10 @@
             android:title="profile" />
 
         <item
-            android:id="@+id/finance"
+            android:id="@+id/nav_program"
             android:icon="@drawable/ic_favorite_black_24dp"
 
-            android:title="financial info" />
+            android:title="Programs" />
         <item
             android:id="@+id/find_sellers_nav_menu"
             android:icon="@drawable/ic_favorite_black_24dp"

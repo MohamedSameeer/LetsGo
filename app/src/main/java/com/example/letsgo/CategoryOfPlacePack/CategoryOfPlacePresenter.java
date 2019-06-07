@@ -1,4 +1,4 @@
-package com.example.letsgo.categoryOfPlacePack;
+package com.example.letsgo.CategoryOfPlacePack;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.example.letsgo.HomeFragment.PlaceModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,13 +16,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class categoryOfPlacePresenter {
+public class CategoryOfPlacePresenter {
     PlaceModel model;
     ProgressDialog progressDialog;
     String category;
     String city;
     ArrayList<PlaceModel> places;
-    CatoegryOfPlaceAdapter adapter;
+    CategoryOfPlaceAdapter adapter;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth mAuth;
     DatabaseReference categogryRef;
@@ -32,7 +31,7 @@ public class categoryOfPlacePresenter {
     String userId;
 
     DatabaseReference favoriteRef,placeRef;
-    categoryOfPlacePresenter(ProgressDialog progressDialog,String category,String city,Context context,RecyclerView recyclerView){
+    CategoryOfPlacePresenter(ProgressDialog progressDialog, String category, String city, Context context, RecyclerView recyclerView){
         this.city=city;
         this.category=category;
         this.progressDialog=progressDialog;
@@ -45,14 +44,14 @@ public class categoryOfPlacePresenter {
         Log.e("fianl ",city+category);
         categogryRef=firebaseDatabase.getReference().child("cities").child(city).child(category);
         this.context=context;
-        adapter=new CatoegryOfPlaceAdapter(places,context);
+        adapter=new CategoryOfPlaceAdapter(places,context);
         this.recyclerView=recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
     }
 
-    CatoegryOfPlaceAdapter getAdapter(){
+    CategoryOfPlaceAdapter getAdapter(){
         return adapter;
     }
 
@@ -113,11 +112,11 @@ public class categoryOfPlacePresenter {
 
     }
 
-    public void removeFromFavorite(String placeName) {
+    void removeFromFavorite(String placeName) {
         favoriteRef.child(userId).child(placeName).removeValue();
     }
 
-    public void removeLike(String placeName, String placeCity, String placeCategory) {
+     void removeLike(String placeName, String placeCity, String placeCategory) {
         placeRef.child(placeCity).child(placeCategory).child(placeName).child(userId).removeValue();
     }
 }

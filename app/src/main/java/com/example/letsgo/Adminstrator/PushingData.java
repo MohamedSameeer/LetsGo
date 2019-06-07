@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.letsgo.MainActivity;
 import com.example.letsgo.R;
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -1,4 +1,4 @@
-package com.example.letsgo.categoryOfPlacePack;
+package com.example.letsgo.CategoryOfPlacePack;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.letsgo.HomeFragment.PlaceModel;
-import com.example.letsgo.HomeFragment.PlacesAdapter;
+
 import com.example.letsgo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlaceAdapter.ViewHolder> {
+public class CategoryOfPlaceAdapter extends RecyclerView.Adapter<CategoryOfPlaceAdapter.ViewHolder> {
     private List<PlaceModel> listOfPlaces;
     private Context context;
     private OnItemClickListener onHeartClickListener;
@@ -38,7 +37,7 @@ public class CatoegryOfPlaceAdapter extends RecyclerView.Adapter<CatoegryOfPlace
     List<PlaceModel>getListOfPlaces(){
         return listOfPlaces;
     }
-     CatoegryOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
+     CategoryOfPlaceAdapter(List<PlaceModel> listOfPlaces, Context context) {
         this.listOfPlaces = listOfPlaces;
         this.context = context;
         mAuth=FirebaseAuth.getInstance();

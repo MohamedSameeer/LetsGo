@@ -1,5 +1,7 @@
-package com.example.letsgo.Favorite;
+package com.example.letsgo.Program;
 
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,68 +16,71 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-class FavoritePresenter {
+class ProgramPresenter {
+
+    private DatabaseReference programRef,cityRef,favoriteRef;
+    private List<PlaceModel>listOfProgram;
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
-    private FavoriteAdapter placesAdapter;
+    private  ProgramOfPlaceAdapter programAdapter;
+    private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
-    private DatabaseReference citiesRef,favRef,eventRef;
     private String userId;
-    private ArrayList<PlaceModel> listOfPlaces;
-    FavoritePresenter(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager, Context context){
+    ProgramPresenter(RecyclerView recyclerView, ProgressDialog progressDialog, Context context){
 
-        listOfPlaces=new ArrayList<>();
-        this.recyclerView=recyclerView;
-        this.linearLayoutManager=linearLayoutManager;
-        placesAdapter=new FavoriteAdapter(listOfPlaces,context);
+        programRef= FirebaseDatabase.getInstance().getReference().child("Program");
+        cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
+        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
         mAuth=FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser()!=null)
-            userId=mAuth.getCurrentUser().getUid();
-        eventRef=FirebaseDatabase.getInstance().getReference().child("events");
-        citiesRef= FirebaseDatabase.getInstance().getReference().child("cities");
-        favRef=FirebaseDatabase.getInstance().getReference().child("favorite");
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(placesAdapter);
+        userId=mAuth.getCurrentUser().getUid();
+        listOfProgram=new ArrayList<>();
+        this.recyclerView=recyclerView;
+        this.progressDialog=progressDialog;
+        programAdapter=new ProgramOfPlaceAdapter(listOfProgram,context);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(programAdapter);
+        getData();
 
     }
-
-    FavoriteAdapter getPlacesAdapter() {
-        return placesAdapter;
+    ProgramOfPlaceAdapter getAdapter() {
+        return programAdapter;
     }
 
     void getData(){
-        listOfPlaces.clear();
-        favRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        progressDialog.setMessage("getting data ..");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.show();
+        programRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()){
+                    listOfProgram.clear();
                     for (DataSnapshot data:dataSnapshot.getChildren()) {
-                        //Log.e("FavoritePresenter",data.child("from").getValue()+"");
-                       // String from=data.child("from").getValue()+"";
-                      //  String isAdded=data.child("isAdded").getValue()+"";
-                        citiesRef.child(data.child("PlaceCity").getValue()+"")
+                        Log.e("ProgramPresenter",data.child("PlaceName").getValue()+"");
+                        Log.e("ProgramPresenter",data.child("PlaceCategory").getValue()+"");
+                        Log.e("ProgramPresenter",data.child("PlaceCity").getValue()+"");
+                        cityRef.child(data.child("PlaceCity").getValue()+"")
                                 .child(data.child("PlaceCategory").getValue()+"")
                                 .child(data.child("PlaceName").getValue()+"")
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        Log.e("FavoritePresenter",dataSnapshot.child("PlaceName").getValue()+"");
-                                        listOfPlaces.add(new PlaceModel(
+
+                                        listOfProgram.add(new PlaceModel(
                                                         (dataSnapshot.child("Image").getValue())
                                                         ,(dataSnapshot.child("PlaceName").getValue())
                                                         ,(dataSnapshot.child("PlaceDescription").getValue())
-                                                       // ,(dataSnapshot.child("DurationFrom").getValue())
+                                                        // ,(dataSnapshot.child("DurationFrom").getValue())
                                                         ,(dataSnapshot.child("DurationTo").getValue())
                                                         ,(dataSnapshot.child("Category").getValue())
                                                         ,(dataSnapshot.child("City").getValue())
                                                         ,(dataSnapshot.child("Address").getValue())
                                                         ,(dataSnapshot.child("Price").getValue())
-
                                                 )
                                         );
-                                        placesAdapter.notifyDataSetChanged();
+                                        programAdapter.notifyDataSetChanged();
                                     }
 
                                     @Override
@@ -86,31 +91,32 @@ class FavoritePresenter {
                     }
 
                 }
-
+                programAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         });
     }
     void likePlace(String placeName, String placeCity, String placeCategory){
-        citiesRef.child(placeCity).child(placeCategory).child(placeName).child(userId).setValue(userId);
+       cityRef.child(placeCity).child(placeCategory).child(placeName).child(userId).setValue(userId);
     }
     void addToFavorite(String placeName, String placeCity, String placeCategory) {
-        favRef.child(userId).child(placeName).child("PlaceName").setValue(placeName);
-        favRef.child(userId).child(placeName).child("PlaceCity").setValue(placeCity);
-        favRef.child(userId).child(placeName).child("PlaceCategory").setValue(placeCategory);
+        favoriteRef.child(userId).child(placeName).child("PlaceName").setValue(placeName);
+        favoriteRef.child(userId).child(placeName).child("PlaceCity").setValue(placeCity);
+        favoriteRef.child(userId).child(placeName).child("PlaceCategory").setValue(placeCategory);
         //  favoriteRef.child(userId).child(placeName).child("from").setValue(fromClass);
 
 
     }
     void removeFromFavorite(String placeName) {
-        favRef.child(userId).child(placeName).removeValue();
+        favoriteRef.child(userId).child(placeName).removeValue();
     }
 
     void removeLike(String placeName, String placeCity, String placeCategory) {
-        citiesRef.child(placeCity).child(placeCategory).child(placeName).child(userId).removeValue();
+       cityRef.child(placeCity).child(placeCategory).child(placeName).child(userId).removeValue();
     }
 }

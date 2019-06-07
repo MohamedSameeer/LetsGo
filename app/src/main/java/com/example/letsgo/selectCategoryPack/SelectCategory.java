@@ -3,17 +3,11 @@ package com.example.letsgo.selectCategoryPack;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.letsgo.Adminstrator.PushingData;
-import com.example.letsgo.MainActivity;
 import com.example.letsgo.R;
-import com.example.letsgo.Splash.Splash;
-import com.example.letsgo.categoryOfPlacePack.categoryOfPlace;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SelectCategory extends AppCompatActivity {
 

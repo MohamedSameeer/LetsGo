@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.letsgo.Adminstrator.CitiesName;
 import com.example.letsgo.Adminstrator.PushingData;
 
-import com.example.letsgo.MainActivity;
+
 import com.example.letsgo.R;
 import com.example.letsgo.Splash.Splash;
 import com.example.letsgo.selectCategoryPack.SelectCategory;
