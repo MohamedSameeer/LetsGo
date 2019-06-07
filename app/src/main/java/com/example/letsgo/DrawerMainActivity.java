@@ -15,7 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Country.CountryActivity;
+import com.example.letsgo.Event.EventFragment;
 import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.Program.ProgramFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
     FirebaseAuth mAuth;
     int fragmentType;
     MenuItem menuItem;
+
     NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
                 fragment=fCountry;
                 fragmentType=0;
                 break;
+            case R.id.nav_events:
+                fragment=new EventFragment();
+                fragmentType=4;
+                break;
             case R.id.nav_save:
                 fragment=fFavorite;
                 fragmentType=1;
@@ -70,6 +77,11 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_program:
                 fragment=new ProgramFragment();
                 fragmentType=2;
+                break;
+
+            case R.id.nav_contact_us:
+                fragment=new ContactUsActivity();
+                fragmentType=5;
                 break;
             case R.id.nav_logOut:
                 fragmentType=3;

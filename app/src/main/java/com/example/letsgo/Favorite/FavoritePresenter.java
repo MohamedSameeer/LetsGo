@@ -66,7 +66,7 @@ class FavoritePresenter {
                                                         (dataSnapshot.child("Image").getValue())
                                                         ,(dataSnapshot.child("PlaceName").getValue())
                                                         ,(dataSnapshot.child("PlaceDescription").getValue())
-                                                       // ,(dataSnapshot.child("DurationFrom").getValue())
+                                                        ,(dataSnapshot.child("DurationFrom").getValue())
                                                         ,(dataSnapshot.child("DurationTo").getValue())
                                                         ,(dataSnapshot.child("Category").getValue())
                                                         ,(dataSnapshot.child("City").getValue())

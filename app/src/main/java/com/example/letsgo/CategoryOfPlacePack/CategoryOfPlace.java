@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
+import com.example.letsgo.Container;
+import com.example.letsgo.DrawerMainActivity;
 import com.example.letsgo.Favorite.Favorite;
 
 import com.example.letsgo.Place.PlaceActivity;
@@ -124,7 +126,8 @@ public class CategoryOfPlace extends AppCompatActivity {
     }
 
     private void sendUserToFavoriteActivity() {
-        Intent i = new Intent (this, Favorite.class);
+        Intent i = new Intent (this, Container.class);
+        i.putExtra("flag",1);
         startActivity(i);
     }
 
@@ -135,7 +138,8 @@ public class CategoryOfPlace extends AppCompatActivity {
 
     private void sendUserToContactUsActivity() {
 
-        Intent i = new Intent (this, ContactUsActivity.class);
+        Intent i = new Intent (this, Container.class);
+        i.putExtra("flag",2);
         startActivity(i);
 
     }

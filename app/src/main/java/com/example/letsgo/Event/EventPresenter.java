@@ -1,4 +1,4 @@
-package com.example.letsgo.Program;
+package com.example.letsgo.Event;
 
 
 import android.app.ProgressDialog;
@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.example.letsgo.Program.ProgramOfPlaceAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,33 +19,33 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-class ProgramPresenter {
+class EventPresenter {
 
-    private DatabaseReference programRef,cityRef,favoriteRef;
-    private List<PlaceModel>listOfProgram;
+    private DatabaseReference eventRef,cityRef,favoriteRef;
+    private List<PlaceModel>listOfEvent;
     private RecyclerView recyclerView;
-    private  ProgramOfPlaceAdapter programAdapter;
+    private EventOfPlaceAdapter eventAdapter;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
     private String userId;
-    ProgramPresenter(RecyclerView recyclerView, ProgressDialog progressDialog, Context context){
+    EventPresenter(RecyclerView recyclerView, ProgressDialog progressDialog, Context context){
 
-        programRef= FirebaseDatabase.getInstance().getReference().child("Program");
+        eventRef= FirebaseDatabase.getInstance().getReference().child("Event");
         cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
         favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
         mAuth=FirebaseAuth.getInstance();
         userId=mAuth.getCurrentUser().getUid();
-        listOfProgram=new ArrayList<>();
+        listOfEvent=new ArrayList<>();
         this.recyclerView=recyclerView;
         this.progressDialog=progressDialog;
-        programAdapter=new ProgramOfPlaceAdapter(listOfProgram,context);
+        eventAdapter=new EventOfPlaceAdapter(listOfEvent,context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(programAdapter);
+        recyclerView.setAdapter(eventAdapter);
         getData();
 
     }
-    ProgramOfPlaceAdapter getAdapter() {
-        return programAdapter;
+    EventOfPlaceAdapter getAdapter() {
+        return eventAdapter;
     }
 
     void getData(){
@@ -52,11 +53,11 @@ class ProgramPresenter {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
-        programRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()){
-                    listOfProgram.clear();
+                    listOfEvent.clear();
                     for (DataSnapshot data:dataSnapshot.getChildren()) {
                         Log.e("ProgramPresenter",data.child("PlaceName").getValue()+"");
                         Log.e("ProgramPresenter",data.child("PlaceCategory").getValue()+"");
@@ -68,7 +69,7 @@ class ProgramPresenter {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                        listOfProgram.add(new PlaceModel(
+                                        listOfEvent.add(new PlaceModel(
                                                         (dataSnapshot.child("Image").getValue())
                                                         ,(dataSnapshot.child("PlaceName").getValue())
                                                         ,(dataSnapshot.child("PlaceDescription").getValue())
@@ -80,7 +81,7 @@ class ProgramPresenter {
                                                         ,(dataSnapshot.child("Price").getValue())
                                                 )
                                         );
-                                        programAdapter.notifyDataSetChanged();
+                                        eventAdapter.notifyDataSetChanged();
                                     }
 
                                     @Override
@@ -91,7 +92,7 @@ class ProgramPresenter {
                     }
 
                 }
-                programAdapter.notifyDataSetChanged();
+                eventAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
             }
 

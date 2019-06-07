@@ -15,7 +15,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".selectCategoryPack.SelectCategory">
-
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/places_tool_bar"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#020F22"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/bar_title"
+                    android:textColor="#fff"
+                    android:textSize="32sp"
+                    tools:text="Favorite"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
         <ImageView
             android:id="@+id/img_categoryMain"
             android:layout_width="match_parent"
@@ -24,7 +48,7 @@
             android:src="@drawable/phototest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/places_tool_bar" />
 
         <ImageView
             android:id="@+id/eventImgCategory"

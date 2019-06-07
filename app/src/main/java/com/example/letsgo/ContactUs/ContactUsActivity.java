@@ -1,11 +1,16 @@
 package com.example.letsgo.ContactUs;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.QuickContactBadge;
@@ -22,7 +27,7 @@ import ai.api.model.AIError;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 
-public class ContactUsActivity extends AppCompatActivity implements ai.api.AIListener {
+public class ContactUsActivity extends Fragment implements ai.api.AIListener {
 
     EditText messageBar;
     Button sendButton;
@@ -32,16 +37,18 @@ public class ContactUsActivity extends AppCompatActivity implements ai.api.AILis
     public static final String TAG = ContactUsActivity.class.getName();
     private AIService aiService;
     RecyclerView recyclerView;
+    View view;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_us);
+        view = inflater.inflate(R.layout.activity_contact_us, container, false);
         //Dialogflow config
         final AIConfiguration config = new AIConfiguration("87262c1dc1c244278746fe7a157c8fe5", AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
-        aiService = AIService.getService(this, config);
+        aiService = AIService.getService(view.getContext(), config);
         aiService.setListener(this);
-        final AIDataService aiDataService = new AIDataService(this,config);
+        final AIDataService aiDataService = new AIDataService(view.getContext(),config);
         final AIRequest aiRequest = new AIRequest();
 
         intializeFields();
@@ -61,15 +68,15 @@ public class ContactUsActivity extends AppCompatActivity implements ai.api.AILis
             }
         });
 
-
+        return  view;
     }
 
     private void intializeFields() {
 
-        messageBar = findViewById(R.id.chat_et);
-        sendButton = findViewById(R.id.send_button);
-        recyclerView = findViewById(R.id.contact_us_recyclerView);
-        contactUsPresenter = new ContactUsPresenter(recyclerView,getApplicationContext());
+        messageBar = view.findViewById(R.id.chat_et);
+        sendButton = view.findViewById(R.id.send_button);
+        recyclerView =view.findViewById(R.id.contact_us_recyclerView);
+        contactUsPresenter = new ContactUsPresenter(recyclerView,view.getContext());
         messageList=contactUsPresenter.getMessageList();
 
 

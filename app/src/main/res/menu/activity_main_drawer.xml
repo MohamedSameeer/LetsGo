@@ -9,10 +9,10 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
         <item
-            android:id="@+id/nav_categroies"
-            android:icon="@drawable/ic_favorite_black_24dp"
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_card_giftcard_black_24dp"
 
-            android:title="Categories" />
+            android:title="Events" />
         <item
             android:id="@+id/nav_save"
             android:icon="@drawable/ic_favorite_black_24dp"
@@ -25,14 +25,10 @@
 
         <item
             android:id="@+id/nav_program"
-            android:icon="@drawable/ic_favorite_black_24dp"
+            android:icon="@drawable/ic_airport_shuttle_black_24dp"
 
             android:title="Programs" />
-        <item
-            android:id="@+id/find_sellers_nav_menu"
-            android:icon="@drawable/ic_favorite_black_24dp"
 
-            android:title="find sellers" />
 
     </group>
 
@@ -40,8 +36,8 @@
         <menu>
 
             <item
-                android:id="@+id/nav_contct_us"
-                android:icon="@drawable/ic_favorite_black_24dp"
+                android:id="@+id/nav_contact_us"
+                android:icon="@drawable/ic_message_black_24dp"
 
                 android:title="contact us" />
             <item

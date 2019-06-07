@@ -1,4 +1,4 @@
-package com.example.letsgo.Favorite;
+package com.example.letsgo.Event;
 
 public class PlaceModel {
 
