@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".selectCategoryPack.SelectCategory"
+    >
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/places_tool_bar"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#020F22"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/bar_title"
+                    android:textColor="#fff"
+                    android:textSize="32sp"
+                    tools:text="Favorite"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:id="@+id/img_categoryMain"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/phototest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/places_tool_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_categoryMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:id="@+id/cinemaImgCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="#0C1449"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/cinema_img"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Entertainment"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@+id/cinemaImgCategory"
+                    app:layout_constraintEnd_toEndOf="@+id/cinemaImgCategory"
+                    app:layout_constraintBottom_toBottomOf="@+id/cinemaImgCategory"
+                  />
+
+
+
+                <ImageView
+                    android:id="@+id/restaurantImgCategory"
+                    android:layout_width="0dp"
+                    android:src="@drawable/rest"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#0B4EB9"
+
+                    app:layout_constraintEnd_toEndOf="@id/cinemaImgCategory"
+                    app:layout_constraintStart_toStartOf="@id/cinemaImgCategory"
+                    app:layout_constraintTop_toBottomOf="@id/cinemaImgCategory" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Restaurants "
+                    android:textColor="#fff"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurantImgCategory"
+                    app:layout_constraintEnd_toEndOf="@+id/restaurantImgCategory"
+                    app:layout_constraintStart_toStartOf="@+id/restaurantImgCategory"
+                     />
+
+                <ImageView
+                    android:id="@+id/natureImgCategory"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#0B4EB9"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/natural"
+
+                    app:layout_constraintLeft_toLeftOf="@id/restaurantImgCategory"
+                    app:layout_constraintRight_toRightOf="@id/restaurantImgCategory"
+                    app:layout_constraintTop_toBottomOf="@id/restaurantImgCategory"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nature Reserves"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/natureImgCategory"
+                    app:layout_constraintEnd_toEndOf="@+id/natureImgCategory"
+                    app:layout_constraintStart_toStartOf="@+id/natureImgCategory"
+                    app:layout_constraintVertical_bias="0.9" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp">
+
+                <ImageView
+                    android:id="@+id/historicalImgCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/hist"
+                    android:background="#0B4EB9"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Historical places"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/historicalImgCategory"
+                    app:layout_constraintEnd_toEndOf="@+id/historicalImgCategory"
+                    app:layout_constraintStart_toStartOf="@+id/historicalImgCategory"
+                    app:layout_constraintVertical_bias="0.9" />
+
+
+                <ImageView
+                    android:id="@+id/hotelsImgCategory"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="200dp"
+                    android:background="#0C1449"
+                    android:src="@drawable/hotel"
+                    app:layout_constraintEnd_toEndOf="@id/historicalImgCategory"
+                    app:layout_constraintStart_toStartOf="@id/historicalImgCategory"
+                    app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hotels &amp; Resorts"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/hotelsImgCategory"
+                    app:layout_constraintEnd_toEndOf="@+id/hotelsImgCategory"
+                    app:layout_constraintStart_toStartOf="@+id/hotelsImgCategory"
+                    app:layout_constraintVertical_bias="0.9" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

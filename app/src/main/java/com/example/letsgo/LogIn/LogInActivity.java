@@ -22,6 +22,7 @@ public class LogInActivity extends AppCompatActivity {
     private TextView registerTextView;
     private static Context context;
     private ProgressBar progressBarLogIn;
+    LoginPresenter loginPresenter;
     private ProgressDialog progressDialog;
 
 
@@ -29,9 +30,9 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_);
-        context=getBaseContext();
+        context=getApplicationContext();
         initalization();
-        final LoginPresenter loginPresenter=new LoginPresenter(getContext(),progressBarLogIn);
+        loginPresenter=new LoginPresenter(getContext(),progressBarLogIn);
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

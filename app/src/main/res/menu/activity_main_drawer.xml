@@ -17,17 +17,17 @@
             android:id="@+id/nav_save"
             android:icon="@drawable/ic_favorite_black_24dp"
 
-            android:title="Saved" />
+            android:title="Favorite" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_favorite_black_24dp"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="profile" />
 
         <item
             android:id="@+id/nav_program"
             android:icon="@drawable/ic_airport_shuttle_black_24dp"
 
-            android:title="Programs" />
+            android:title="Trips" />
 
 
     </group>
@@ -42,7 +42,7 @@
                 android:title="contact us" />
             <item
                 android:id="@+id/nav_logOut"
-                android:icon="@drawable/ic_favorite_black_24dp"
+                android:icon="@drawable/ic_power_settings_new_black_24dp"
 
                 android:title="Logout" />
         </menu>

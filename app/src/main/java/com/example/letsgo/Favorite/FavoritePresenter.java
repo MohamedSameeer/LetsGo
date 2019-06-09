@@ -1,5 +1,6 @@
 package com.example.letsgo.Favorite;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ class FavoritePresenter {
     private DatabaseReference citiesRef,favRef,eventRef;
     private String userId;
     private ArrayList<PlaceModel> listOfPlaces;
+    private ProgressDialog progressDialog;
     FavoritePresenter(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager, Context context){
 
         listOfPlaces=new ArrayList<>();
@@ -35,7 +37,7 @@ class FavoritePresenter {
         eventRef=FirebaseDatabase.getInstance().getReference().child("events");
         citiesRef= FirebaseDatabase.getInstance().getReference().child("cities");
         favRef=FirebaseDatabase.getInstance().getReference().child("favorite");
-
+        progressDialog=new ProgressDialog(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(placesAdapter);
 
@@ -46,11 +48,16 @@ class FavoritePresenter {
     }
 
     void getData(){
-        listOfPlaces.clear();
+        progressDialog.setMessage("getting data ..");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.show();
+
         favRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()){
+                    listOfPlaces.clear();
                     for (DataSnapshot data:dataSnapshot.getChildren()) {
                         //Log.e("FavoritePresenter",data.child("from").getValue()+"");
                        // String from=data.child("from").getValue()+"";
@@ -76,6 +83,7 @@ class FavoritePresenter {
                                                 )
                                         );
                                         placesAdapter.notifyDataSetChanged();
+
                                     }
 
                                     @Override
@@ -86,12 +94,14 @@ class FavoritePresenter {
                     }
 
                 }
+                placesAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         });
     }

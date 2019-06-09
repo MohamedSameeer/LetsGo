@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.letsgo.Country.CountryActivity;
 
+import com.example.letsgo.DrawerMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -71,7 +72,7 @@ public class LoginPresenter {
     }
 
     private void enterToHome(){
-        Intent i=new Intent(context, CountryActivity.class);
+        Intent i=new Intent(context, DrawerMainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 

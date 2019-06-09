@@ -19,17 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
             <TextView
                 android:id="@+id/bar_title"
                 android:textColor="#fff"
                 android:textSize="32sp"
                 tools:text="Favorite"
-                android:gravity="center"
-                android:paddingStart="-56dp"
+                android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>

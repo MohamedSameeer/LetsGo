@@ -23,7 +23,6 @@
         <activity android:name=".selectCategoryPack.SelectCategory" />
         <activity android:name=".Reviews.ReviewActivity" />
         <activity android:name=".Place.PlaceActivity" />
-        <activity android:name=".ContactUs.ContactUsActivity" />
         <activity android:name=".CategoryOfPlacePack.CategoryOfPlace" />
         <activity android:name=".Splash.Splash" />
         <activity android:name=".Adminstrator.PushingData" />

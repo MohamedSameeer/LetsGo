@@ -1,5 +1,6 @@
 package com.example.letsgo.selectCategoryPack;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +16,13 @@ import com.example.letsgo.Container;
 import com.example.letsgo.R;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class SelectCategory extends AppCompatActivity {
 
     private ImageView eventImgCategory,historicalImgCategory,resturantImgCategory,entertainmentImgCategory
-            ,hotelsImgCategory,natureImgCategory;
+            ,hotelsImgCategory,natureImgCategory,categoryImg;
    private  String adminId;
     private FirebaseAuth mAuth;
     TextView nav_title;
@@ -29,17 +32,11 @@ public class SelectCategory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_main);
+        setContentView(R.layout.category);
         initlizeFields();
         setSupportActionBar(toolbar);
         nav_title.setText(city);
-        eventImgCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Event",city);
-            }
-        });
-
+        presenter.getCityImage();
 
         historicalImgCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,17 +79,18 @@ public class SelectCategory extends AppCompatActivity {
     //connect id java with xml
     private void initlizeFields()
     {
+        mAuth=FirebaseAuth.getInstance();
         nav_title=findViewById(R.id.bar_title);
-        eventImgCategory=findViewById(R.id.eventImgCategory);
+        categoryImg=findViewById(R.id.img_categoryMain);
         historicalImgCategory=findViewById(R.id.historicalImgCategory);
-        resturantImgCategory=findViewById(R.id.resturantImgCategory);
+        resturantImgCategory=findViewById(R.id.restaurantImgCategory);
         entertainmentImgCategory=findViewById(R.id.cinemaImgCategory);
         hotelsImgCategory=findViewById(R.id.hotelsImgCategory);
         natureImgCategory=findViewById(R.id.natureImgCategory);
-        presenter=new SelecetCategoryPresenter(this);
         Intent i = getIntent();
          city = i.getStringExtra("city");
         toolbar=findViewById(R.id.places_tool_bar);
+        presenter=new SelecetCategoryPresenter(this,city,categoryImg, new ProgressDialog(this));
     }
 
 

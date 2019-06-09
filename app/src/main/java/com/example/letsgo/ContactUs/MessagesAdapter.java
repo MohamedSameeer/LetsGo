@@ -43,8 +43,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
          viewHolder.sender.setVisibility(View.VISIBLE);
          viewHolder.sender.setText(messageList.get(i).getMessage());
          Log.e("message",messageList.get(i).getMessage());
-
-
      }
 
      else{

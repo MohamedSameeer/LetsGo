@@ -51,7 +51,7 @@ class EventPresenter {
     void getData(){
         progressDialog.setMessage("getting data ..");
         progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

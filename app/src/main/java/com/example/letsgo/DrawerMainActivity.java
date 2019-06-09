@@ -1,6 +1,7 @@
 package com.example.letsgo;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.internal.NavigationMenuView;
@@ -20,6 +21,7 @@ import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.Event.EventFragment;
 import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.Program.ProgramFragment;
+import com.example.letsgo.Splash.Splash;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class DrawerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,13 +31,15 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
     FirebaseAuth mAuth;
     int fragmentType;
     MenuItem menuItem;
+    Toolbar toolbar;
 
     NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+         toolbar= findViewById(R.id.toolbar);
+        toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
         mAuth=FirebaseAuth.getInstance();
@@ -52,6 +56,8 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 fragment).commit();
         navigationView.getMenu().getItem(0).setChecked(true);
+
+
     }
 
     @Override
@@ -65,27 +71,36 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_home:
                 fragment=fCountry;
                 fragmentType=0;
+                toolbar.setTitle("Home");
                 break;
             case R.id.nav_events:
                 fragment=new EventFragment();
                 fragmentType=4;
+                toolbar.setTitle("Event");
                 break;
             case R.id.nav_save:
                 fragment=fFavorite;
                 fragmentType=1;
+                toolbar.setTitle("Favorite");
                 break;
             case R.id.nav_program:
                 fragment=new ProgramFragment();
                 fragmentType=2;
+                toolbar.setTitle("Trips");
                 break;
 
             case R.id.nav_contact_us:
                 fragment=new ContactUsActivity();
                 fragmentType=5;
+                toolbar.setTitle("Contact us");
                 break;
             case R.id.nav_logOut:
                 fragmentType=3;
                 mAuth.signOut();
+                Intent i=new Intent(this, Splash.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                break;
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -100,6 +115,7 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             if(fragmentType!=0) {
                 fragment = fCountry;
+                toolbar.setTitle("Home");
                 navigationView.getMenu().getItem(0).setChecked(true);
                 fragmentType=0;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

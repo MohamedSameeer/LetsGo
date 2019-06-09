@@ -3,7 +3,6 @@ package com.example.letsgo.ContactUs;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +32,6 @@ public class ContactUsActivity extends Fragment implements ai.api.AIListener {
     Button sendButton;
     ContactUsPresenter contactUsPresenter;
     String message,uid,aid;
-    List<Message> messageList;
     public static final String TAG = ContactUsActivity.class.getName();
     private AIService aiService;
     RecyclerView recyclerView;
@@ -44,6 +42,7 @@ public class ContactUsActivity extends Fragment implements ai.api.AIListener {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.activity_contact_us, container, false);
         //Dialogflow config
+        Log.e(TAG,"enter to class 1");
         final AIConfiguration config = new AIConfiguration("87262c1dc1c244278746fe7a157c8fe5", AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
         aiService = AIService.getService(view.getContext(), config);
@@ -77,7 +76,7 @@ public class ContactUsActivity extends Fragment implements ai.api.AIListener {
         sendButton = view.findViewById(R.id.send_button);
         recyclerView =view.findViewById(R.id.contact_us_recyclerView);
         contactUsPresenter = new ContactUsPresenter(recyclerView,view.getContext());
-        messageList=contactUsPresenter.getMessageList();
+
 
 
     }

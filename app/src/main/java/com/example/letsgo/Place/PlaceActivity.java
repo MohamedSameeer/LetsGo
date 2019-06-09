@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
+import com.example.letsgo.Container;
 import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.R;
 import com.example.letsgo.Reviews.ReviewActivity;
@@ -129,7 +130,8 @@ public class PlaceActivity extends AppCompatActivity  {
     }
 
     private void sendUserToFavoritectivity() {
-        Intent i = new Intent (this, Favorite.class);
+        Intent i = new Intent (this, Container.class);
+        i.putExtra("flag",1);
         startActivity(i);
     }
 
@@ -140,7 +142,8 @@ public class PlaceActivity extends AppCompatActivity  {
 
     private void sendUserToContactUsActivity() {
 
-        Intent i = new Intent (this, ContactUsActivity.class);
+        Intent i = new Intent (this, Container.class);
+        i.putExtra("flag",2);
         startActivity(i);
 
     }

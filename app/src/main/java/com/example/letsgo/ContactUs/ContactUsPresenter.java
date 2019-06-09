@@ -34,30 +34,24 @@ public  class ContactUsPresenter {
 private RecyclerView view;
     public static final String TAG = ContactUsPresenter.class.getName();
     //private Message messageObject;
-    private ArrayList<Message> messageList;
+    private List<Message> messageList;
     private Message currentMessage;
     Context context;
     final static String Aid = "owQrAb02Z7WJ2u0ER6uPnqoNZum2";
 
-    public ContactUsPresenter(RecyclerView view, Context context) {
+    ContactUsPresenter(RecyclerView view, Context context) {
         mAuth = FirebaseAuth.getInstance();
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-            }
-        });
         Uid = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
         uIdRef = firebaseDatabase.getReference().child("Messages").child(Uid);
         currentMessage = new Message();
-        messageList = new ArrayList<>();
+        messageList = getMessageList();
         this.view=view;
         this.context=context;
-
         messagesAdapter=new MessagesAdapter(messageList, FirebaseAuth.getInstance().getCurrentUser().getUid());
         view.setLayoutManager(new LinearLayoutManager(context));
         view.setAdapter(messagesAdapter);
+
     }
 
 
@@ -81,6 +75,10 @@ private RecyclerView view;
      static void uploadMessageToFireBase(final String message,final AIDataService aiDataService, final AIRequest aiRequest) {
 
         aiRequest.setQuery(message);
+         mRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
+         mRef.child("content").setValue(message);
+         mRef.child("from").setValue(Uid);
+         mRef.child("to").setValue(Aid);
          new AsyncTask<AIRequest,Void, AIResponse>(){
 
             @Override
@@ -88,6 +86,7 @@ private RecyclerView view;
                 //final AIRequest request = aiRequests[0];
                 try {
                     final AIResponse response = aiDataService.request(aiRequest);
+                    Log.e(TAG,"enter to class 2");
                     return response;
                 } catch (AIServiceException e) {
                     Log.e(TAG,e.getMessage());
@@ -100,12 +99,9 @@ private RecyclerView view;
 
                     Result result = response.getResult();
                     String reply = result.getFulfillment().getSpeech();
-                    mRef = firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
 
                     Log.e("speeeeeeech",reply);
-                    mRef.child("content").setValue(message);
-                    mRef.child("from").setValue(Uid);
-                    mRef.child("to").setValue(Aid);
+
                     botMsg=firebaseDatabase.getReference().child("Messages").child(Uid).child(Aid).push();
                     botMsg.child("content").setValue(reply);
                     botMsg.child("from").setValue("CustomerService");
@@ -118,11 +114,13 @@ private RecyclerView view;
 
     }
 
-    public List<Message> getMessageList() {
+     List<Message> getMessageList() {
+        final List<Message>message=new ArrayList<>();
+         Log.e(TAG,"enter to class 2 getMessageList");
         uIdRef.child(Aid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                messageList.clear();
+                message.clear();
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                   /* currentMessage.setMessage(d.child("content").getValue().toString());
                     currentMessage.setFrom(d.child("from").getValue().toString());
@@ -131,7 +129,7 @@ private RecyclerView view;
 
 
                   if( d.hasChild("content") && d.hasChild("from") && d.hasChild("to") ){
-                      messageList.add(new Message(d.child("content").getValue().toString(),
+                      message.add(new Message(d.child("content").getValue().toString(),
                               d.child("from").getValue().toString()
                               , d.child("to").getValue().toString()));
                   }
@@ -155,10 +153,7 @@ private RecyclerView view;
             }
         });
         
-        return messageList;
+        return message;
 
     }
-
-
-
 }

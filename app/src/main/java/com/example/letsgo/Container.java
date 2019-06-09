@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Container extends AppCompatActivity {
     Fragment fragment;
+   final static ContactUsActivity fragmentContactUs=new ContactUsActivity();
+   final static Favorite fragmentFavorite=new Favorite();
     int flag;
     Toolbar toolbar;
     TextView title;
@@ -35,12 +37,12 @@ public class Container extends AppCompatActivity {
         flag=intent.getIntExtra("flag",0);
 
         if(flag==1){
-            fragment=new Favorite();
+            fragment=fragmentFavorite;
             title.setText("Favorite");
         }
         else {
-            fragment = new ContactUsActivity();
-            title.setText("Chat");
+            fragment = fragmentContactUs;
+            title.setText("Contact us");
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,
                 fragment).commit();
@@ -62,10 +64,12 @@ public class Container extends AppCompatActivity {
 
             case R.id.favoritee:
                 sendUserToFavoriteActivity();
+                title.setText("Favorite");
                 break;
 
             case R.id.contact_us:
                 sendUserToContactUsActivity();
+                title.setText("Contact us");
                 break;
             case R.id.signOut:
                 signOut();
@@ -74,13 +78,14 @@ public class Container extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,
+                fragment).commit();
         return true;
     }
 
     private void sendUserToFavoriteActivity() {
-        Intent i = new Intent (this, Container.class);
-        i.putExtra("flag",1);
-        startActivity(i);
+        fragment=fragmentFavorite;
+
     }
 
     private void signOut() {
@@ -89,10 +94,7 @@ public class Container extends AppCompatActivity {
     }
 
     private void sendUserToContactUsActivity() {
-
-        Intent i = new Intent (this, Container.class);
-        i.putExtra("flag",2);
-        startActivity(i);
+        fragment = fragmentContactUs;
 
     }
     private void enterToSplash(){
