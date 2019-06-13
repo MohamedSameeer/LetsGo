@@ -2,6 +2,7 @@ package com.example.letsgo.Program;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.letsgo.CategoryOfPlacePack.CategoryOfPlaceAdapter;
+import com.example.letsgo.Place.PlaceActivity;
 import com.example.letsgo.R;
 
 import java.util.List;
@@ -50,6 +52,26 @@ public class ProgramFragment extends Fragment {
                     presenter.removeLike(lst.get(position).getName().toString(), lst.get(position).getCity().toString()
                             , lst.get(position).getCategory().toString());
                 }
+            }
+        });
+
+        adapter.setOnItemClickListener(new ProgramOfPlaceAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent i=new Intent(view.getContext(), PlaceActivity.class);
+                i.putExtra("img",""+ adapter.getListOfPlaces().get(position).getImg());
+                i.putExtra("name",""+ adapter.getListOfPlaces().get(position).getName());
+                i.putExtra("desc",""+ adapter.getListOfPlaces().get(position).getDescription());
+                i.putExtra("address",""+ adapter.getListOfPlaces().get(position).getAddress());
+                i.putExtra("city",""+ adapter.getListOfPlaces().get(position).getCity());
+                i.putExtra("category",""+adapter.getListOfPlaces().get(position).getCategory());
+                i.putExtra("price",""+adapter.getListOfPlaces().get(position).getPrice());
+                i.putExtra("from",""+ adapter.getListOfPlaces().get(position).getDurationFrom());
+                i.putExtra("to",""+ adapter.getListOfPlaces().get(position).getDurationTo());
+                i.putExtra("isBook",true);
+                //  i.putExtra("fromClass","home");
+
+                startActivity(i);
             }
         });
         return view;

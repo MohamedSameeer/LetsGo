@@ -1,5 +1,6 @@
 package com.example.letsgo.Splash;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ public class Splash extends AppCompatActivity {
     SplashPresenter splashPresenter;
     GoogleSignInOptions gso;
     GoogleSignInClient mGoogleSignInClient;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class Splash extends AppCompatActivity {
     }
 
     private void initalization(){
+        progressDialog=new ProgressDialog(this);
         logInBtnSplash=findViewById(R.id.logInBtnSplash);
         registerBtnSplash=findViewById(R.id.registerBtnSplash);
         signInGoogle=findViewById(R.id.signInGoogleSplash);
@@ -82,6 +85,6 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        splashPresenter.loginWithGoogleAccount(requestCode,RC_SIGN_IN,data);
+        splashPresenter.loginWithGoogleAccount(progressDialog,requestCode,RC_SIGN_IN,data);
     }
 }

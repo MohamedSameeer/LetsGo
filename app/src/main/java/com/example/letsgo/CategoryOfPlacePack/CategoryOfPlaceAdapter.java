@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -72,6 +73,26 @@ public class CategoryOfPlaceAdapter extends RecyclerView.Adapter<CategoryOfPlace
             viewHolder.progressBar.setVisibility(View.VISIBLE);
         }
         cityRef.child(item.getCity().toString()).child(item.getCategory().toString()).child(item.getName().toString())
+                .child("Rating").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int count=0;
+                            float rate=0,parse;
+                            for (DataSnapshot data:dataSnapshot.getChildren()) {
+                                    count++;
+                                parse=Float.parseFloat(data.child("rate").getValue().toString());
+                                    rate+=parse;
+                            }
+                            viewHolder.ratingBar.setRating(rate/count);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+        cityRef.child(item.getCity().toString()).child(item.getCategory().toString()).child(item.getName().toString())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -126,11 +147,12 @@ public class CategoryOfPlaceAdapter extends RecyclerView.Adapter<CategoryOfPlace
         private TextView duration;
         private TextView description;
         private ShineButton shineButton;
-
+        private RatingBar ratingBar;
         private ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ratingBar=itemView.findViewById(R.id.card_rate);
             imgPlace=itemView.findViewById(R.id.img);
             namePlace=itemView.findViewById(R.id.nameOfPlaces);
             durationTo=itemView.findViewById(R.id.durationToOfPlaces);

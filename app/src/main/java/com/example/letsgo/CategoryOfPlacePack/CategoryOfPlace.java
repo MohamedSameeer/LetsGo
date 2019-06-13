@@ -73,6 +73,7 @@ public class CategoryOfPlace extends AppCompatActivity {
                 i.putExtra("price",""+adapter.getListOfPlaces().get(position).getPrice());
                 i.putExtra("from",""+ adapter.getListOfPlaces().get(position).getDurationFrom());
                 i.putExtra("to",""+ adapter.getListOfPlaces().get(position).getDurationTo());
+                i.putExtra("isBook",false);
               //  i.putExtra("fromClass","home");
 
                 startActivity(i);

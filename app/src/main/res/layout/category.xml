@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#020F22"
+            android:background="#0f4fa6"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -31,7 +31,7 @@
                 android:weightSum="2">
                 <TextView
                     android:id="@+id/bar_title"
-                    android:textColor="#fff"
+                    android:textColor="#b2866a"
                     android:textSize="32sp"
                     tools:text="Favorite"
                     android:gravity="center"
@@ -67,11 +67,11 @@
                     android:id="@+id/cinemaImgCategory"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="#0C1449"
+                    android:background="#ffd8a1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/cinema_img"
+                    android:src="@drawable/ent"
                     />
 
                 <TextView
@@ -92,10 +92,10 @@
                 <ImageView
                     android:id="@+id/restaurantImgCategory"
                     android:layout_width="0dp"
-                    android:src="@drawable/rest"
+                    android:src="@drawable/res"
                     android:layout_height="200dp"
                     android:layout_marginTop="8dp"
-                    android:background="#0B4EB9"
+                    android:background="#f0af93"
 
                     app:layout_constraintEnd_toEndOf="@id/cinemaImgCategory"
                     app:layout_constraintStart_toStartOf="@id/cinemaImgCategory"
@@ -120,9 +120,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_height="200dp"
                     android:layout_marginBottom="8dp"
-                    android:background="#0B4EB9"
+                    android:background="#8D6155"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/natural"
+                    android:src="@drawable/na"
 
                     app:layout_constraintLeft_toLeftOf="@id/restaurantImgCategory"
                     app:layout_constraintRight_toRightOf="@id/restaurantImgCategory"
@@ -154,8 +154,8 @@
                     android:id="@+id/historicalImgCategory"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:src="@drawable/hist"
-                    android:background="#0B4EB9"
+                    android:src="@drawable/his"
+                    android:background="#efc3ff"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -181,8 +181,8 @@
                     android:layout_width="0dp"
                     android:layout_marginTop="8dp"
                     android:layout_height="200dp"
-                    android:background="#0C1449"
-                    android:src="@drawable/hotel"
+                    android:background="#aefffe"
+                    android:src="@drawable/ho"
                     app:layout_constraintEnd_toEndOf="@id/historicalImgCategory"
                     app:layout_constraintStart_toStartOf="@id/historicalImgCategory"
                     app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"

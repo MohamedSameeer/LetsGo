@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Container;
@@ -26,14 +29,18 @@ import com.squareup.picasso.Picasso;
 
 public class PlaceActivity extends AppCompatActivity  {
 
-    TextView place_name,place_description;
+    TextView place_name,place_description,place_duration_to,place_duration_from,place_price,place_location;
     ImageView place_img;
+    Button book;
     ImageButton addToFavorite;
     Toolbar myToolbar;
     FirebaseAuth mAuth;
     RecyclerView reviewRecycler;
     Button showMore;
+    RatingBar ratingBar;
     String placeName,placeDescription,placeImage,placeTo,placeFrom,placeCity,placeCategory,placePrice,placeAddress,fromClass;
+    boolean isBook;
+    PlacePresenter placePresenter;
     FloatingActionButton floatingActionButton;
 
     @Override
@@ -42,12 +49,21 @@ public class PlaceActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_place);
 
         initialization();
-        final PlacePresenter placePresenter=new PlacePresenter(reviewRecycler,getApplicationContext());
+        placePresenter=new PlacePresenter(reviewRecycler,getApplicationContext());
         getData();
+        if(isBook)
+            book.setVisibility(View.VISIBLE);
+        else
+            book.setVisibility(View.GONE);
         placePresenter.getReviews(placeCity,placeCategory,placeName);
         setSupportActionBar(myToolbar);
         place_name.setText(placeName);
         place_description.setText(placeDescription);
+        place_duration_to.setText(placeTo);
+        place_duration_from.setText(placeFrom);
+        place_price.setText(placePrice);
+        place_location.setText(placeAddress);
+
         Picasso.get().load(placeImage).into(place_img);
        /* addToFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +71,14 @@ public class PlaceActivity extends AppCompatActivity  {
                 placePresenter.addToFavorite(placeName,placeCity,placeCategory,fromClass);
             }
         });*/
+
+       ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+           @Override
+           public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+               placePresenter.sendRate(rating,placeCity,placeCategory,placeName);
+               Toast.makeText(PlaceActivity.this, ""+rating, Toast.LENGTH_SHORT).show();
+           }
+       });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +86,20 @@ public class PlaceActivity extends AppCompatActivity  {
 
             }
         });
-
-
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        float rate=ratingBar.getRating();
+        Log.e("PlaceActivity",rate+"");
+        savedInstanceState.putFloat("rate",rate);
+        Toast.makeText(this, ""+rate, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Toast.makeText(this, ""+savedInstanceState.getFloat("rate"), Toast.LENGTH_SHORT).show();
+        ratingBar.setRating(savedInstanceState.getFloat("rate"));
     }
 
     private void sendIntent() {
@@ -81,12 +117,17 @@ public class PlaceActivity extends AppCompatActivity  {
         place_name=findViewById(R.id.main_place_name);
         place_description=findViewById(R.id.main_place_description);
         place_img=findViewById(R.id.main_place_img);
+        place_duration_from=findViewById(R.id.duration_from);
+        place_duration_to=findViewById(R.id.duration_to);
+        place_price=findViewById(R.id.price);
+        place_location=findViewById(R.id.location);
         myToolbar=findViewById(R.id.place_toolbar);
         //addToFavorite=findViewById(R.id.addToFavorite);
         mAuth=FirebaseAuth.getInstance();
         reviewRecycler = findViewById(R.id.reviews_container);
-        showMore=findViewById(R.id.size_button);
         floatingActionButton = findViewById(R.id.floatingActionButton2);
+        book=findViewById(R.id.book);
+        ratingBar=findViewById(R.id.rating_bar);
     }
     private void getData(){
         Intent i=getIntent();
@@ -100,6 +141,8 @@ public class PlaceActivity extends AppCompatActivity  {
         placeFrom= i.getStringExtra("from");
         placeTo= i.getStringExtra("to");
         fromClass=i.getStringExtra("fromClass");
+        isBook=i.getBooleanExtra("isBook",false);
+        placePresenter.getRate(ratingBar, placeCity,placeCategory,placeName);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

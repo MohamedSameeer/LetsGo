@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.RatingBar;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,11 +23,14 @@ public class PlacePresenter {
     private ReviewRecyclerView reviewRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
+    private   FirebaseAuth mAuth;
     private static boolean isAdded=true;
+    private DatabaseReference cityRef;
     ArrayList<ReviewModel> arrayList; ReviewModel current;
     PlacePresenter(RecyclerView recyclerView, Context context){
         favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        cityRef=   FirebaseDatabase.getInstance().getReference().child("cities");
+        mAuth = FirebaseAuth.getInstance();
         arrayList = new ArrayList();
         this.recyclerView=recyclerView;
         linearLayoutManager=new LinearLayoutManager(context);
@@ -81,5 +87,33 @@ public class PlacePresenter {
             }
         });
 
+    }
+
+     void sendRate(float ratting,String placeCity,String placeCategory, String placeName) {
+         cityRef.child(placeCity).child(placeCategory).child(placeName)
+                    .child("Rating").child(userId).child("rate").setValue(ratting);
+
+    }
+
+     void getRate(final RatingBar ratingBar, String placeCity, String placeCategory, String placeName) {
+        cityRef.child(placeCity).child(placeCategory).child(placeName)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.e("PlacePresenter",dataSnapshot+"");
+                        if(dataSnapshot.hasChild("Rating")&&dataSnapshot.child("Rating").hasChild(userId)){
+                            {
+                                String rating=dataSnapshot.child("Rating").child(userId).child("rate").getValue().toString();
+                                float rate=Float.parseFloat(rating);
+                                ratingBar.setRating(rate);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 }
