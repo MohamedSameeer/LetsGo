@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class SelectCategory extends AppCompatActivity {
 
     private ImageView eventImgCategory,historicalImgCategory,resturantImgCategory,entertainmentImgCategory
-            ,hotelsImgCategory,natureImgCategory,categoryImg;
+            ,hotelsImgCategory,natureImgCategory,categoryImg,eventImg,tripImg;
    private  String adminId;
     private FirebaseAuth mAuth;
     TextView nav_title;
@@ -74,6 +74,20 @@ public class SelectCategory extends AppCompatActivity {
             }
         });
 
+        tripImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sendUserToSelectedCategory("Trips",city);
+            }
+        });
+
+        eventImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sendUserToSelectedCategory("Event",city);
+            }
+        });
+
     }
 
     //connect id java with xml
@@ -87,6 +101,8 @@ public class SelectCategory extends AppCompatActivity {
         entertainmentImgCategory=findViewById(R.id.cinemaImgCategory);
         hotelsImgCategory=findViewById(R.id.hotelsImgCategory);
         natureImgCategory=findViewById(R.id.natureImgCategory);
+        eventImg=findViewById(R.id.eventImg);
+        tripImg=findViewById(R.id.tripsImg);
         Intent i = getIntent();
          city = i.getStringExtra("city");
         toolbar=findViewById(R.id.places_tool_bar);

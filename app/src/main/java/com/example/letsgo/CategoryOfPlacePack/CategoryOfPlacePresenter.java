@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CategoryOfPlacePresenter {
+public class    CategoryOfPlacePresenter {
     PlaceModel model;
     ProgressDialog progressDialog;
     String category;
