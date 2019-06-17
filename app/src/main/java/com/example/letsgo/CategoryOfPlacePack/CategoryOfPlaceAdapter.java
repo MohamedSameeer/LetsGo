@@ -112,7 +112,7 @@ public class CategoryOfPlaceAdapter extends RecyclerView.Adapter<CategoryOfPlace
                     }
                 });
         viewHolder.namePlace.setText(item.getName().toString());
-        viewHolder.duration.setText("From: "+item.getDurationTo()+" ");
+        viewHolder.duration.setText("open until "+item.getDurationTo()+" ");
         viewHolder.durationTo.setText("To: "+item.getDurationFrom()+"");
 
       //  viewHolder.titlePrice.setText(item.getPrice().toString());

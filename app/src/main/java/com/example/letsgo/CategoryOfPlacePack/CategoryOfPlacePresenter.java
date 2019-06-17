@@ -70,7 +70,15 @@ public class    CategoryOfPlacePresenter {
                 Log.e("on change ","iiiiii:   "+i);
                 Log.e(category,city);
                 model = new PlaceModel();
-                model.setAddress(d.child("Address").getValue().toString());
+               // model.setAddress(d.child("Address").getValue().toString());
+                if(d.hasChild("Lat")&& d.hasChild("Lng")){
+                    model.setLat(d.child("Lat").getValue());
+                    model.setLng(d.child("Lng").getValue());
+                }else{
+                    model.setLat("26.8206");
+                    model.setLng("30.8025");
+                    Log.e("CategoryOfP","sssss");
+                }
                 model.setCategory(d.child("Category").getValue().toString());
                 model.setCity(d.child("City").getValue().toString());
                 model.setDurationFrom(d.child("DurationFrom").getValue().toString());
@@ -79,7 +87,7 @@ public class    CategoryOfPlacePresenter {
                 model.setDescription(d.child("PlaceDescription").getValue().toString());
                 model.setName(d.child("PlaceName").getValue().toString());
                 model.setPrice(d.child("Price").getValue().toString());
-                Log.e("yyyyyyyyyyyyyyyyyyyyy"+model.getAddress().toString(),model.getCategory().toString());
+              //  Log.e("yyyyyyyyyyyyyyyyyyyyy"+model.getAddress().toString(),model.getCategory().toString());
                 places.add(model);
                 adapter.notifyDataSetChanged();
 

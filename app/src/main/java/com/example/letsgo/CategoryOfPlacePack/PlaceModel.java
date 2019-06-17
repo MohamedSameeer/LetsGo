@@ -2,7 +2,7 @@ package com.example.letsgo.CategoryOfPlacePack;
 
 public class PlaceModel {
 
-  private Object img,name,description,durationFrom,durationTo,category,city,address,price;
+  private Object img,name,description,durationFrom,durationTo,category,city,address,price,lat,lng;
     private boolean isChecked;
 
     public boolean isChecked() {
@@ -17,6 +17,25 @@ public class PlaceModel {
         this.img = img;
         this.name = name;
         this.description = description;
+    }
+
+
+    public double getLat() {
+        Double lat=Double.parseDouble(this.lat+"");
+        return lat;
+    }
+
+    public void setLat(Object lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        Double lng=Double.parseDouble(this.lng+"");
+        return lng;
+    }
+
+    public void setLng(Object lng) {
+        this.lng = lng;
     }
 
     public PlaceModel(){

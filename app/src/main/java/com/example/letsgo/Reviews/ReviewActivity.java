@@ -25,9 +25,18 @@ public class ReviewActivity extends AppCompatActivity implements IActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reviewPresenter.getReviewAndupLoadReViewToFirebase(getApplicationContext(),editText.getText().toString(),placeCity,placeCategory,placeName);
-                editText.setText("");
-                finish();
+                String message=editText.getText().toString();
+                if (message.trim().isEmpty()) {
+
+                    editText.requestFocus();
+                    editText.setError("you can't leave this field empty");
+
+                } else {
+                    reviewPresenter.getReviewAndupLoadReViewToFirebase(getApplicationContext()
+                            ,editText.getText().toString(),placeCity,placeCategory,placeName);
+                    editText.setText("");
+                    finish();
+                }
             }
         });
 

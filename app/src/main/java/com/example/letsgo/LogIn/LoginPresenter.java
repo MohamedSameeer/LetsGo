@@ -14,9 +14,13 @@ import com.example.letsgo.Country.CountryActivity;
 
 import com.example.letsgo.DrawerMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginPresenter {
 
@@ -46,11 +50,11 @@ public class LoginPresenter {
         }
         if(flag){
             //TODO loading par
-            loginWithEmailAndPassword(sEmail,sPassword);
+            loginWithEmailAndPassword(sEmail,sPassword,email,password);
         }
 
     }
-    private void loginWithEmailAndPassword(String email,String password){
+    private void loginWithEmailAndPassword(String email, String password, final EditText  mTxtEmail, final EditText  mTxtPassword){
       progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -68,7 +72,24 @@ public class LoginPresenter {
                             Log.e("LoginPresenter",task.getException().getMessage());
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if( e instanceof FirebaseAuthInvalidUserException){
+                    mTxtEmail.setError("This User Not Found.");
+                    mTxtEmail.requestFocus();
+                    // Toast.makeText(LoginActivity.this, "This User Not Found , Create A New Account", Toast.LENGTH_SHORT).show();
+                }
+                if( e instanceof FirebaseAuthInvalidCredentialsException){
+                    mTxtPassword.setError("The Password Is Invalid");
+                    mTxtPassword.requestFocus();
+                    //  Toast.makeText(LoginActivity.this, "The Password Is Invalid, Please Try Valid Password", Toast.LENGTH_SHORT).show();
+                }
+                if(e instanceof FirebaseNetworkException){
+                    Toast.makeText(context, "Please Check Your Connection", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void enterToHome(){

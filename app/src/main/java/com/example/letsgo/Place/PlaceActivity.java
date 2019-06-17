@@ -21,27 +21,37 @@ import android.widget.Toast;
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Container;
 import com.example.letsgo.Favorite.Favorite;
+import com.example.letsgo.Payment.PaymentActivity;
 import com.example.letsgo.R;
 import com.example.letsgo.Reviews.ReviewActivity;
 import com.example.letsgo.Splash.Splash;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-public class PlaceActivity extends AppCompatActivity  {
+public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    TextView place_name,place_description,place_duration_to,place_duration_from,place_price,place_location;
+    TextView place_name,place_description,place_duration_to,place_duration_from,place_price;
     ImageView place_img;
     Button book;
     ImageButton addToFavorite;
     Toolbar myToolbar;
     FirebaseAuth mAuth;
     RecyclerView reviewRecycler;
+    double lat,lng;
+
     Button showMore;
     RatingBar ratingBar;
     String placeName,placeDescription,placeImage,placeTo,placeFrom,placeCity,placeCategory,placePrice,placeAddress,fromClass;
     boolean isBook;
     PlacePresenter placePresenter;
     FloatingActionButton floatingActionButton;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +61,22 @@ public class PlaceActivity extends AppCompatActivity  {
         initialization();
         placePresenter=new PlacePresenter(reviewRecycler,getApplicationContext());
         getData();
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.maps);
+        mapFragment.getMapAsync(this);
         if(isBook)
             book.setVisibility(View.VISIBLE);
         else
             book.setVisibility(View.GONE);
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(PlaceActivity.this, PaymentActivity.class);
+                startActivity(i);
+            }
+        });
         placePresenter.getReviews(placeCity,placeCategory,placeName);
         setSupportActionBar(myToolbar);
         place_name.setText(placeName);
@@ -62,7 +84,7 @@ public class PlaceActivity extends AppCompatActivity  {
         place_duration_to.setText(placeTo);
         place_duration_from.setText(placeFrom);
         place_price.setText(placePrice);
-        place_location.setText(placeAddress);
+        //place_location.setText(placeAddress);
 
         Picasso.get().load(placeImage).into(place_img);
        /* addToFavorite.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +142,7 @@ public class PlaceActivity extends AppCompatActivity  {
         place_duration_from=findViewById(R.id.duration_from);
         place_duration_to=findViewById(R.id.duration_to);
         place_price=findViewById(R.id.price);
-        place_location=findViewById(R.id.location);
+       // place_location=findViewById(R.id.location);
         myToolbar=findViewById(R.id.place_toolbar);
         //addToFavorite=findViewById(R.id.addToFavorite);
         mAuth=FirebaseAuth.getInstance();
@@ -136,7 +158,9 @@ public class PlaceActivity extends AppCompatActivity  {
         placeCategory= i.getStringExtra("category");
         placeDescription=i.getStringExtra("desc");
         placeImage=i.getStringExtra("img");
-        placeAddress= i.getStringExtra("address");
+        //placeAddress= i.getStringExtra("address");
+        lat=i.getDoubleExtra("lat",26.8206);
+        lng=i.getDoubleExtra("lng",30.8025);
         placePrice= i.getStringExtra("price");
         placeFrom= i.getStringExtra("from");
         placeTo= i.getStringExtra("to");
@@ -197,5 +221,16 @@ public class PlaceActivity extends AppCompatActivity  {
         finish();
     }
 
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        float zoomLevel = 7.0f;
+        LatLng sydney = new LatLng(lat,lng);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in "+placeName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,zoomLevel));
+    }
 
 }
