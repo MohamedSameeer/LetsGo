@@ -30,11 +30,13 @@ class EventPresenter {
     private String userId;
     EventPresenter(RecyclerView recyclerView, ProgressDialog progressDialog, Context context){
 
-        eventRef= FirebaseDatabase.getInstance().getReference().child("Event");
-        cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
-        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
         mAuth=FirebaseAuth.getInstance();
         userId=mAuth.getCurrentUser().getUid();
+
+        eventRef= FirebaseDatabase.getInstance().getReference().child("Event").child(userId);
+        cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
+        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
+
         listOfEvent=new ArrayList<>();
         this.recyclerView=recyclerView;
         this.progressDialog=progressDialog;

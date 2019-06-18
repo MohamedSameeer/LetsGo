@@ -13,9 +13,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.example.letsgo.Adminstrator.PushingData;
 import com.example.letsgo.ContactUs.ContactUsActivity;
 import com.example.letsgo.Country.CountryActivity;
 import com.example.letsgo.Event.EventFragment;
@@ -23,6 +27,14 @@ import com.example.letsgo.Favorite.Favorite;
 import com.example.letsgo.Program.ProgramFragment;
 import com.example.letsgo.Splash.Splash;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class DrawerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Fragment fragment;
@@ -30,24 +42,30 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
             fFavorite=new Favorite();
     FirebaseAuth mAuth;
     int fragmentType;
+    DatabaseReference userRef;
     MenuItem menuItem;
     Toolbar toolbar;
-
+    String adminId;
+    TextView userName,userEmail;
     NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_main);
-         toolbar= findViewById(R.id.toolbar);
+        toolbar= findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
-
+        adminId = "owQrAb02Z7WJ2u0ER6uPnqoNZum2";
         mAuth=FirebaseAuth.getInstance();
         fragment = fCountry;
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        View headerView=navigationView.getHeaderView(0);
+        userName=headerView.findViewById(R.id.userName);
+        userEmail=headerView.findViewById(R.id.userEmail);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -59,7 +77,25 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
 
 
     }
+    void getUserNameAndEmail(){
+        userRef= FirebaseDatabase.getInstance().getReference().child("User").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
 
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.e("ss",dataSnapshot.child("email").getValue()+"");
+                    userEmail.setText(dataSnapshot.child("email").getValue()+" ");
+                    userName.setText(dataSnapshot.child("userName").getValue()+" ");
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         this.menuItem=menuItem;
@@ -76,7 +112,7 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_events:
                 fragment=new EventFragment();
                 fragmentType=4;
-                toolbar.setTitle("Event");
+                toolbar.setTitle("My Event");
                 break;
             case R.id.nav_save:
                 fragment=fFavorite;
@@ -86,7 +122,7 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_program:
                 fragment=new ProgramFragment();
                 fragmentType=2;
-                toolbar.setTitle("Trips");
+                toolbar.setTitle("My Trips");
                 break;
 
             case R.id.nav_contact_us:
@@ -128,6 +164,43 @@ public class DrawerMainActivity extends AppCompatActivity implements NavigationV
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            String userId = user.getUid();
+            getUserNameAndEmail();
+            if (userId.equals(adminId)) {
+
+                Intent i = new Intent(this, PushingData.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+
+
+            }
+        } else {
+            enterToSplash();
+        }
+
+
+
+
+    }
+
+    private void enterToSplash() {
+        Intent i = new Intent(this, Splash.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+
     }
 
 }

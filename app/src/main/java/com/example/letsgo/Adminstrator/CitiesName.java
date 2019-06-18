@@ -6,6 +6,6 @@ public class CitiesName {
 
 
 
-    public static final String[] cateogryName ={"Historical","Hotels & Resorts","Nature","Entertainment","Cafe & Restaurant","Event"};
+    public static final String[] cateogryName ={"Historical","Hotels & Resorts","Nature","Entertainment","Cafe & Restaurant","Event","Trip"};
 
 }

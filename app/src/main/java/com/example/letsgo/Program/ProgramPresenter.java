@@ -29,11 +29,14 @@ class ProgramPresenter {
     private String userId;
     ProgramPresenter(RecyclerView recyclerView, ProgressDialog progressDialog, Context context){
 
-        programRef= FirebaseDatabase.getInstance().getReference().child("Program");
-        cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
-        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
+
         mAuth=FirebaseAuth.getInstance();
         userId=mAuth.getCurrentUser().getUid();
+
+        programRef= FirebaseDatabase.getInstance().getReference().child("Trip").child(userId);
+        cityRef = FirebaseDatabase.getInstance().getReference().child("cities");
+        favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
+
         listOfProgram=new ArrayList<>();
         this.recyclerView=recyclerView;
         this.progressDialog=progressDialog;

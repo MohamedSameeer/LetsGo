@@ -35,6 +35,7 @@ public class    CategoryOfPlacePresenter {
         this.city=city;
         this.category=category;
         this.progressDialog=progressDialog;
+        Log.e("Category",category+" "+city);
         favoriteRef= FirebaseDatabase.getInstance().getReference().child("favorite");
         placeRef=FirebaseDatabase.getInstance().getReference().child("cities");
         mAuth=FirebaseAuth.getInstance();

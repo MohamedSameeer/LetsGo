@@ -12,22 +12,18 @@
             android:id="@+id/nav_events"
             android:icon="@drawable/ic_card_giftcard_black_24dp"
 
-            android:title="Events" />
+            android:title="My Events" />
         <item
             android:id="@+id/nav_save"
             android:icon="@drawable/ic_favorite_black_24dp"
 
             android:title="Favorite" />
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="profile" />
 
         <item
             android:id="@+id/nav_program"
             android:icon="@drawable/ic_airport_shuttle_black_24dp"
 
-            android:title="Trips" />
+            android:title="My Trips" />
 
 
     </group>

@@ -22,12 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PushingData extends AppCompatActivity {
     private Spinner spinnerCity,spinnerCateogry;
-    private EditText placeName,description,price,address,durationFrom,durationTo;
+    private EditText placeName,description,price,durationFrom,durationTo,lat,lng;
     private Button uploadImages,pushData,logOut;
     private ProgressDialog progressDialog;
-    String sPlaceName,sPlaceDescription,sPrice,sAddress,sDurationFrom,sDurationTo,sCity,sCategory;
+    String sPlaceName,sPlaceDescription,sPrice,latitude,longitude,sDurationFrom,sDurationTo,sCity,sCategory;
     Uri imageUri;
-    CheckBox isEvent;
     FirebaseAuth mAuth;
     private PushingDataPresenter pushingDataPresenter;
     private static Context context;
@@ -61,11 +60,12 @@ public class PushingData extends AppCompatActivity {
                   //  progressBar.setVisibility(View.VISIBLE);
                     //pushingDataPresenter.uploadPicture(imageUri,progressBar);
                         Log.e("ps1","done her2");
-                       if(pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, sAddress, sDurationFrom, sDurationTo, sCity, sCategory, isEvent.isChecked())){
+                       if(pushingDataPresenter.pushing(sPlaceName, sPlaceDescription, sPrice, longitude,latitude, sDurationFrom, sDurationTo, sCity, sCategory)){
                             placeName.setText("");
                             description.setText("");
                             price.setText("");
-                            address.setText("");
+                            lat.setText("");
+                            lng.setText("");
                             durationFrom.setText("");
                             durationTo.setText("");
                        }
@@ -112,28 +112,32 @@ public class PushingData extends AppCompatActivity {
             Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();}
 
         if (sPlaceName.isEmpty()) {
-            flag = false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+            flag=false;
+            placeName.setError("This Field can't be empty");
         }
         if (sPlaceDescription.isEmpty()){
             flag=false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+            description.setError("This Field can't be empty");
         }
         if (sPrice.isEmpty()) {
-            flag = false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
-        }
-        if (sAddress.isEmpty()){
             flag=false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+            price.setError("This Field can't be empty");
+        }
+        if (latitude.isEmpty()){
+            flag=false;
+            lat.setError("This Field can't be empty");
+        }
+        if(longitude.isEmpty()){
+            flag=false;
+            lng.setError("This Field can't be empty");
         }
         if (sDurationFrom.isEmpty()) {
-            flag = false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+            flag=false;
+            durationFrom.setError("This Field can't be empty");
         }
         if (sDurationTo.isEmpty()) {
-            flag = false;
-            Toast.makeText(this, "missing field", Toast.LENGTH_SHORT).show();
+            flag=false;
+            durationTo.setError("This Field can't be empty");
         }
         return flag;
     }
@@ -144,14 +148,14 @@ public class PushingData extends AppCompatActivity {
         sPlaceName=placeName.getText().toString().trim();
         sPlaceDescription=description.getText().toString().trim();
         sPrice=price.getText().toString().trim();
-        sAddress=address.getText().toString().trim();
+        latitude=lat.getText().toString().trim();
+        longitude=lng.getText().toString().trim();
         sDurationFrom=durationFrom.getText().toString().trim();
         sDurationTo=durationTo.getText().toString().trim();
         return saveDataNotNull();
     }
 
     private void initialization(){
-        isEvent=findViewById(R.id.isEvent);
         spinnerCity=findViewById(R.id.spinnerCities);
         spinnerCity.setAdapter(new ArrayAdapter<String>
                 (this,android.R.layout.simple_spinner_dropdown_item,CitiesName.cityName));
@@ -165,7 +169,8 @@ public class PushingData extends AppCompatActivity {
         placeName=findViewById(R.id.adminPlaceName);
         description=findViewById(R.id.adminDescName);
         price=findViewById(R.id.adminPrice);
-        address=findViewById(R.id.adminAddress);
+        lat=findViewById(R.id.lat);
+        lng=findViewById(R.id.lng);
         durationFrom=findViewById(R.id.adminDurationFrom);
         durationTo=findViewById(R.id.adminDurationTo);
         uploadImages=findViewById(R.id.uploadImagesBtn);

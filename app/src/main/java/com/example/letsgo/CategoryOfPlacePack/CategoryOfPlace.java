@@ -73,11 +73,17 @@ public class CategoryOfPlace extends AppCompatActivity {
                 i.putExtra("price",""+adapter.getListOfPlaces().get(position).getPrice());
                 i.putExtra("from",""+ adapter.getListOfPlaces().get(position).getDurationFrom());
                 i.putExtra("to",""+ adapter.getListOfPlaces().get(position).getDurationTo());
-                i.putExtra("isBook",false);
-                if(adapter.getListOfPlaces().get(position).getCategory().equals("Event") || adapter.getListOfPlaces().get(position).getCategory().equals("Trip"))
-                    i.putExtra("isBook",true);
-                else
-                    i.putExtra("isBook",false);
+                if(adapter.getListOfPlaces().get(position).getCategory().equals("Event")){
+                    i.putExtra("isEvent",true);
+                    i.putExtra("isTrip",false);
+                }
+                else if(adapter.getListOfPlaces().get(position).getCategory().equals("Trips")){
+                    i.putExtra("isEvent",false);
+                    i.putExtra("isTrip",true);
+                }else{
+                    i.putExtra("isEvent",false);
+                    i.putExtra("isTrip",false);
+                }
                 startActivity(i);
             }
         });

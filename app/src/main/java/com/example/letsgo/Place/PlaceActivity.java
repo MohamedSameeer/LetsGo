@@ -47,8 +47,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     Button showMore;
     RatingBar ratingBar;
-    String placeName,placeDescription,placeImage,placeTo,placeFrom,placeCity,placeCategory,placePrice,placeAddress,fromClass;
-    boolean isBook;
+    String placeName,placeDescription,placeImage,placeTo,placeFrom,placeCity,placeCategory,placePrice,fromClass;
+    boolean isTrip,isEvent;
     PlacePresenter placePresenter;
     FloatingActionButton floatingActionButton;
     private GoogleMap mMap;
@@ -66,7 +66,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.maps);
         mapFragment.getMapAsync(this);
-        if(isBook)
+
+        if(isEvent || isTrip)
             book.setVisibility(View.VISIBLE);
         else
             book.setVisibility(View.GONE);
@@ -74,6 +75,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(PlaceActivity.this, PaymentActivity.class);
+                i.putExtra("city",placeCity);
+                i.putExtra("category",placeCategory);
+                i.putExtra("placeName",placeName);
+                i.putExtra("isEvent",isEvent);
+                i.putExtra("isTrip",isTrip);
                 startActivity(i);
             }
         });
@@ -115,12 +121,10 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         float rate=ratingBar.getRating();
         Log.e("PlaceActivity",rate+"");
         savedInstanceState.putFloat("rate",rate);
-        Toast.makeText(this, ""+rate, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Toast.makeText(this, ""+savedInstanceState.getFloat("rate"), Toast.LENGTH_SHORT).show();
         ratingBar.setRating(savedInstanceState.getFloat("rate"));
     }
 
@@ -165,7 +169,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         placeFrom= i.getStringExtra("from");
         placeTo= i.getStringExtra("to");
         fromClass=i.getStringExtra("fromClass");
-        isBook=i.getBooleanExtra("isBook",false);
+        isTrip=i.getBooleanExtra("isTrip",false);
+        isEvent=i.getBooleanExtra("isEvent",false);
         placePresenter.getRate(ratingBar, placeCity,placeCategory,placeName);
     }
     @Override

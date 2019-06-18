@@ -84,36 +84,4 @@ public class CountryActivity extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-            super.onStart();
-            FirebaseUser user = mAuth.getCurrentUser();
-
-            if (user != null) {
-                String userId = user.getUid();
-                if (userId.equals(adminId)) {
-                    Intent i = new Intent(getContext(), PushingData.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
-
-                }
-            } else {
-                enterToSplash();
-            }
-
-
-
-
-    }
-
-    private void enterToSplash() {
-        Intent i = new Intent(getContext(), Splash.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-
-    }
-
 }

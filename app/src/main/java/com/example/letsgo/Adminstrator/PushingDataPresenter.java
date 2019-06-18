@@ -35,7 +35,6 @@ public class PushingDataPresenter  implements IpushingData{
     FirebaseAuth mAuth;
     boolean flag;
     Context context;
-    boolean isChecked;
    // ProgressBar progressBar;
     String url,city,category,placeName;
     Map<Object , Object>objectMap=new HashMap<>();
@@ -105,15 +104,15 @@ public class PushingDataPresenter  implements IpushingData{
         context.startActivity(i);
     }
     @Override
-    public boolean pushing(String sPlaceName, String sPlaceDescription, String sPrice, String sAddress, String sDurationFrom
-            , String sDurationTo,String sCity,String sCategory,boolean isEvent) {
+    public boolean pushing(String sPlaceName, String sPlaceDescription, String sPrice, String lng,String lat, String sDurationFrom
+            , String sDurationTo,String sCity,String sCategory) {
         Map<Object ,Object >s=new HashMap<>();
         if(url!=null) {
-            isChecked = isEvent;
             s.put("PlaceName", sPlaceName);
             s.put("PlaceDescription", sPlaceDescription);
             s.put("Price", sPrice);
-            s.put("Address", sAddress);
+            s.put("Lat", lat);
+            s.put("Lng",lng);
             s.put("DurationFrom", sDurationFrom);
             s.put("DurationTo", sDurationTo);
             s.put("City", sCity);
@@ -122,13 +121,10 @@ public class PushingDataPresenter  implements IpushingData{
             city = sCity;
             placeName = sPlaceName;
             category = sCategory;
-            if (isChecked) {
-                s.put("Category", "Event");
-                cities.child(city).child("Event").child(placeName).setValue(s);
-            } else {
-                s.put("Category", sCategory);
-                cities.child(city).child(category).child(placeName).setValue(s);
-            }
+
+            s.put("Category", sCategory);
+            cities.child(city).child(category).child(placeName).setValue(s);
+
             // progressBar.setVisibility(View.GONE);
             Toast.makeText(context, "Update data Complete", Toast.LENGTH_SHORT).show();
             return true;

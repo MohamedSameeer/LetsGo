@@ -15,6 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/letsgo"
+            android:id="@+id/lets_img"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="22dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerCities"
+            app:layout_constraintStart_toStartOf="@+id/spinnerCities"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerCities"
+            />
     <Spinner
         android:background="#ffffff"
         android:id="@+id/spinnerCities"
@@ -25,7 +39,7 @@
         android:textColorHint="#7E7878"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lets_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center" />
@@ -150,54 +164,57 @@
             android:textColorHint="#7E7878"
             android:id="@+id/addressTextView"
             android:textSize="18sp"
-            android:text="Address"
+            android:text="Location"
             android:layout_marginEnd="250dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/adminAddress"
-            app:layout_constraintBottom_toBottomOf="@+id/adminAddress"
+            app:layout_constraintTop_toTopOf="@+id/lng"
+            app:layout_constraintBottom_toBottomOf="@+id/lng"
             app:layout_constraintStart_toStartOf="@id/adminDescName"
             />
 
 
         <EditText
-            android:id="@+id/adminAddress"
+            android:id="@+id/lng"
             android:layout_marginTop="30dp"
-            android:layout_width="250dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
             android:background="@drawable/edit_text"
-            android:hint="Address"
+            android:hint="Longitude"
             android:textColorHint="#7E7878"
             android:textColor="#fff"
             app:layout_constraintTop_toBottomOf="@id/adminPrice"
             app:layout_constraintStart_toStartOf="@+id/adminDurationFrom"
             />
-        <CheckBox
-            android:id="@+id/isEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Event"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/adminAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+
+        <EditText
+            android:id="@+id/lat"
+            android:layout_marginTop="30dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:background="@drawable/edit_text"
+            android:hint="Latitude"
+            android:textColorHint="#7E7878"
+            android:textColor="#fff"
+            app:layout_constraintTop_toBottomOf="@id/adminPrice"
+            app:layout_constraintStart_toStartOf="@+id/adminDurationTo"
             />
+
         <Button
             android:id="@+id/uploadImagesBtn"
             android:text="Upload Images"
             android:background="@drawable/rounded_edittext"
-
             android:textColor="#fff"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/isEvent"
+            app:layout_constraintTop_toBottomOf="@id/addressTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />

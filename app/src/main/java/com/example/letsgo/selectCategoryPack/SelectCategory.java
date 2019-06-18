@@ -77,7 +77,7 @@ public class SelectCategory extends AppCompatActivity {
         tripImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendUserToSelectedCategory("Trips",city);
+                presenter.sendUserToSelectedCategory("Trip",city);
             }
         });
 

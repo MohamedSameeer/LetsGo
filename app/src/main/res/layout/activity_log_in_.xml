@@ -33,6 +33,7 @@
             android:textColorHint="#7E7878"
             android:layout_width="match_parent"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:background="@drawable/edit_text"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
