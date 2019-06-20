@@ -77,7 +77,7 @@ public class CategoryOfPlace extends AppCompatActivity {
                     i.putExtra("isEvent",true);
                     i.putExtra("isTrip",false);
                 }
-                else if(adapter.getListOfPlaces().get(position).getCategory().equals("Trips")){
+                else if(adapter.getListOfPlaces().get(position).getCategory().equals("Trip")){
                     i.putExtra("isEvent",false);
                     i.putExtra("isTrip",true);
                 }else{

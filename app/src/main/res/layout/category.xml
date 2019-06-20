@@ -116,7 +116,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/event2"
+                    android:src="@drawable/ev"
                     />
 
                 <TextView
@@ -166,7 +166,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/cinema_img"
+                    android:src="@drawable/ci"
                     />
 
                 <TextView
@@ -186,11 +186,10 @@
                 <ImageView
                     android:id="@+id/restaurantImgCategory"
                     android:layout_width="0dp"
-                    android:src="@drawable/rest"
+                    android:src="@drawable/res"
                     android:layout_height="200dp"
                     android:layout_marginTop="8dp"
                     android:background="#0B4EB9"
-
                     app:layout_constraintEnd_toEndOf="@id/cinemaImgCategory"
                     app:layout_constraintStart_toStartOf="@id/cinemaImgCategory"
                     app:layout_constraintTop_toBottomOf="@id/cinemaImgCategory" />
@@ -275,7 +274,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_height="170dp"
                     android:background="#0C1449"
-                    android:src="@drawable/hotel"
+                    android:src="@drawable/hot"
                     app:layout_constraintEnd_toEndOf="@id/historicalImgCategory"
                     app:layout_constraintStart_toStartOf="@id/historicalImgCategory"
                     app:layout_constraintTop_toBottomOf="@id/historicalImgCategory"
