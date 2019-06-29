@@ -53,6 +53,7 @@ class FavoritePresenter {
         progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
 
+        favRef.keepSynced(true);
         favRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

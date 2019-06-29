@@ -45,6 +45,9 @@ dependencies {
     }
     //Favorite
     implementation 'com.sackcentury:shinebutton:0.2.0'
+    //Dialog
+    implementation'com.github.hassanusman:CircularDialogs:1.2'
+    implementation 'com.github.thomper:sweet-alert-dialog:1.4.0'
 
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'

@@ -23,8 +23,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
- class SplashPresenter {
+class SplashPresenter {
 
     static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     static Context context;
@@ -70,6 +71,15 @@ import com.google.firebase.auth.GoogleAuthProvider;
                             progressDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Log.e("Splash Presenter", "signInWithCredential:success");
+                            FirebaseDatabase.getInstance().getReference().child("User")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("email").setValue(mAuth.getCurrentUser().getEmail());
+                            FirebaseDatabase.getInstance().getReference().child("User")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("id").setValue(mAuth.getCurrentUser().getUid());
+                            FirebaseDatabase.getInstance().getReference().child("User")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("userName").setValue(mAuth.getCurrentUser().getDisplayName());
                             enterToHome();
                         } else {
                             progressDialog.dismiss();

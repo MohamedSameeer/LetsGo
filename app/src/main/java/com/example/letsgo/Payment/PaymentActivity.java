@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.letsgo.R;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class PaymentActivity extends AppCompatActivity {
     EditText creditCard,name,cvv,numberOfTicket;
@@ -73,6 +74,10 @@ public class PaymentActivity extends AppCompatActivity {
                         name.setText("");
                         cvv.setText("");
                         creditCard.setText("");
+                        new SweetAlertDialog(PaymentActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Payment Successful")
+                               // .setContentText("You clicked the button!")
+                                .show();
 
                     } else
                         creditCard.setError("this number is not valid");
